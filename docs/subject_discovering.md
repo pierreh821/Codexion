@@ -98,3 +98,5 @@ measurements using `gettimeofday()` are acceptable and recommended for simplicit
 
 # Resources
 Mutex - https://stackoverflow.com/questions/34524/what-is-a-mutex
+
+Threads in C - https://perso.ens-lyon.fr/francois.schwarzentruber/teaching/l3-prog/book/c_thread.html
