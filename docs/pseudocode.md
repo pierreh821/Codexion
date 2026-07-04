@@ -13,7 +13,7 @@ while (id <= nb_coders):
 
     res = pthread_create(&coder, NULL, coder_activity, NULL);
 
-    coders[sizeof(coders)] = coder
+    coders[len(coders)] = coder
 
     if res:
         // handle error
