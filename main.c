@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/04 23:20:54 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/05 17:41:23 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void *test_function(void *arg)
 	while (g_running)
 	{
 		printf("Coder %d is testing\n", coder->id);
-		usleep(coder->id * 1000000);
+		usleep(1000000);
 	}
 	printf("Coder %d finished testing\n", coder->id);
 	return NULL;
