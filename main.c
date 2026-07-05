@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/05 17:41:23 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/05 20:05:34 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,65 +15,55 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "models/coder.h"
+#include "models/args.h"
 
-int g_running = 1;
-
-void *test_function(void *arg)
+void	*foo(void *arg)
 {
-	t_coder *coder = (t_coder *)arg;
+	t_coder	*coder = (t_coder *)arg;
 
-	while (g_running)
+	while (1)
 	{
-		printf("Coder %d is testing\n", coder->id);
-		usleep(1000000);
+		printf("Coder %d testing\n", coder->id);
+		usleep(500000);
 	}
-	printf("Coder %d finished testing\n", coder->id);
 	return NULL;
 }
 
-void	schedule(int number_of_coders)
+t_coder	**create_coders(int nb)
 {
+	t_coder	**coders;
 	int		id;
 	int		res;
-	t_coder	**coders;
-
-	// create coders
-	coders = malloc(sizeof(t_coder *) * number_of_coders);
-	if (!coders)
-		return;
 
 	id = 0;
-	while (id < number_of_coders)
+	res = 0;
+	coders = malloc(sizeof(t_coder *) * nb);
+	if (!coders)
+	{
+		printf("Malloc failed");
+		exit(0);
+	}
+	while (id < nb)
 	{
 		coders[id] = malloc(sizeof(t_coder));
 		coders[id]->id = id + 1;
-
-		res = pthread_create(&coders[id]->thread, NULL, test_function, coders[id]);
+		res = pthread_create(&coders[id]->thread, NULL, foo, coders[id]);
 		if (res != 0)
-			perror("error while creating thread");
+		{
+			printf("error while creating thread");
+			exit(0);
+		}
 		id++;
 	}
+	return (coders);
+}
+
+void	free_coders(t_coder **coders, int nb)
+{
+	int	id;
 
 	id = 0;
-	while (id < 5)
-	{
-		printf("\n%ds elapsed\n\n", id);
-		usleep(1000000);
-		id++;
-	}
-	g_running = 0;
-
-	// wait end of threads
-	id = 0;
-	while (id < number_of_coders)
-	{
-		pthread_join(coders[id]->thread, NULL);
-		id++;
-	}
-
-	// free
-	id = 0;
-	while (id < number_of_coders)
+	while (id < nb)
 	{
 		free(coders[id]);
 		id++;
@@ -81,8 +71,35 @@ void	schedule(int number_of_coders)
 	free(coders);
 }
 
-int main()
+t_args	*clean_args(int argc, char *argv[])
 {
-	schedule(3);
+	t_args	*args;
+
+	if (argc != 9)
+	{
+		printf("Invalid arguments");
+		exit(0);
+	}
+	args = malloc(sizeof(t_args));
+	args->number_of_coders = atoi(argv[1]);
+	args->time_to_burnout = atoi(argv[2]);
+	args->time_to_compile = atoi(argv[3]);
+	args->time_to_debug = atoi(argv[4]);
+	args->time_to_refactor = atoi(argv[5]);
+	args->number_of_compiles_required = atoi(argv[6]);
+	args->dongle_cooldown = atoi(argv[7]);
+	args->schedule = argv[8];
+	return (args);
+}
+
+int	main(int argc, char *argv[])
+{
+	t_coder	**coders;
+	t_args	*args;
+
+	args = clean_args(argc, argv);
+	coders = create_coders(args->number_of_coders);
+	usleep(3000000);
+	free_coders(coders, args->number_of_coders);
 	return (0);
 }
