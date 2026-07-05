@@ -1,4 +1,61 @@
+.SILENT:
+
+# Colors
+
+GREEN   = \033[0;32m
+RED     = \033[0;31m
+YELLOW  = \033[0;33m
+BLUE    = \033[0;34m
+MAGENTA = \033[0;35m
+CYAN    = \033[0;36m
+RESET   = \033[0m
+
+# Output Name
+NAME = codexion
+
+# Compilation
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
+RM = rm -rf
 
-.PHONY all, clean, fclean, re
+OBJ_DIR = obj
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
+TOTAL := $(words $(OBJS))
+CURRENT := 0
+
+SRCS = main.c
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
+
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(dir $@)
+	$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
+	printf "$(CYAN)[%2d/%2d]$(RESET) %-40s" $(CURRENT) $(TOTAL) "$<"
+	if $(CC) $(CFLAGS) -c $< -o $@ 2>/dev/null; then \
+		echo " $(GREEN)✓$(RESET)"; \
+	else \
+		echo " $(RED)✗$(RESET)"; \
+		$(CC) $(CFLAGS) -c $< -o $@; \
+	fi
+
+clean:
+	printf "$(CYAN)Cleaning $(OBJ_DIR)...$(RESET) "
+	if [ -d "$(OBJ_DIR)" ]; then \
+		$(RM) $(OBJ_DIR) && \
+		echo "$(GREEN)✓ Object files removed $(RESET)"; \
+	else \
+		echo "$(YELLOW)⚠ Nothing to clean $(RESET)"; \
+	fi
+
+fclean: clean
+	printf "$(CYAN)Cleaning $(NAME)...$(RESET) "
+	if rm $(NAME) 2>/dev/null; then \
+		echo "$(GREEN)✓$(RESET)"; \
+	else \
+		echo "$(YELLOW)⚠ Already cleaned up$(RESET)"; \
+	fi
+
+.PHONY: all, clean, fclean, re
