@@ -19,11 +19,12 @@ CFLAGS = -Wall -Wextra -Werror -pthread
 RM = rm -rf
 
 OBJ_DIR = obj
+SRCS = main.c
+
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 TOTAL := $(words $(OBJS))
 CURRENT := 0
 
-SRCS = main.c
 
 all: $(NAME)
 
@@ -58,4 +59,6 @@ fclean: clean
 		echo "$(YELLOW)⚠ Already cleaned up$(RESET)"; \
 	fi
 
-.PHONY: all, clean, fclean, re
+re: fclean all
+
+.PHONY: all clean fclean re
