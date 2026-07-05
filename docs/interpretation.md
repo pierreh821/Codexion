@@ -101,3 +101,28 @@ measurements using `gettimeofday()` are acceptable and recommended for simplicit
 Mutex - https://stackoverflow.com/questions/34524/what-is-a-mutex
 
 Threads in C - https://perso.ens-lyon.fr/francois.schwarzentruber/teaching/l3-prog/book/c_thread.html
+
+# Structure
+
+Could look like this at the end:
+
+```
+.
+├── Makefile
+├── .gitignore
+├── docs/               # Tes sujets, pseudocodes, documentations
+├── models/             # Strictement tes structures de données (.h)
+│   ├── args.h
+│   └── coder.h
+├── includes/           # Tes prototypes de fonctions globaux
+│   └── codexion.h
+└── srcs/               # Tout ton code source (.c) dispatché par module
+    ├── main.c
+    ├── parser/         # Tout ce qui touche aux arguments et au parsing
+    │   └── parser.c
+    ├── engine/         # Le cœur de ton programme (gestion des threads, boucles)
+    │   └── scheduler.c
+    └── utils/          # Tes fonctions outils (error, affichage, libération...)
+        ├── coder_utils.c
+        └── error.c
+```

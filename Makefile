@@ -13,18 +13,22 @@ RESET   = \033[0m
 # Output Name
 NAME = codexion
 
+HEADERS = models
+
 # Compilation
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread -I. -I$(HEADERS)
 RM = rm -rf
 
-OBJ_DIR = obj
-SRCS = main.c
+SRCS = main.c \
+	coder_utils.c \
+	parser.c
 
+OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
+
 TOTAL := $(words $(OBJS))
 CURRENT := 0
-
 
 all: $(NAME)
 
