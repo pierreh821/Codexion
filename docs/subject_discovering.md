@@ -78,6 +78,7 @@ measurements using `gettimeofday()` are acceptable and recommended for simplicit
 - `pthread_cond_init`
 - `pthread_cond_wait`
 - `pthread_cond_timedwait`
+- `pthread_cond_signal`
 - `pthread_cond_broadcast`
 - `pthread_cond_destroy`
 - `gettimeofday`
