@@ -27,11 +27,11 @@ void	*foo(void *arg)
 	return (NULL);
 }
 
-t_coders	*alloc_coders(int nb)
+t_team	*alloc_coders(int nb)
 {
-	t_coders		*coders;
+	t_team		*coders;
 
-	coders = malloc(sizeof(t_coders));
+	coders = malloc(sizeof(t_team));
 	if (!coders)
 		error("Cannot allocate memory for coders");
 	coders->coders_list = malloc(sizeof(t_coder *) * nb);
@@ -40,9 +40,9 @@ t_coders	*alloc_coders(int nb)
 	return (coders);
 }
 
-t_coders	*create_coders(int nb)
+t_team	*create_coders(int nb)
 {
-	t_coders		*coders;
+	t_team		*coders;
 	int				id;
 	int				res;
 
@@ -66,7 +66,7 @@ t_coders	*create_coders(int nb)
 	return (coders);
 }
 
-void	wait_coders(t_coders *coders)
+void	wait_coders(t_team *coders)
 {
 	int	id;
 
@@ -78,7 +78,7 @@ void	wait_coders(t_coders *coders)
 	}
 }
 
-void	free_coders(t_coders *coders)
+void	free_coders(t_team *coders)
 {
 	int	id;
 

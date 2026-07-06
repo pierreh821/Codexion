@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 18:15:28 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 18:51:09 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ typedef struct s_coder
 
 }	t_coder;
 
-typedef struct s_coders
+typedef struct s_team
 {
 	t_coder			**coders_list;
 	pthread_mutex_t	global_lock;
 	int				nb;
 
-}	t_coders;
+}	t_team;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 18:44:35 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 18:57:57 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	error(char *message)
 
 int	main(int argc, char *argv[])
 {
-	t_coders		*coders;
-	t_dongles		*dongles;
+	t_team			*coders;
+	t_dongle_set	*dongles;
 	t_args			*args;
 
 	args = clean_args(argc, argv);
@@ -39,5 +39,7 @@ int	main(int argc, char *argv[])
 
 	wait_coders(coders);
 	free_coders(coders);
+	free_dongles(dongles);
+	free(args);
 	return (0);
 }
