@@ -16,7 +16,6 @@
 
 #include <stdio.h>
 #include "codexion.h"
-#include "coder.h"
 #include "coders.h"
 
 void	*foo(void *arg)
@@ -90,5 +89,6 @@ void	free_coders(t_coders *coders)
 		id++;
 	}
 	free(coders->coders_list);
+	pthread_mutex_destroy(&(coders->global_lock));
 	free(coders);
 }

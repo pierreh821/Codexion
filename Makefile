@@ -21,9 +21,10 @@ CFLAGS = -Wall -Wextra -Werror -pthread -I. -I$(HEADERS)
 RM = rm -rf
 
 SRCS = main.c \
-	coders/coder_utils.c \
-	parser.c \
-# 	coders/coder_work.c \
+	src/parser.c \
+	src/coder_utils.c \
+	src/dongles_utils.c \
+# 	src/coder_work.c \
 
 OBJ_DIR = obj
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))

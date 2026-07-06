@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 17:23:28 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 18:44:35 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #include <sys/time.h>
 
 #include "codexion.h"
-#include "coder.h"
 #include "coders.h"
 #include "args.h"
+#include "dongles.h"
 
 void	error(char *message)
 {
@@ -30,12 +30,14 @@ void	error(char *message)
 int	main(int argc, char *argv[])
 {
 	t_coders		*coders;
+	t_dongles		*dongles;
 	t_args			*args;
 
 	args = clean_args(argc, argv);
 	coders = create_coders(args->number_of_coders);
-	wait_coders(coders);
+	dongles = create_dongles(args->number_of_coders);
 
+	wait_coders(coders);
 	free_coders(coders);
 	return (0);
 }
