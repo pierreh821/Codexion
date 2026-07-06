@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 18:51:09 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 19:02:46 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct s_coder
 {
 	int				id;
 	pthread_t		thread_id;
-	pthread_mutex_t	global_lock;
+	pthread_mutex_t	*global_lock;
 
 }	t_coder;
 

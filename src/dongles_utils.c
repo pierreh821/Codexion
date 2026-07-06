@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 18:53:51 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 19:06:28 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,14 @@ t_dongle_set	*alloc_dongles(int nb)
 t_dongle_set	*create_dongles(int nb)
 {
 	t_dongle_set	*dongle_set;
-	t_dongle		*dongle;
 	int				i;
 
 	dongle_set = alloc_dongles(nb);
 	i = 0;
 	while (i < nb)
 	{
-		dongle = dongle_set->dongles_list[i];
-		dongle = malloc(sizeof(t_dongle));
-		if (pthread_mutex_init(&(dongle->lock), NULL) != 0)
+		dongle_set->dongles_list[i] = malloc(sizeof(t_dongle));
+		if (pthread_mutex_init(&(dongle_set->dongles_list[i]->lock), NULL) != 0)
 			error("Failed to create dongle's mutex");
 		i++;
 	}
