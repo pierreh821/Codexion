@@ -21,11 +21,12 @@ CFLAGS = -Wall -Wextra -Werror -pthread -I. -I$(HEADERS)
 RM = rm -rf
 
 SRCS = main.c \
-	coder_utils.c \
-	parser.c
+	coders/coder_utils.c \
+	parser.c \
+# 	coders/coder_work.c \
 
 OBJ_DIR = obj
-OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 TOTAL := $(words $(OBJS))
 CURRENT := 0

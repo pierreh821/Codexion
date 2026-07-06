@@ -53,7 +53,7 @@ Example
 
 ### Warnings
 - Messages must not be mixed
-- Burnout logs must be displayed no mare than 10ms following the actual burnout
+- Burnout logs must be displayed no more than 10ms following the actual burnout
 
 ### Timing consideration
 To reduce hardware impact on performance measurements, consider using CPU usage
@@ -64,7 +64,7 @@ measurements using `gettimeofday()` are acceptable and recommended for simplicit
 - Each coder is represented by a **thread** (`pthread_create`)
 - Dongles' state must be protected with a mutex (`pthread_mutex_t`), a condition variable can be used for queue management (`pthread_cond_t`)
 - A separate thread `monitor` to detect burnout at the right time and stop the program
-- Loggin must be serialized to avoid mixing signals (mutex usage to protect output)
+- Logging must be serialized to avoid mixing signals (mutex usage to protect output)
 - Must use a priority queue (heap) for FIFO/EDF scheduling (no standard library priority queue)
 - No memory leaks
 

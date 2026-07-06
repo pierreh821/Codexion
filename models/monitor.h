@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder.h                                            :+:      :+:    :+:   */
+/*   monitor.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 20:42:48 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 17:49:06 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/06 17:53:14 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODER_H
-# define CODER_H
+#ifndef MONITOR_H
+# define MONITOR_H
 # include <pthread.h>
 
-typedef struct s_coder
+typedef struct s_monitor
 {
-	int				id;
-	pthread_t		thread_id;
-	pthread_mutex_t	global_lock;
-
-}	t_coder;
+	pthread_t	thread_id;
+}	t_monitor;
 
 #endif

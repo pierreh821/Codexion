@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder.h                                            :+:      :+:    :+:   */
+/*   dongle.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 20:42:48 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 17:49:06 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/06 17:47:20 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/06 17:50:10 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODER_H
-# define CODER_H
+#ifndef DONGLE_H
+# define DONGLE_H
 # include <pthread.h>
 
-typedef struct s_coder
+typedef struct s_dongle
 {
-	int				id;
-	pthread_t		thread_id;
-	pthread_mutex_t	global_lock;
-
-}	t_coder;
+	pthread_mutex_t	lock;
+}	t_dongle;
 
 #endif
