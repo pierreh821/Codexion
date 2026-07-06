@@ -56,7 +56,7 @@ t_coders	*create_coders(int nb)
 	{
 		coders->coders_list[id] = malloc(sizeof(t_coder));
 		coders->coders_list[id]->id = id + 1;
-		coders->coders_list[id]->global_lock = &(coders->global_lock);
+		coders->coders_list[id]->global_lock = coders->global_lock;
 		res = pthread_create(&coders->coders_list[id]->thread_id, NULL, foo,
 				coders->coders_list[id]);
 		if (res != 0)
