@@ -21,18 +21,18 @@
 
 void	*foo(void *arg)
 {
-	t_coder	*coder;
+	t_coder			*coder;
 	struct timeval	tv;
-
-
-
 
 	coder = (t_coder *)arg;
 	pthread_mutex_lock(coder->lock);
 	gettimeofday(&tv, NULL);
-	printf("%ld: Coder %d obtained mutex ! Releasing it in 1s..\n", tv.tv_sec, coder->id);
+	printf("%ld: Coder %d obtained mutex ! Releasing it in 1s..\n",
+		tv.tv_sec, coder->id);
 	usleep(1000000);
 	pthread_mutex_unlock(coder->lock);
+	gettimeofday(&tv, NULL);
+	printf("%ld: Coder %d released mutex\n\n", tv.tv_sec, coder->id);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 04:50:39 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 16:52:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 	coders = create_coders(args->number_of_coders);
 	usleep(3000000);
 	gettimeofday(&tv, NULL);
-	printf("%ld: Countdown over, releasing mutex\n", tv.tv_sec);
+	printf("%ld: Countdown over, releasing mutex\n\n", tv.tv_sec);
 	pthread_mutex_unlock(&(coders->lock));
 
 	int id = 0;

@@ -99,16 +99,14 @@ measurements using `gettimeofday()` are acceptable and recommended for simplicit
 
 # Resources
 
-Volatile keyword - https://stackoverflow.com/questions/246127/why-is-volatile-needed-in-c
+- Volatile keyword - https://stackoverflow.com/questions/246127/why-is-volatile-needed-in-c
+- Time - https://openclassrooms.com/forum/sujet/temps-d-execution-en-c?__cf_chl_f_tk=mhTkTVgvh6uidiOR7KHIexhCYaQ4mLJyPWjttVZWl30-1783305968-1.0.1.-WAZ6aJmOC4dddQaCXGg8faTOUB9IY62HcOoVagSg0Os
 
 ## Threads in C
-https://perso.ens-lyon.fr/francois.schwarzentruber/teaching/l3-prog/book/c_thread.html
-
-https://franckh.developpez.com/tutoriels/posix/pthreads/#LIX-A
-
-Mutex - https://stackoverflow.com/questions/34524/what-is-a-mutex
-
-Cond signals - https://stackoverflow.com/questions/52960662/trying-to-understand-pthread-cond-lock-and-pthread-cond-signal#comment92859253_52963925
+- https://perso.ens-lyon.fr/francois.schwarzentruber/teaching/l3-prog/book/c_thread.html
+- https://franckh.developpez.com/tutoriels/posix/pthreads/#LIX-A
+- Mutex - https://stackoverflow.com/questions/34524/what-is-a-mutex
+- Cond signals - https://stackoverflow.com/questions/52960662/trying-to-understand-pthread-cond-lock-and-pthread-cond-signal#comment92859253_52963925
 
 
 # Structure
