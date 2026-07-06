@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 17:54:08 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 18:44:14 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;
 typedef struct s_coders		t_coders;
 typedef struct s_dongle		t_dongle;
+typedef struct s_dongles	t_dongles;
 typedef struct s_monitor	t_monitor;
 
 t_args		*clean_args(int argc, char *argv[]);
@@ -25,6 +26,9 @@ void		args_validator(t_args *args);
 t_coders	*create_coders(int nb);
 void		wait_coders(t_coders *coders);
 void		free_coders(t_coders *coders);
+
+t_dongles	*create_dongles(int nb);
+void		free_dongles(t_dongles *dongles);
 
 void		error(char *message);
 
