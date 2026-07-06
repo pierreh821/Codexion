@@ -69,12 +69,12 @@ measurements using `gettimeofday()` are acceptable and recommended for simplicit
 - No memory leaks
 
 # Authorized external functions
-- `pthread_create`
-- `pthread_join`
-- `pthread_mutex_init`
-- `pthread_mutex_lock`
-- `pthread_mutex_unlock`
-- `pthread_mutex_destroy`
+- `pthread_create`: create the thread
+- `pthread_join`: wait for the thread to end
+- `pthread_mutex_init`: https://stackoverflow.com/questions/14320041/pthread-mutex-initializer-vs-pthread-mutex-init-mutex-param
+- `pthread_mutex_lock`: try to reserve the mutex. if unavailable, wait.
+- `pthread_mutex_unlock`: release the mutex (so that other threads can use it)
+- `pthread_mutex_destroy`: free mutex, makes the var uninitialized
 - `pthread_cond_init`
 - `pthread_cond_wait`
 - `pthread_cond_timedwait`
@@ -98,9 +98,18 @@ measurements using `gettimeofday()` are acceptable and recommended for simplicit
 - > The program must guarantee liveness: coders should not starve under edf scheduling, provided the parameters are feasible.
 
 # Resources
+
+Volatile keyword - https://stackoverflow.com/questions/246127/why-is-volatile-needed-in-c
+
+## Threads in C
+https://perso.ens-lyon.fr/francois.schwarzentruber/teaching/l3-prog/book/c_thread.html
+
+https://franckh.developpez.com/tutoriels/posix/pthreads/#LIX-A
+
 Mutex - https://stackoverflow.com/questions/34524/what-is-a-mutex
 
-Threads in C - https://perso.ens-lyon.fr/francois.schwarzentruber/teaching/l3-prog/book/c_thread.html
+Cond signals - https://stackoverflow.com/questions/52960662/trying-to-understand-pthread-cond-lock-and-pthread-cond-signal#comment92859253_52963925
+
 
 # Structure
 

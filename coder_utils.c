@@ -35,9 +35,12 @@ t_coder	**create_coders(int nb)
 	t_coder	**coders;
 	int		id;
 	int		res;
+	pthread_mutex_t	lock;
 
 	id = 0;
 	res = 0;
+	if (pthread_mutex_init(&lock, NULL) != 0)
+		error("Failed to init mutex");
 	coders = malloc(sizeof(t_coder *) * nb);
 	if (!coders)
 		error("Malloc failed");
@@ -45,7 +48,8 @@ t_coder	**create_coders(int nb)
 	{
 		coders[id] = malloc(sizeof(t_coder));
 		coders[id]->id = id + 1;
-		res = pthread_create(&coders[id]->thread, NULL, foo, coders[id]);
+		coders[id]->lock = &lock;
+		res = pthread_create(&coders[id]->thread_id, NULL, foo, coders[id]);
 		if (res != 0)
 			error("error while creating thread");
 		id++;
