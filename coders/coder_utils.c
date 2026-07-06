@@ -49,14 +49,14 @@ t_coders	*create_coders(int nb)
 
 	id = 0;
 	coders = alloc_coders(nb);
-	if (pthread_mutex_init(&(coders->lock), NULL) != 0)
+	if (pthread_mutex_init(&(coders->global_lock), NULL) != 0)
 		error("Failed to init mutex");
-	pthread_mutex_lock(&(coders->lock));
+	pthread_mutex_lock(&(coders->global_lock));
 	while (id < nb)
 	{
 		coders->coders_list[id] = malloc(sizeof(t_coder));
 		coders->coders_list[id]->id = id + 1;
-		coders->coders_list[id]->lock = &(coders->lock);
+		coders->coders_list[id]->global_lock = &(coders->global_lock);
 		res = pthread_create(&coders->coders_list[id]->thread_id, NULL, foo,
 				coders->coders_list[id]);
 		if (res != 0)
