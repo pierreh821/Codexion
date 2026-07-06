@@ -22,17 +22,9 @@
 void	*foo(void *arg)
 {
 	t_coder			*coder;
-	struct timeval	tv;
 
 	coder = (t_coder *)arg;
-	pthread_mutex_lock(coder->lock);
-	gettimeofday(&tv, NULL);
-	printf("%ld: Coder %d obtained mutex ! Releasing it in 1s..\n",
-		tv.tv_sec, coder->id);
-	usleep(1000000);
-	pthread_mutex_unlock(coder->lock);
-	gettimeofday(&tv, NULL);
-	printf("%ld: Coder %d released mutex\n\n", tv.tv_sec, coder->id);
+	printf("Coder %d testing\n", coder->id);
 	return (NULL);
 }
 
@@ -68,18 +60,31 @@ t_coders	*create_coders(int nb)
 		res = pthread_create(&coders->coders_list[id]->thread_id, NULL, foo,
 				coders->coders_list[id]);
 		if (res != 0)
-			error("error while creating thread");
+			error("Failed to create thread");
 		id++;
 	}
+	coders->nb = nb;
 	return (coders);
 }
 
-void	free_coders(t_coders *coders, int nb)
+void	wait_coders(t_coders *coders)
 {
 	int	id;
 
 	id = 0;
-	while (id < nb)
+	while (id < coders->nb)
+	{
+		pthread_join(coders->coders_list[id]->thread_id, NULL);
+		id++;
+	}
+}
+
+void	free_coders(t_coders *coders)
+{
+	int	id;
+
+	id = 0;
+	while (id < coders->nb)
 	{
 		free(coders->coders_list[id]);
 		id++;

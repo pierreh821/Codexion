@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 04:25:40 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/06 17:23:48 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_args		*clean_args(int argc, char *argv[]);
 void		args_validator(t_args *args);
 
 t_coders	*create_coders(int nb);
-void		free_coders(t_coders *coders, int nb);
+void		wait_coders(t_coders *coders);
+void		free_coders(t_coders *coders);
 
 void		error(char *message);
 
