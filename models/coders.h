@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.h                                         :+:      :+:    :+:   */
+/*   coders.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 04:25:40 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/06 04:32:36 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODEXION_H
-# define CODEXION_H
+#ifndef CODERS_H
+# define CODERS_H
+# include <pthread.h>
+# include "coder.h"
 
-typedef struct s_args	t_args;
-typedef struct s_coder	t_coder;
-typedef struct s_coders	t_coders;
+typedef struct s_coders
+{
+	t_coder			**coders_list;
+	pthread_mutex_t	lock;
 
-t_args		*clean_args(int argc, char *argv[]);
-void		args_validator(t_args *args);
-
-t_coders	*create_coders(int nb);
-void		free_coders(t_coders *coders, int nb);
-
-void		error(char *message);
+}	t_coders;
 
 #endif
