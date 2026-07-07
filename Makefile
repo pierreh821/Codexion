@@ -22,10 +22,11 @@ RM = rm -rf
 
 SRCS = main.c \
 	src/parser.c \
-	src/coder_utils.c \
 	src/dongle_utils.c \
 	src/dev_utils.c \
-# 	src/coder_work.c \
+	coders/utils.c \
+	coders/init.c \
+# 	coders/work.c \
 
 OBJ_DIR = obj
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
