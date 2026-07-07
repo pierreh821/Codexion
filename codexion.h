@@ -6,18 +6,21 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 02:30:12 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 03:14:14 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
 
+
 typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;
 typedef struct s_team		t_team;
 typedef struct s_dongle		t_dongle;
 typedef struct s_monitor	t_monitor;
+
+void		*foo(void *arg);
 
 t_args		*clean_args(int argc, char *argv[]);
 void		args_validator(t_args *args);
@@ -26,7 +29,7 @@ t_team		*create_coders(int nb);
 void		wait_coders(t_team *coders);
 void		free_coders(t_team *coders);
 
-t_dongle	*create_dongle();
+t_dongle	*create_dongle(void);
 void 		free_dongle(t_dongle *dongle);
 
 void		error(char *message);

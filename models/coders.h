@@ -6,13 +6,14 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 02:30:08 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 03:15:02 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODERS_H
 # define CODERS_H
 # include <pthread.h>
+# include "dongle.h"
 
 typedef struct s_coder
 {

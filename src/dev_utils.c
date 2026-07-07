@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   dev_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 03:12:15 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/07 03:12:03 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/07 03:16:58 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h> // for dev, remove later
+#include "coders.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
-#include <sys/time.h>
 
-#include "codexion.h"
-#include "coders.h"
-#include "args.h"
-#include "dongle.h"
-
-int	main(int argc, char *argv[])
+void	error(char *message)
 {
-	t_team			*coders;
-	t_args			*args;
+	printf("%s", message);
+	exit(0);
+}
 
-	args = clean_args(argc, argv);
-	coders = create_coders(args->number_of_coders);
-	wait_coders(coders);
-	free_coders(coders);
-	free(args);
-	return (0);
+void	*foo(void *arg)
+{
+	t_coder	*coder;
+
+	coder = (t_coder *)arg;
+	printf("Coder %d testing\n", coder->id);
+	return (NULL);
 }

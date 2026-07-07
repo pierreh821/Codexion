@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 02:30:44 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 03:14:21 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 
-t_dongle	*create_dongle()
+t_dongle	*create_dongle(void)
 {
 	t_dongle	*dongle;
 

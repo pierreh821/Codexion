@@ -6,11 +6,12 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/07/07 02:30:00 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 03:16:16 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DONGLE_H
+# define DONGLE_H
 # include <pthread.h>
 
 typedef struct s_dongle
