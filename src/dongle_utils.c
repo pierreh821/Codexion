@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coders.h                                           :+:      :+:    :+:   */
+/*   dongle_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 02:30:08 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/07 02:30:44 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CODERS_H
-# define CODERS_H
-# include <pthread.h>
+#include "dongle.h"
+#include "codexion.h"
 
-typedef struct s_coder
+#include <stdlib.h>
+
+t_dongle	*create_dongle()
 {
-	int				id;
-	t_dongle		*left_dongle;
-	t_dongle		*right_dongle;
-	pthread_t		thread_id;
-	pthread_mutex_t	*global_lock;
-}	t_coder;
+	t_dongle	*dongle;
 
-typedef struct s_team
+	dongle = malloc(sizeof(t_dongle *));
+	if (pthread_mutex_init(&(dongle->lock), NULL) != 0)
+		error("Failed to create dongle's mutex");
+	return (dongle);
+}
+
+void free_dongle(t_dongle	*dongle)
 {
-	t_coder			**coders_list;
-	pthread_mutex_t	global_lock;
-	int				nb;
-
-}	t_team;
-
-#endif
+	pthread_mutex_destroy(&(dongle->lock));
+	free(dongle);
+}

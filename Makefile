@@ -23,7 +23,7 @@ RM = rm -rf
 SRCS = main.c \
 	src/parser.c \
 	src/coder_utils.c \
-	src/dongles_utils.c \
+	src/dongle_utils.c \
 # 	src/coder_work.c \
 
 OBJ_DIR = obj
