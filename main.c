@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 03:12:15 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 19:31:46 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@
 
 int	main(int argc, char *argv[])
 {
-	t_team			*coders;
+	t_team			*team;
 	t_args			*args;
 
 	args = clean_args(argc, argv);
-	coders = create_coders(args->number_of_coders);
-	wait_coders(coders);
-	free_coders(coders);
+	team = create_coders(args->number_of_coders);
+	wait_coders(team);
+	describe_tm(team);
+	free_coders(team);
 	free(args);
 	return (0);
 }

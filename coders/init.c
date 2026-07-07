@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 03:26:29 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 19:29:23 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	assign_dongles(t_team *team)
 	id = 0;
 	while (id < team->nb)
 	{
-		new_dongle = create_dongle();
+		new_dongle = create_dongle(id);
 		team->coders_list[id]->left_dongle = new_dongle;
 		if (id > 0)
 			team->coders_list[id - 1]->right_dongle = new_dongle;
