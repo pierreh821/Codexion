@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 19:29:23 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 19:37:51 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ void assign_mutex(t_team *team)
 
 void	assign_threads(t_team *team)
 {
-	int id;
+	int	i;
 
-	id = 0;
-	while (id < team->nb)
+	i = 0;
+	while (i < team->nb)
 	{
-		team->coders_list[id] = malloc(sizeof(t_coder));
-		team->coders_list[id]->id = id + 1;
-		team->coders_list[id]->global_lock = &(team->global_lock);
-		if (pthread_create(&team->coders_list[id]->thread_id, NULL, foo,
-				team->coders_list[id]) != 0)
+		team->coders_list[i] = malloc(sizeof(t_coder));
+		team->coders_list[i]->id = i + 1;
+		team->coders_list[i]->global_lock = &(team->global_lock);
+		if (pthread_create(&team->coders_list[i]->thread_id, NULL, foo,
+				team->coders_list[i]) != 0)
 			error("Failed to create thread");
-		id++;
+		i++;
 	}
 }
 
