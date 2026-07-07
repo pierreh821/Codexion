@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 19:37:51 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/07 20:12:27 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,28 @@
 #include <stdio.h>
 #include "coders.h"
 #include "codexion.h"
+
+int	*coder_order(int nb)
+{
+	int	*list;
+	int	m;
+	int	i;
+
+	i = 0;
+	m = nb / 2;
+	list = malloc(sizeof(int) * nb);
+	if (!list)
+		error("Coder order malloc failed");
+	while (i < nb)
+	{
+		if (i % 2 == 0)
+			list[i] = i + 1;
+		else
+			list[i] = nb - 1;
+	}
+
+
+}
 
 t_team	*alloc_coders(int nb)
 {
