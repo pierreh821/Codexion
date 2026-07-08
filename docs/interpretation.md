@@ -14,7 +14,8 @@
 - As many USB dongles as coder
 - At the start, there is a dongle between every coder
 - Each coder has an id (starting from 1)
-- Coders have defined sits in the following order: `1, N, 2, N-1, 3, N-2` ...
+- Coders have defined sits: number `1` sits next to coder `number_of_coders`. Coder `N` sits between coder `N - 1` and coder `N`
++ 1.
 - Process order: **compile**, **debug**, and **refactor**
     - Coder can only do one task at a time
     - To compile, coder needs **2** dongles
