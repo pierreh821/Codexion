@@ -24,6 +24,7 @@ SRCS = main.c \
 	src/parser.c \
 	src/dongle_utils.c \
 	src/dev_utils.c \
+	src/monitor_utils.c \
 	coders/utils.c \
 	coders/init.c \
 # 	coders/work.c \

@@ -6,7 +6,15 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 18:07:38 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/08 20:04:28 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "args.h"
+
+void	work(void *inp)
+{
+	t_args	*args;
+
+	args = (t_args *)inp;
+}

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 18:07:16 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/08 20:01:20 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ void		describe_tm(t_team *team);
 t_args		*clean_args(int argc, char *argv[]);
 void		args_validator(t_args *args);
 
-t_team		*create_coders(int nb);
+t_team		*create_coders(int nb, t_monitor *monitor);
 void		wait_coders(t_team *coders);
 void		free_coders(t_team *coders);
 
 t_dongle	*create_dongle(int id);
 void		free_dongle(t_dongle *dongle);
+
+t_monitor	*create_monitor(void);
 
 #endif

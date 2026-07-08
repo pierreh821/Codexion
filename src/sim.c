@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sim.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 20:06:16 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/08 19:46:13 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/08 19:48:20 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h> // for dev, remove later
-#include <stdio.h>
-#include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
-
-#include "codexion.h"
-#include "coders.h"
-#include "args.h"
-#include "dongle.h"
 #include "monitor.h"
+#include "coders.h"
 
-int	main(int argc, char *argv[])
+void	start_simulation(t_monitor *monitor, t_team *team)
 {
-	t_team		*team;
-	t_args		*args;
-	t_monitor	*monitor;
-
-	monitor = create_monitor();
-	args = clean_args(argc, argv);
-	team = create_coders(args->number_of_coders, monitor);
-	wait_coders(team);
-	describe_tm(team);
-	free_coders(team);
-	free(args);
-	free(monitor);
-	return (0);
+	pthread_mutex_unlock(&(team->global_lock));
+	gettimeofday(&monitor->start_tm, NULL);
 }
