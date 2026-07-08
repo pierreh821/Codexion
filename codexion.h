@@ -6,13 +6,12 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 19:31:46 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/08 18:07:16 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
-
 
 typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;
@@ -32,7 +31,6 @@ void		wait_coders(t_team *coders);
 void		free_coders(t_team *coders);
 
 t_dongle	*create_dongle(int id);
-void 		free_dongle(t_dongle *dongle);
-
+void		free_dongle(t_dongle *dongle);
 
 #endif

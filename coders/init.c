@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 17:50:00 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/08 18:04:50 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_team	*alloc_coders(int nb)
 	return (team);
 }
 
-void assign_mutex(t_team *team)
+void	assign_mutex(t_team *team)
 {
 	if (pthread_mutex_init(&(team->global_lock), NULL) != 0)
 		error("Failed to init mutex");
