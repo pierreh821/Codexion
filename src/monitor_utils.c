@@ -6,15 +6,10 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 15:21:44 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:49:29 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/time.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <unistd.h>
-#include "monitor.h"
 #include "codexion.h"
 
 void	*eval_time(void *arg)

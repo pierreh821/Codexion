@@ -6,13 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:12:03 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 19:31:46 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:49:20 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "coders.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "codexion.h"
 
 void	error(char *message)
 {

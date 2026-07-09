@@ -6,17 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 20:02:18 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:48:58 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/time.h>
-#include <stdio.h>
-
-#include "coders.h"
 #include "codexion.h"
-#include "monitor.h"
 
 t_team	*alloc_coders(int nb)
 {

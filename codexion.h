@@ -6,12 +6,22 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 15:22:12 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:58:46 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
+
+# include <stdlib.h>
+# include <string.h>
+# include <stdio.h>
+# include <unistd.h>
+
+# include "args.h"
+# include "coders.h"
+# include "dongle.h"
+# include "monitor.h"
 
 typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;

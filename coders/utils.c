@@ -10,11 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/time.h>
-
-#include <stdio.h>
-#include "coders.h"
 #include "codexion.h"
 
 void	wait_coders(t_team *team)

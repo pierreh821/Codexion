@@ -6,14 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/07 19:28:34 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:49:24 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dongle.h"
 #include "codexion.h"
-
-#include <stdlib.h>
 
 t_dongle	*create_dongle(int id)
 {

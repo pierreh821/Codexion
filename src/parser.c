@@ -6,14 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:19:48 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/06 18:57:13 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:49:34 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
 #include "codexion.h"
-#include "args.h"
 
 t_args	*clean_args(int argc, char *argv[])
 {

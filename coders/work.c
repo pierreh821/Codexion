@@ -6,11 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 20:04:28 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:59:13 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "args.h"
+#include "codexion.h"
 
 void	work(void *inp)
 {
