@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   table_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 18:20:35 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/09 18:15:07 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/09 18:31:08 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	main(int argc, char *argv[])
+t_table	*init_table(int argc, char *argv[])
 {
 	t_table	*table;
 
-	table = init_table(argc, argv);
-	wait_coders(table->team);
-	describe_tm(table->team);
-	free_table(table);
-	return (0);
+	table = malloc(sizeof(t_table));
+	if (!table)
+		error("Cannot allocate memory for table");
+	table->monitor = create_monitor();
+	table->args = clean_args(argc, argv);
+	table->team = create_coders(table->args->number_of_coders, table->monitor);
+	return (table);
+}
+
+void	free_table(t_table *table)
+{
+	free_team(table->team);
+	end_wait_monitor(table->monitor);
+	free(table->args);
+	free(table);
 }

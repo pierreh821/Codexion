@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 17:48:58 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 18:47:54 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ t_team	*alloc_coders(int nb)
 	team = malloc(sizeof(t_team));
 	if (!team)
 		error("Cannot allocate memory for team");
+	team->nb = nb;
 	team->coders_list = malloc(sizeof(t_coder *) * nb);
 	if (!team->coders_list)
 		error("Cannot allocate memory for coders list");
+	team->dongle_set = malloc(sizeof(t_dongle *) * nb);
+	if (!team->dongle_set)
+		error("Cannot allocate memeory for dongle set");
 	return (team);
 }
 
@@ -59,6 +63,7 @@ void	assign_dongles(t_team *team)
 	while (id < team->nb)
 	{
 		new_dongle = create_dongle(id);
+		team->dongle_set[id] = new_dongle;
 		team->coders_list[id]->left_dongle = new_dongle;
 		if (id > 0)
 			team->coders_list[id - 1]->right_dongle = new_dongle;
@@ -73,7 +78,6 @@ t_team	*create_coders(int nb, t_monitor *monitor)
 	t_team		*team;
 
 	team = alloc_coders(nb);
-	team->nb = nb;
 	assign_mutex(team);
 	assign_threads(team, monitor->tm);
 	assign_dongles(team);

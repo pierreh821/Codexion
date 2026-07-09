@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   work.c                                             :+:      :+:    :+:   */
+/*   table.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 17:59:13 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/09 18:07:17 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/09 18:10:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
 
-void	work(void *inp)
+#ifndef TABLE_H
+# define TABLE_H
+
+# include "codexion.h"
+
+typedef struct s_table
 {
-	t_args	*args;
+	t_args		*args;
+	t_team		*team;
+	t_monitor	*monitor;
+}	t_table;
 
-	args = (t_args *)inp;
-}
+#endif

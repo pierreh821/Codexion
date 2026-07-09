@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 20:02:14 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 18:29:04 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_team
 	t_coder			**coders_list;
 	pthread_mutex_t	global_lock;
 	int				nb;
-
+	t_dongle		**dongle_set;
 }	t_team;
 
 #endif
