@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 20:06:16 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 15:22:36 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[])
 	wait_coders(team);
 	describe_tm(team);
 	free_coders(team);
+	end_wait_monitor(monitor);
 	free(args);
-	free(monitor);
 	return (0);
 }

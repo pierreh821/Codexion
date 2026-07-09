@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/08 20:01:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/09 15:22:12 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ t_dongle	*create_dongle(int id);
 void		free_dongle(t_dongle *dongle);
 
 t_monitor	*create_monitor(void);
+void		end_wait_monitor(t_monitor *monitor);
 
 #endif
