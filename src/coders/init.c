@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 19:19:10 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 20:40:28 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	assign_coders(t_table *table, void *(*work)(void *))
 		team->coders_list[i]->run_signal = &(team->run_signal);
 		team->coders_list[i]->time = &(table->monitor->time);
 		team->coders_list[i]->table = table;
+		team->coders_list[i]->state = SUSPEND;
 		if (pthread_create(&team->coders_list[i]->thread_id, NULL, work,
 				team->coders_list[i]) != 0)
 			error("Failed to create thread");

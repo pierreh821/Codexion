@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 15:45:29 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 20:00:57 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "monitor.h"
 # include "table.h"
 
+typedef enum e_state		t_state;
 typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;
 typedef struct s_team		t_team;
@@ -50,7 +51,7 @@ void		team_resume(t_team *team);
 t_dongle	*create_dongle(int id);
 void		free_dongle(t_dongle *dongle);
 
-t_monitor	*create_monitor(void);
+void		create_monitor(t_table *table);
 void		end_wait_monitor(t_monitor *monitor);
 
 void		*work(void *inp);

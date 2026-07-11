@@ -14,10 +14,18 @@
 
 void	team_resume(t_team *team)
 {
+	int	i;
+
 	pthread_mutex_lock(&(team->run_lock));
 	team->run_signal = 1;
 	pthread_cond_broadcast(&(team->run));
 	pthread_mutex_unlock(&(team->run_lock));
+	i = 0;
+	while (i < team->nb)
+	{
+		gettimeofday(&team->coders_list[i]->start, NULL);
+		i++;
+	}
 }
 
 void	team_pause(t_team *team)

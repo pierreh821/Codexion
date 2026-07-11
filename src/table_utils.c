@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:15:07 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 19:19:10 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 20:40:23 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
 	table = malloc(sizeof(t_table));
 	if (!table)
 		error("Cannot allocate memory for table");
-	table->monitor = create_monitor();
 	table->args = clean_args(argc, argv);
 	create_team(table, work);
+	create_monitor(table);
 	return (table);
 }
 
