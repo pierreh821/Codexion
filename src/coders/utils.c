@@ -28,18 +28,6 @@ void	team_pause(t_team *team)
 	pthread_mutex_unlock(&(team->run_lock));
 }
 
-void	wait_coders(t_team *team)
-{
-	int	id;
-
-	id = 0;
-	while (id < team->nb)
-	{
-		pthread_join(team->coders_list[id]->thread_id, NULL);
-		id++;
-	}
-}
-
 void	free_team(t_team *team)
 {
 	int	id;
@@ -47,6 +35,7 @@ void	free_team(t_team *team)
 	id = 0;
 	while (id < team->nb)
 	{
+		pthread_join(team->coders_list[id]->thread_id, NULL);
 		free_dongle(team->coders_list[id]->left_dongle);
 		free(team->coders_list[id]);
 		id++;

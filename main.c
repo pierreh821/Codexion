@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 15:43:06 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 15:53:21 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	main(int argc, char *argv[])
 
 	table = init_table(argc, argv, &work);
 	team_resume(table->team);
-	wait_coders(table->team);
 	describe_tm(table->team);
 	free_table(table);
 	return (0);
