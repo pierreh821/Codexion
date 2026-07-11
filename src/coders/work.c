@@ -6,11 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 15:40:45 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 19:18:47 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "includes/codexion.h"
 
 void	wait_for_start(t_coder *coder)
 {

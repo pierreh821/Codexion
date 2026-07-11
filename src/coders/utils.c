@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "includes/codexion.h"
 
 void	team_resume(t_team *team)
 {

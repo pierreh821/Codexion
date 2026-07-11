@@ -6,11 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:15:07 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 16:24:15 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 19:19:10 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "includes/codexion.h"
 
 t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
 {

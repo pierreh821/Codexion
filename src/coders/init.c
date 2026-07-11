@@ -6,11 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 16:23:57 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 19:19:10 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "includes/codexion.h"
 
 t_team	*alloc_coders(int nb)
 {

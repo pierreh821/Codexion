@@ -6,11 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 15:53:21 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 19:19:10 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "includes/codexion.h"
 
 int	main(int argc, char *argv[])
 {

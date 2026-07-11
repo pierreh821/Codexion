@@ -6,11 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:12:03 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 17:49:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 19:19:10 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "includes/codexion.h"
 
 void	error(char *message)
 {
