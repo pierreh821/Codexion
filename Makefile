@@ -13,14 +13,15 @@ RESET   = \033[0m
 # Output Name
 NAME = codexion
 
-HEADERS = models
+MODELS = models
+INCLUDES = includes
 
 # Compilation
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -I. -I$(HEADERS)
+CFLAGS = -Wall -Wextra -Werror -pthread -I. -I$(INCLUDES) -I$(MODELS)
 RM = rm -rf
 
-SRCS = main.c \
+SRCS = src/main.c \
 	src/parser.c \
 	src/dongle_utils.c \
 	src/dev_utils.c \
