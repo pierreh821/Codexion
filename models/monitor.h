@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 14:58:19 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 00:45:46 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_monitor
 	struct timeval	start_tm;
 	struct timeval	time;
 	int				run;
+	long int		(*elapsed)(struct s_monitor *monitor);
 }	t_monitor;
 
 #endif

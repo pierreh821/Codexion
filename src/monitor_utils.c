@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 20:39:49 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 01:29:11 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ void	check_burnout(t_table *table, int id)
 	int		start;
 	t_state	state;
 
-	now = table->monitor->time.tv_usec;
-	start = table->team->coders_list[id]->start.tv_usec;
+	now = table->monitor->time.tv_usec * 1000;
+	start = table->team->coders_list[id]->start.tv_usec * 1000;
 	state = table->team->coders_list[id]->state;
 	if (state == COMPILING && now - start > table->args->time_to_burnout)
-		error("Coder burnout");
+	{
+		printf("Coder %d burnout\n", id);
+		error("burnout\n");
+	}
 }
 
 void	*routine(void *arg)
@@ -49,6 +52,12 @@ void	end_wait_monitor(t_monitor *monitor)
 	free(monitor);
 }
 
+long int	time_elapsed(t_monitor *monitor)
+{
+	gettimeofday(&monitor->time, NULL);
+	return ((monitor->time.tv_usec - monitor->start_tm.tv_usec) / 1000);
+}
+
 void	create_monitor(t_table *table)
 {
 	table->monitor = malloc(sizeof(t_monitor));
@@ -57,4 +66,5 @@ void	create_monitor(t_table *table)
 	table->monitor->run = 1;
 	if (pthread_create(&table->monitor->thread_id, NULL, routine, table) != 0)
 		error("Cannot create monitor thread");
+	table->monitor->elapsed = time_elapsed;
 }

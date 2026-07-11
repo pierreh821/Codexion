@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 20:40:28 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 00:16:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	assign_cond(t_team *team)
 	team->run_signal = 0;
 }
 
-void	assign_coders(t_table *table, void *(*work)(void *))
+void	assign_coders(t_table *table)
 {
 	int		i;
 	t_team	*team;
@@ -55,8 +55,19 @@ void	assign_coders(t_table *table, void *(*work)(void *))
 		team->coders_list[i]->time = &(table->monitor->time);
 		team->coders_list[i]->table = table;
 		team->coders_list[i]->state = SUSPEND;
-		if (pthread_create(&team->coders_list[i]->thread_id, NULL, work,
-				team->coders_list[i]) != 0)
+		i++;
+	}
+}
+
+void	launch_threads(t_table *table, void *(*work)(void *))
+{
+	int	i;
+
+	i = 0;
+	while (i < table->team->nb)
+	{
+		if (pthread_create(&table->team->coders_list[i]->thread_id, NULL, work,
+				table->team->coders_list[i]) != 0)
 			error("Failed to create thread");
 		i++;
 	}
@@ -65,18 +76,20 @@ void	assign_coders(t_table *table, void *(*work)(void *))
 void	assign_dongles(t_team *team)
 {
 	int			id;
-	t_dongle	*new_dongle;
+	int			nb;
 
+	nb = team->nb;
 	id = 0;
-	while (id < team->nb)
+	while (id < nb)
 	{
-		new_dongle = create_dongle(id);
-		team->dongle_set[id] = new_dongle;
-		team->coders_list[id]->left_dongle = new_dongle;
-		if (id > 0)
-			team->coders_list[id - 1]->right_dongle = new_dongle;
-		else
-			team->coders_list[team->nb - 1]->right_dongle = new_dongle;
+		team->dongle_set[id] = create_dongle(id);
+		id++;
+	}
+	id = 0;
+	while (id < nb)
+	{
+		team->coders_list[id]->left_dongle = team->dongle_set[id];
+		team->coders_list[id]->right_dongle = team->dongle_set[(id + 1) % nb];
 		id++;
 	}
 }
@@ -88,7 +101,8 @@ t_team	*create_team(t_table *table, void *(*work)(void *))
 	team = alloc_coders(table->args->number_of_coders);
 	assign_cond(team);
 	table->team = team;
-	assign_coders(table, work);
+	assign_coders(table);
 	assign_dongles(team);
+	launch_threads(table, work);
 	return (team);
 }

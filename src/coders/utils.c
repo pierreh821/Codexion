@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder_utils.c                                   :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/05 21:50:24 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/05 22:02:35 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/12 00:32:13 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
 
-void	team_resume(t_team *team)
+void	team_start(t_table *table)
 {
 	int	i;
 
-	pthread_mutex_lock(&(team->run_lock));
-	team->run_signal = 1;
-	pthread_cond_broadcast(&(team->run));
-	pthread_mutex_unlock(&(team->run_lock));
+	pthread_mutex_lock(&(table->team->run_lock));
+	table->team->run_signal = 1;
+	pthread_cond_broadcast(&(table->team->run));
+	pthread_mutex_unlock(&(table->team->run_lock));
 	i = 0;
-	while (i < team->nb)
+	while (i < table->team->nb)
 	{
-		gettimeofday(&team->coders_list[i]->start, NULL);
+		gettimeofday(&table->team->coders_list[i]->start, NULL);
 		i++;
 	}
+	gettimeofday(&table->monitor->start_tm, NULL);
 }
 
 void	team_pause(t_team *team)
