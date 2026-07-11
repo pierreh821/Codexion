@@ -6,14 +6,16 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:07:17 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 15:45:39 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 16:20:27 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TABLE_H
 # define TABLE_H
 
-# include "codexion.h"
+typedef struct s_args		t_args;
+typedef struct s_team		t_team;
+typedef struct s_monitor	t_monitor;
 
 typedef struct s_table
 {

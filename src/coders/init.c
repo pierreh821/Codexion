@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 15:15:13 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 16:23:57 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,22 @@ void	assign_cond(t_team *team)
 	team->run_signal = 0;
 }
 
-void	assign_coders(
-	t_team *team,
-	struct timeval *time,
-	void *(*work)(void *))
+void	assign_coders(t_table *table, void *(*work)(void *))
 {
-	int	i;
+	int		i;
+	t_team	*team;
 
 	i = 0;
-	while (i < team->nb)
+	team = table->team;
+	while (i < table->team->nb)
 	{
 		team->coders_list[i] = malloc(sizeof(t_coder));
 		team->coders_list[i]->id = i + 1;
 		team->coders_list[i]->run = &(team->run);
 		team->coders_list[i]->run_lock = &(team->run_lock);
 		team->coders_list[i]->run_signal = &(team->run_signal);
-		team->coders_list[i]->time = time;
+		team->coders_list[i]->time = &(table->monitor->time);
+		team->coders_list[i]->table = table;
 		if (pthread_create(&team->coders_list[i]->thread_id, NULL, work,
 				team->coders_list[i]) != 0)
 			error("Failed to create thread");
@@ -86,7 +86,8 @@ t_team	*create_team(t_table *table, void *(*work)(void *))
 
 	team = alloc_coders(table->args->number_of_coders);
 	assign_cond(team);
-	assign_coders(team, &(table->monitor->time), work);
+	table->team = team;
+	assign_coders(table, work);
 	assign_dongles(team);
 	return (team);
 }
