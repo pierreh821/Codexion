@@ -41,6 +41,7 @@ void	free_team(t_team *team)
 		id++;
 	}
 	free(team->coders_list);
+	free(team->dongle_set);
 	pthread_mutex_destroy(&(team->run_lock));
 	pthread_cond_destroy(&(team->run));
 	free(team);
