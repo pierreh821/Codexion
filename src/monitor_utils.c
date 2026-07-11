@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 17:49:29 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 14:58:19 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*eval_time(void *arg)
 	monitor = (t_monitor *)arg;
 	while (monitor->run)
 	{
-		gettimeofday(&monitor->tm, NULL);
+		gettimeofday(&monitor->time, NULL);
 		usleep(1000);
 	}
 	return (NULL);

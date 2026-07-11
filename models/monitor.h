@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 15:16:29 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 14:58:19 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_monitor
 {
 	pthread_t		thread_id;
 	struct timeval	start_tm;
-	struct timeval	tm;
+	struct timeval	time;
 	int				run;
 }	t_monitor;
 

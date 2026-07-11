@@ -12,10 +12,21 @@
 
 #include "codexion.h"
 
-// void	kill_coders(t_team *team)
-// {
+void	team_resume(t_team *team)
+{
+	pthread_mutex_lock(&(team->run_lock));
+	team->run_signal = 1;
+	pthread_cond_broadcast(&(team->run));
+	pthread_mutex_unlock(&(team->run_lock));
+}
 
-// }
+void	team_pause(t_team *team)
+{
+	pthread_mutex_lock(&(team->run_lock));
+	team->run_signal = 0;
+	pthread_cond_broadcast(&(team->run));
+	pthread_mutex_unlock(&(team->run_lock));
+}
 
 void	wait_coders(t_team *team)
 {
@@ -41,6 +52,7 @@ void	free_team(t_team *team)
 		id++;
 	}
 	free(team->coders_list);
-	pthread_mutex_destroy(&(team->global_lock));
+	pthread_mutex_destroy(&(team->run_lock));
+	pthread_cond_destroy(&(team->run));
 	free(team);
 }

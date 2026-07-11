@@ -28,7 +28,7 @@ SRCS = main.c \
 	src/table_utils.c \
 	src/coders/utils.c \
 	src/coders/init.c \
-# 	src/coders/work.c \
+	src/coders/work.c
 
 OBJ_DIR = obj
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))

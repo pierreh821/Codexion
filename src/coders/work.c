@@ -6,16 +6,27 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 18:20:44 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 15:40:45 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void	work(void *inp)
+void	wait_for_start(t_coder *coder)
 {
-	t_args	*args;
+	pthread_mutex_lock(coder->run_lock);
+	while (*(coder->run_signal) == 0)
+	{
+		pthread_cond_wait(coder->run, coder->run_lock);
+	}
+	pthread_mutex_unlock(coder->run_lock);
+}
 
-	args = (t_args *)inp;
-	// while ()
+void	*work(void *inp)
+{
+	t_coder	*coder;
+
+	coder = (t_coder *)inp;
+	wait_for_start(coder);
+	return (NULL);
 }

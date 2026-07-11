@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/09 18:47:54 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 15:15:13 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ t_team	*alloc_coders(int nb)
 	return (team);
 }
 
-void	assign_mutex(t_team *team)
+void	assign_cond(t_team *team)
 {
-	if (pthread_mutex_init(&(team->global_lock), NULL) != 0)
-		error("Failed to init mutex");
-	pthread_mutex_lock(&(team->global_lock));
+	if (pthread_cond_init(&(team->run), NULL) != 0)
+		error("Failed to init run condition (team)");
+	if (pthread_mutex_init(&(team->run_lock), NULL) != 0)
+		error("Failed to init run_lock mutex (team)");
+	team->run_signal = 0;
 }
 
-void	assign_threads(t_team *team, struct timeval time)
+void	assign_coders(
+	t_team *team,
+	struct timeval *time,
+	void *(*work)(void *))
 {
 	int	i;
 
@@ -45,9 +50,11 @@ void	assign_threads(t_team *team, struct timeval time)
 	{
 		team->coders_list[i] = malloc(sizeof(t_coder));
 		team->coders_list[i]->id = i + 1;
-		team->coders_list[i]->global_lock = &(team->global_lock);
-		team->coders_list[i]->time = &time;
-		if (pthread_create(&team->coders_list[i]->thread_id, NULL, foo,
+		team->coders_list[i]->run = &(team->run);
+		team->coders_list[i]->run_lock = &(team->run_lock);
+		team->coders_list[i]->run_signal = &(team->run_signal);
+		team->coders_list[i]->time = time;
+		if (pthread_create(&team->coders_list[i]->thread_id, NULL, work,
 				team->coders_list[i]) != 0)
 			error("Failed to create thread");
 		i++;
@@ -73,13 +80,13 @@ void	assign_dongles(t_team *team)
 	}
 }
 
-t_team	*create_coders(int nb, t_monitor *monitor)
+t_team	*create_team(t_table *table, void *(*work)(void *))
 {
 	t_team		*team;
 
-	team = alloc_coders(nb);
-	assign_mutex(team);
-	assign_threads(team, monitor->tm);
+	team = alloc_coders(table->args->number_of_coders);
+	assign_cond(team);
+	assign_coders(team, &(table->monitor->time), work);
 	assign_dongles(team);
 	return (team);
 }
