@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:12:03 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 19:19:10 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/11 23:43:02 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	describe_tm(t_team *team)
 	{
 		coder = team->coders_list[i];
 		printf("Coder %d\n", coder->id);
-		printf("Left dongle: %d\n", coder->left_dongle->id);
-		printf("Right dongle: %d\n\n", coder->right_dongle->id);
+		printf("Left dongle: %d %p\n", coder->left_dongle->id,
+			(void *)&(coder->left_dongle->lock));
+		printf("Right dongle: %d %p\n\n", coder->right_dongle->id,
+			(void *)&(coder->right_dongle->lock));
 		i++;
 	}
 }
