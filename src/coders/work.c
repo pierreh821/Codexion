@@ -6,45 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 22:40:49 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 22:50:52 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-
-void	wait_for_start(t_coder *coder)
-{
-	pthread_mutex_lock(coder->run_lock);
-	while (*(coder->run_signal) == 0)
-	{
-		pthread_cond_wait(coder->run, coder->run_lock);
-	}
-	pthread_mutex_unlock(coder->run_lock);
-}
-
-void	take_dongles(t_coder *coder)
-{
-	pthread_mutex_lock(&coder->first->lock);
-	printf("%ld %d has taken a dongle\n",
-		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
-	pthread_mutex_lock(&coder->second->lock);
-	printf("%ld %d has taken a dongle\n",
-		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
-}
-
-void	dongle_order(t_coder *coder)
-{
-	if (coder->id % 2 == 0)
-	{
-		coder->first = coder->left_dongle;
-		coder->second = coder->right_dongle;
-	}
-	else
-	{
-		coder->first = coder->right_dongle;
-		coder->second = coder->left_dongle;
-	}
-}
 
 void	compile(t_coder *coder)
 {

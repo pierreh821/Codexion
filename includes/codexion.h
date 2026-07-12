@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 00:45:05 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 22:53:49 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void		free_team(t_team *coders);
 void		team_pause(t_team *team);
 void		team_start(t_table *table);
 
+void		launch_threads(t_table *table, void *(*work)(void *));
+void		assign_dongles(t_team *team);
+
 t_dongle	*create_dongle(int id);
 void		free_dongle(t_dongle *dongle);
 
@@ -55,5 +58,8 @@ void		create_monitor(t_table *table);
 void		end_wait_monitor(t_monitor *monitor);
 
 void		*work(void *inp);
+void		wait_for_start(t_coder *coder);
+void		dongle_order(t_coder *coder);
+void		take_dongles(t_coder *coder);
 
 #endif
