@@ -27,9 +27,11 @@ SRCS = src/main.c \
 	src/dev_utils.c \
 	src/monitor_utils.c \
 	src/table_utils.c \
-	src/coders/utils.c \
 	src/coders/init.c \
-	src/coders/work.c
+	src/coders/init_dongles.c \
+	src/coders/utils.c \
+	src/coders/work.c \
+	src/coders/sync.c \
 
 OBJ_DIR = obj
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
@@ -38,6 +40,9 @@ TOTAL := $(words $(OBJS))
 CURRENT := 0
 
 all: $(NAME)
+
+help:
+	echo "Usage: ./codexion [number_of_coders] [time_to_burnout] [time_to_compile] [time_to_debug] [time_to_compile] [number_of_compiles_required] [dongle_cooldown] [scheduler (fifo/edf)]"
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
