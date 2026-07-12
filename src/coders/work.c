@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 12:25:48 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 18:12:22 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,26 @@ void	debug(t_coder *coder)
 	usleep(coder->table->args->time_to_debug);
 }
 
+void	refactor(t_coder *coder)
+{
+	coder->state = REFACTORING;
+	printf("%ld %d is refactoring\n",
+		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
+	usleep(coder->table->args->time_to_refactor);
+}
+
 void	*work(void *inp)
 {
 	t_coder	*coder;
 
 	coder = (t_coder *)inp;
-	// printf("coder %d waiting...\n", coder->id);
 	wait_for_start(coder);
-	// printf("coder %d ended his waiting\n", coder->id);
 	while (*(coder->run_signal))
 	{
+		gettimeofday(&coder->start, NULL);
 		compile(coder);
 		debug(coder);
+		refactor(coder);
 	}
 	return (NULL);
 }

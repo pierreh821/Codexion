@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 00:32:13 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 18:18:42 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	team_start(t_table *table)
 		gettimeofday(&table->team->coders_list[i]->start, NULL);
 		i++;
 	}
-	gettimeofday(&table->monitor->start_tm, NULL);
+	gettimeofday(&table->monitor->start, NULL);
 }
 
 void	team_pause(t_team *team)

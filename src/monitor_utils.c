@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 01:29:11 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 18:18:42 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,13 @@ void	end_wait_monitor(t_monitor *monitor)
 
 long int	time_elapsed(t_monitor *monitor)
 {
+	long int	start;
+	long int	now;
+
 	gettimeofday(&monitor->time, NULL);
-	return ((monitor->time.tv_usec - monitor->start_tm.tv_usec) / 1000);
+	start = monitor->start.tv_sec * 1000L + monitor->start.tv_usec / 1000;
+	now = monitor->time.tv_sec * 1000L + monitor->time.tv_usec / 1000;
+	return (now - start);
 }
 
 void	create_monitor(t_table *table)
