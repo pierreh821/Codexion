@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 20:12:30 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 12:22:19 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 typedef enum e_state
 {
 	COMPILING,
-	DEBUGING,
+	DEBUGGING,
 	REFACTORING,
 	SUSPEND
 }	t_state;

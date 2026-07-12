@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 01:24:50 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 12:25:48 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,19 @@ void	compile(t_coder *coder)
 	}
 	take_dongle(coder, first);
 	take_dongle(coder, second);
+	printf("%ld %d is compiling\n",
+		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
 	usleep(coder->table->args->time_to_compile);
 	pthread_mutex_unlock(&second->lock);
 	pthread_mutex_unlock(&first->lock);
+}
+
+void	debug(t_coder *coder)
+{
+	coder->state = DEBUGGING;
+	printf("%ld %d is debugging\n",
+		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
+	usleep(coder->table->args->time_to_debug);
 }
 
 void	*work(void *inp)
@@ -57,12 +67,13 @@ void	*work(void *inp)
 	t_coder	*coder;
 
 	coder = (t_coder *)inp;
-	printf("coder %d waiting...\n", coder->id);
+	// printf("coder %d waiting...\n", coder->id);
 	wait_for_start(coder);
-	printf("coder %d ended his waiting\n", coder->id);
+	// printf("coder %d ended his waiting\n", coder->id);
 	while (*(coder->run_signal))
 	{
 		compile(coder);
+		debug(coder);
 	}
 	return (NULL);
 }
