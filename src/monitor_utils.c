@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 18:18:42 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 22:32:23 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void	check_burnout(t_table *table, int id)
 {
 	int		now;
 	int		start;
-	t_state	state;
 
 	now = table->monitor->time.tv_usec * 1000;
 	start = table->team->coders_list[id]->start.tv_usec * 1000;
-	state = table->team->coders_list[id]->state;
-	if (state == COMPILING && now - start > table->args->time_to_burnout)
+	if (now - start > table->args->time_to_burnout)
 	{
-		printf("Coder %d burnout\n", id);
+		printf("Coder %d burnout\n", table->team->coders_list[id]->id + 1);
 		error("burnout\n");
 	}
 }
