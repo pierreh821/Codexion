@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 18:12:22 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 22:40:49 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,38 @@ void	wait_for_start(t_coder *coder)
 	pthread_mutex_unlock(coder->run_lock);
 }
 
-void	take_dongle(t_coder *coder, t_dongle *dongle)
+void	take_dongles(t_coder *coder)
 {
-	pthread_mutex_lock(&dongle->lock);
+	pthread_mutex_lock(&coder->first->lock);
+	printf("%ld %d has taken a dongle\n",
+		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
+	pthread_mutex_lock(&coder->second->lock);
 	printf("%ld %d has taken a dongle\n",
 		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
 }
 
-void	compile(t_coder *coder)
+void	dongle_order(t_coder *coder)
 {
-	t_dongle	*first;
-	t_dongle	*second;
-
-	coder->state = COMPILING;
 	if (coder->id % 2 == 0)
 	{
-		first = coder->left_dongle;
-		second = coder->right_dongle;
+		coder->first = coder->left_dongle;
+		coder->second = coder->right_dongle;
 	}
 	else
 	{
-		first = coder->right_dongle;
-		second = coder->left_dongle;
+		coder->first = coder->right_dongle;
+		coder->second = coder->left_dongle;
 	}
-	take_dongle(coder, first);
-	take_dongle(coder, second);
+}
+
+void	compile(t_coder *coder)
+{
+	coder->state = COMPILING;
 	printf("%ld %d is compiling\n",
 		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
 	usleep(coder->table->args->time_to_compile);
-	pthread_mutex_unlock(&second->lock);
-	pthread_mutex_unlock(&first->lock);
+	pthread_mutex_unlock(&coder->second->lock);
+	pthread_mutex_unlock(&coder->first->lock);
 }
 
 void	debug(t_coder *coder)
@@ -73,15 +75,23 @@ void	refactor(t_coder *coder)
 void	*work(void *inp)
 {
 	t_coder	*coder;
+	int		compiles;
+	int		needed;
 
 	coder = (t_coder *)inp;
+	dongle_order(coder);
+	compiles = 0;
+	needed = coder->table->args->number_of_compiles_required;
 	wait_for_start(coder);
-	while (*(coder->run_signal))
+	usleep(coder->id % 2 * (coder->table->args->time_to_compile / 2));
+	while (*(coder->run_signal) && compiles < needed)
 	{
 		gettimeofday(&coder->start, NULL);
+		take_dongles(coder);
 		compile(coder);
 		debug(coder);
 		refactor(coder);
+		compiles++;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 18:03:35 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 22:41:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	main(int argc, char *argv[])
 
 	table = init_table(argc, argv, &work);
 	team_start(table);
-	usleep(100000);
-	team_pause(table->team);
 	free_table(table);
 	return (0);
 }

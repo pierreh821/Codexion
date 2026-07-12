@@ -3,6 +3,7 @@
 - **time_to_burnout** (ms): max time before compilation, else coder will burnout
 - **time_to_compile** (ms): time needed for compilation. during that time, the coder needs 2 usb dongles
 - **time_to_debug** (ms)
+- **time_to_compile** (ms)
 - **number_of_compiles_required**: program stops once all coders compiled this many times
 - **dongle_cooldown** (ms): time needed for dongles to be available after use
 - **scheduler**: must be fifo or edf only:

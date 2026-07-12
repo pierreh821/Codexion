@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 12:22:19 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/12 22:17:30 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_coder
 	int				id;
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;
+	t_dongle		*first;
+	t_dongle		*second;
 	pthread_t		thread_id;
 	t_state			state;
 	pthread_cond_t	*run;
