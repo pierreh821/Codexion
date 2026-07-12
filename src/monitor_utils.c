@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 22:32:23 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 01:45:30 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	check_burnout(t_table *table, int id)
 	int		now;
 	int		start;
 
-	now = table->monitor->time.tv_usec * 1000;
+		now = table->monitor->time.tv_usec * 1000;
 	start = table->team->coders_list[id]->start.tv_usec * 1000;
-	if (now - start > table->args->time_to_burnout)
-	{
+		if (now - start > table->args->time_to_burnout)
+		{
 		printf("Coder %d burnout\n", table->team->coders_list[id]->id + 1);
-		error("burnout\n");
+			error("burnout\n");
 	}
 }
 
@@ -47,6 +47,7 @@ void	end_wait_monitor(t_monitor *monitor)
 {
 	monitor->run = 0;
 	pthread_join(monitor->thread_id, NULL);
+	free_logger(monitor->logger);
 	free(monitor);
 }
 
@@ -69,5 +70,6 @@ void	create_monitor(t_table *table)
 	table->monitor->run = 1;
 	if (pthread_create(&table->monitor->thread_id, NULL, routine, table) != 0)
 		error("Cannot create monitor thread");
+	table->monitor->logger = init_logger();
 	table->monitor->elapsed = time_elapsed;
 }
