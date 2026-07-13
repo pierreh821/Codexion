@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:19:48 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 01:22:51 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 18:02:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ t_args	*clean_args(int argc, char *argv[])
 		error("Invalid number of arguments");
 	args = malloc(sizeof(t_args));
 	args->number_of_coders = atoi(argv[1]);
-	args->time_to_burnout = atoi(argv[2]) * 1000;
+	args->time_to_burnout = atoi(argv[2]);
 	args->time_to_compile = atoi(argv[3]) * 1000;
 	args->time_to_debug = atoi(argv[4]) * 1000;
 	args->time_to_refactor = atoi(argv[5]) * 1000;
 	args->number_of_compiles_required = atoi(argv[6]);
-	args->dongle_cooldown = atoi(argv[7]) * 1000;
+	args->dongle_cooldown = atoi(argv[7]);
 	args->schedule = argv[8];
 	args_validator(args);
 	return (args);
