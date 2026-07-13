@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 22:50:52 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 01:56:20 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*work(void *inp)
 	usleep(coder->id % 2 * (coder->table->args->time_to_compile / 2));
 	while (*(coder->run_signal) && compiles < needed)
 	{
-		gettimeofday(&coder->start, NULL);
+		coder->start = get_time_ms();
 		take_dongles(coder);
 		compile(coder);
 		debug(coder);

@@ -22,6 +22,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread -I. -I$(INCLUDES) -I$(MODELS)
 RM = rm -rf
 
 SRCS = src/main.c \
+	src/utils.c \
 	src/parser.c \
 	src/dongle_utils.c \
 	src/dev_utils.c \

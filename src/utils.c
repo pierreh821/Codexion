@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.h                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:50:42 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/13 01:47:25 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/13 01:47:47 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MONITOR_H
-# define MONITOR_H
-# include <pthread.h>
-# include <sys/time.h>
-# include "logger.h"
+#include "includes/codexion.h"
 
-typedef struct s_monitor
+long	get_time_ms(void)
 {
-	pthread_t		thread_id;
-	long			start;
-	int				run;
-	long int		(*elapsed)(struct s_monitor *monitor);
-	t_logger		*logger;
-}	t_monitor;
+	struct timeval	tv;
 
-#endif
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}

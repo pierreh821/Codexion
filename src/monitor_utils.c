@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:45:30 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 01:59:59 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 void	check_burnout(t_table *table, int id)
 {
-	int		now;
-	int		start;
+	long	now;
+	long	start;
 
-		now = table->monitor->time.tv_usec * 1000;
-	start = table->team->coders_list[id]->start.tv_usec * 1000;
-		if (now - start > table->args->time_to_burnout)
-		{
+	now = get_time_ms();
+	start = table->team->coders_list[id]->start;
+	if (now - start > table->args->time_to_burnout)
+	{
 		printf("Coder %d burnout\n", table->team->coders_list[id]->id + 1);
-			error("burnout\n");
+		printf("now: %ld, start: %ld\n", now, start);
+		error("burnout\n");
 	}
 }
 
@@ -34,7 +35,6 @@ void	*routine(void *arg)
 	table = (t_table *)arg;
 	while (table->monitor->run)
 	{
-		gettimeofday(&table->monitor->time, NULL);
 		i = 0;
 		while (i < table->team->nb)
 			check_burnout(table, i++);
@@ -51,15 +51,9 @@ void	end_wait_monitor(t_monitor *monitor)
 	free(monitor);
 }
 
-long int	time_elapsed(t_monitor *monitor)
+long	time_elapsed(t_monitor *monitor)
 {
-	long int	start;
-	long int	now;
-
-	gettimeofday(&monitor->time, NULL);
-	start = monitor->start.tv_sec * 1000L + monitor->start.tv_usec / 1000;
-	now = monitor->time.tv_sec * 1000L + monitor->time.tv_usec / 1000;
-	return (now - start);
+	return (get_time_ms() - monitor->start);
 }
 
 void	create_monitor(t_table *table)

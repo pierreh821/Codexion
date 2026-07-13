@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:27:17 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 01:48:05 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ void		take_dongles(t_coder *coder);
 void		new_log(t_logger *log, char	*text);
 t_logger	*init_logger(void);
 void		free_logger(t_logger *logger);
+
+long		get_time_ms(void);
 
 #endif

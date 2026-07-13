@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/12 18:18:42 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 01:57:33 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 void	team_start(t_table *table)
 {
-	int	i;
+	int		i;
+	long	start_time;
 
 	pthread_mutex_lock(&(table->team->run_lock));
 	table->team->run_signal = 1;
 	pthread_cond_broadcast(&(table->team->run));
 	pthread_mutex_unlock(&(table->team->run_lock));
+	start_time =  get_time_ms();
 	i = 0;
 	while (i < table->team->nb)
 	{
-		gettimeofday(&table->team->coders_list[i]->start, NULL);
+		table->team->coders_list[i]->start = start_time;
 		i++;
 	}
-	gettimeofday(&table->monitor->start, NULL);
+	table->monitor->start = get_time_ms();
 }
 
 void	team_pause(t_team *team)
