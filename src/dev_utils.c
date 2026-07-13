@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:12:03 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/11 23:43:36 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 02:47:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@ void	error(char *message)
 {
 	printf("%s", message);
 	exit(0);
-}
-
-void	*foo(void *arg)
-{
-	t_coder	*coder;
-
-	coder = (t_coder *)arg;
-	printf("Coder %d testing\n", coder->id);
-	return (NULL);
 }
 
 void	describe_tm(t_team *team)
