@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 02:21:34 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 17:40:38 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct s_monitor
 	pthread_t		thread_id;
 	long			start;
 	int				run;
-	long int		(*elapsed)(struct s_monitor *monitor);
 	t_logger		*logger;
 	pthread_t		logger_id;
 }	t_monitor;

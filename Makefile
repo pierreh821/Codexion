@@ -26,15 +26,16 @@ SRCS = src/main.c \
 	src/parser.c \
 	src/dongle_utils.c \
 	src/dev_utils.c \
-	src/monitor_utils.c \
 	src/table_utils.c \
-	src/logger/init.c \
-	src/logger/utils.c \
-	src/coders/init.c \
-	src/coders/init_dongles.c \
-	src/coders/utils.c \
-	src/coders/work.c \
-	src/coders/sync.c \
+	src/monitor/monitor_init.c \
+	src/monitor/monitor_utils.c \
+	src/logger/logger_init.c \
+	src/logger/logger_utils.c \
+	src/coders/coders_init.c \
+	src/coders/coders_dongles_init.c \
+	src/coders/coders_utils.c \
+	src/coders/coders_work.c \
+	src/coders/coders_sync.c \
 
 OBJ_DIR = obj
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))

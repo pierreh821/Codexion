@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 17:10:43 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 17:40:47 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ void		free_dongle(t_dongle *dongle);
 
 void		create_monitor(t_table *table);
 void		end_wait_monitor(t_monitor *monitor);
+void		check_burnout(t_table *table, int id);
+void		*print_log(void *arg);
+void		*routine(void *arg);
+long		time_elapsed(t_monitor *monitor);
 
 void		*work(void *inp);
 void		wait_for_start(t_coder *coder);

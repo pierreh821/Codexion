@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 17:23:19 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 17:41:02 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	logger_write(t_coder *coder, char *text)
 	if (!log)
 		error("Failed to malloc log");
 	log->id = coder->id;
-	log->timestamp = coder->table->monitor->elapsed(coder->table->monitor);
+	log->timestamp = time_elapsed(coder->table->monitor);
 	log->text = ft_strdup(text);
 	log->logger = coder->table->monitor->logger;
 	pthread_mutex_lock(&log->logger->lock);
