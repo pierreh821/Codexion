@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 19:09:31 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:27:02 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	check_burnout(t_table *table, int id)
 {
-	t_state	state;
-	long	now;
-	long	start;
+	t_status	status;
+	long		now;
+	long		start;
 
 	now = get_time_ms();
 	start = table->team->coders_list[id]->start;
-	state = table->team->coders_list[id]->state;
-	if (state != SUSPEND && now - start > table->args->time_to_burnout)
+	status = table->team->coders_list[id]->status;
+	if (status != SUSPEND && now - start > table->args->time_to_burnout)
 	{
 		logger_write(table->team->coders_list[id], "burned out");
 		table->team->run_signal = 0;

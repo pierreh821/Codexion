@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   coders_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:53:06 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:26:17 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	assign_coders(t_table *table)
 		team->coders_list[i]->run_lock = &(team->run_lock);
 		team->coders_list[i]->run_signal = &(team->run_signal);
 		team->coders_list[i]->table = table;
-		team->coders_list[i]->state = SUSPEND;
+		set_status(team->coders_list[i], SUSPEND, 1);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:55:41 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:22:49 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # include "dongle.h"
 # include "table.h"
 
-typedef enum e_state
+typedef enum e_status
 {
 	COMPILING,
 	DEBUGGING,
 	REFACTORING,
 	SUSPEND
-}	t_state;
+}	t_status;
 
 typedef struct s_coder
 {
@@ -33,7 +33,8 @@ typedef struct s_coder
 	t_dongle		*first;
 	t_dongle		*second;
 	pthread_t		thread_id;
-	t_state			state;
+	t_status		status;
+	pthread_mutex_t	status_lock;
 	pthread_cond_t	*run;
 	pthread_mutex_t	*run_lock;
 	int				*run_signal;

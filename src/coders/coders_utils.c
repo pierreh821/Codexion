@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 18:36:07 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:23:38 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,13 @@ void	free_team(t_team *team)
 	pthread_mutex_destroy(&(team->run_lock));
 	pthread_cond_destroy(&(team->run));
 	free(team);
+}
+
+void	set_status(t_coder *coder, t_status status, int update_start)
+{
+	pthread_mutex_lock(&coder->status_lock);
+	coder->status = status;
+	if (update_start)
+		coder->start = get_time_ms();
+	pthread_mutex_unlock(&coder->status_lock);
 }

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 18:37:38 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:24:14 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "table.h"
 # include "logger.h"
 
-typedef enum e_state		t_state;
+typedef enum e_status		t_status;
 typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;
 typedef struct s_team		t_team;
@@ -50,6 +50,7 @@ void		wait_coders(t_team *coders);
 void		free_team(t_team *coders);
 void		team_pause(t_team *team);
 void		team_start(t_table *table);
+void		set_status(t_coder *coder, t_status status, int update_start);
 
 void		launch_threads(t_table *table, void *(*work)(void *));
 void		assign_dongles(t_team *team);
