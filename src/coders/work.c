@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:56:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 02:38:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 void	compile(t_coder *coder)
 {
 	coder->state = COMPILING;
-	printf("%ld %d is compiling\n",
-		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
+	logger_write(coder, "is compiling");
 	usleep(coder->table->args->time_to_compile);
 	pthread_mutex_unlock(&coder->second->lock);
 	pthread_mutex_unlock(&coder->first->lock);
@@ -25,16 +24,14 @@ void	compile(t_coder *coder)
 void	debug(t_coder *coder)
 {
 	coder->state = DEBUGGING;
-	printf("%ld %d is debugging\n",
-		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
+	logger_write(coder, "is debugging");
 	usleep(coder->table->args->time_to_debug);
 }
 
 void	refactor(t_coder *coder)
 {
 	coder->state = REFACTORING;
-	printf("%ld %d is refactoring\n",
-		coder->table->monitor->elapsed(coder->table->monitor), coder->id);
+	logger_write(coder, "is refactoring");
 	usleep(coder->table->args->time_to_refactor);
 }
 

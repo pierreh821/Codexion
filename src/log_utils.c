@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:34:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:28:50 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 02:38:28 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,83 @@ void	ft_strlcpy(char *dest, const char *src)
 	dest[i] = 0;
 }
 
-void	add_to_list(t_logger *log, char *text)
+char	*ft_strdup(const char *src)
 {
-	char	**swap;
+	char	*dest;
 	int		i;
 
+	dest = malloc((sizeof(char) * strlen(src) + 1));
+	if (dest == NULL)
+		error("Malloc strdup error");
 	i = 0;
-	swap = malloc(sizeof(char *) * log->size);
-	if (!swap)
-		error("Failed to allocate memory for swap (log/add_to_list)");
-	while (i < log->size)
+	while (src[i])
 	{
-		ft_strlcpy(swap[i], log->waitlist[i]);
+		dest[i] = src[i];
 		i++;
 	}
-	free(log->waitlist);
-	log->waitlist = malloc(sizeof(char *) * (log->size + 1));
-	if (!log->waitlist)
-		error("Failed to allocate memory for log->waitlist (log/add_to_list)");
+	dest[i] = '\0';
+	return (dest);
+}
+
+void	free_char_pp(char **list, int size)
+{
+	int	i;
+
 	i = 0;
-	while (i < log->size)
+	while (i < size)
 	{
-		ft_strlcpy(log->waitlist[i], swap[i]);
+		free(list[i]);
 		i++;
 	}
-	ft_strlcpy(log->waitlist[i], text);
+	free(list);
+}
+
+void	add_to_list(t_logger *logger, char *text)
+{
+	char	**new_list;
+	int		i;
+
+	new_list = malloc(sizeof(char *) * (logger->size + 1));
+	if (!new_list)
+		error("Failed to allocate memory for add_to_list log");
+	i = 0;
+	while (i < logger->size)
+	{
+		new_list[i] = logger->waitlist[i];
+		i++;
+	}
+	new_list[i] = ft_strdup(text);
+	free(logger->waitlist);
+	logger->waitlist = new_list;
+	logger->size++;
+}
+
+char	*logger_pop(t_logger *logger)
+{
+	char	**new_list;
+	char	*first;
+	int		i;
+
+	if (logger->size == 0)
+		return (NULL);
+	first = logger->waitlist[0];
+	new_list = NULL;
+	if (logger->size > 1)
+	{
+		new_list = malloc(sizeof(char *) * (logger->size - 1));
+		if (!new_list)
+			error("Failed to allocate memory in logger pop");
+		i = 0;
+		while (i < logger->size - 1)
+		{
+			new_list[i] = logger->waitlist[i + 1];
+			i++;
+		}
+	}
+	free(logger->waitlist);
+	logger->waitlist = new_list;
+	logger->size--;
+	return (first);
 }
 
 t_logger	*init_logger(void)
@@ -83,3 +135,35 @@ void	new_log(t_logger *logger, char	*text)
 	pthread_mutex_unlock(&logger->lock);
 }
 
+static int	fill_nbr(char *buf, long nbr, int idx)
+{
+	if (nbr == 0)
+		buf[--idx] = '0';
+	while (nbr > 0)
+	{
+		buf[--idx] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	return (idx);
+}
+
+void	logger_write(t_coder *coder, const char *msg)
+{
+	char	buf[256];
+	int		idx;
+	int		i;
+	long	time;
+
+	memset(buf, 0, 256);
+	time = coder->table->monitor->elapsed(coder->table->monitor);
+	idx = 254;
+	buf[idx] = '\n';
+	i = strlen(msg);
+	while (--i >= 0)
+		buf[--idx] = msg[i];
+	buf[--idx] = ' ';
+	idx = fill_nbr(buf, coder->id, idx);
+	buf[--idx] = ' ';
+	idx = fill_nbr(buf, time, idx);
+	new_log(coder->table->monitor->logger, &buf[idx]);
+}

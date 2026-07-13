@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 01:59:59 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 03:00:19 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,45 @@
 
 void	check_burnout(t_table *table, int id)
 {
+	t_state	state;
 	long	now;
 	long	start;
 
 	now = get_time_ms();
 	start = table->team->coders_list[id]->start;
-	if (now - start > table->args->time_to_burnout)
+	state = table->team->coders_list[id]->state;
+	if (state != SUSPEND && now - start > table->args->time_to_burnout)
 	{
 		printf("Coder %d burnout\n", table->team->coders_list[id]->id + 1);
 		printf("now: %ld, start: %ld\n", now, start);
 		error("burnout\n");
 	}
+}
+
+void	*print_log(void *arg)
+{
+	t_table		*table;
+	t_logger	*logger;
+	char		*log_msg;
+
+	table = (t_table *)arg;
+	logger = table->monitor->logger;
+	while (table->monitor->run || logger->size > 0)
+	{
+		pthread_mutex_lock(&logger->lock);
+		while (logger->size > 0)
+		{
+			log_msg = logger_pop(logger);
+			if (log_msg)
+			{
+				printf("%s", log_msg);
+				free(log_msg);
+			}
+		}
+		pthread_mutex_unlock(&logger->lock);
+		usleep(500);
+	}
+	return (NULL);
 }
 
 void	*routine(void *arg)
@@ -47,6 +75,7 @@ void	end_wait_monitor(t_monitor *monitor)
 {
 	monitor->run = 0;
 	pthread_join(monitor->thread_id, NULL);
+	pthread_join(monitor->logger_id, NULL);
 	free_logger(monitor->logger);
 	free(monitor);
 }
@@ -66,4 +95,6 @@ void	create_monitor(t_table *table)
 		error("Cannot create monitor thread");
 	table->monitor->logger = init_logger();
 	table->monitor->elapsed = time_elapsed;
+	if (pthread_create(&table->monitor->logger_id, NULL, print_log, table) != 0)
+		error("Cannot create logger thread");
 }
