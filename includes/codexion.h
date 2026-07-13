@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 02:37:05 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 17:10:43 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_team		t_team;
 typedef struct s_dongle		t_dongle;
 typedef struct s_monitor	t_monitor;
 typedef struct s_table		t_table;
+typedef struct s_log		t_log;
 typedef struct s_logger		t_logger;
 
 void		error(char *message); // dev
@@ -64,10 +65,10 @@ void		wait_for_start(t_coder *coder);
 void		dongle_order(t_coder *coder);
 void		take_dongles(t_coder *coder);
 
-void		logger_write(t_coder *coder, const char *msg);
+void		logger_write(t_coder *coder, char *text);
 t_logger	*init_logger(void);
 void		free_logger(t_logger *logger);
-char		*logger_pop(t_logger *logger);
+t_log		*logger_pop(t_logger *logger);
 
 long		get_time_ms(void);
 

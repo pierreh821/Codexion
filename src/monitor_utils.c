@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 03:00:19 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 17:03:35 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*print_log(void *arg)
 {
 	t_table		*table;
 	t_logger	*logger;
-	char		*log_msg;
+	t_log		*log;
 
 	table = (t_table *)arg;
 	logger = table->monitor->logger;
@@ -42,11 +42,12 @@ void	*print_log(void *arg)
 		pthread_mutex_lock(&logger->lock);
 		while (logger->size > 0)
 		{
-			log_msg = logger_pop(logger);
-			if (log_msg)
+			log = logger_pop(logger);
+			if (log)
 			{
-				printf("%s", log_msg);
-				free(log_msg);
+				printf("%d %d %s\n", log->timestamp, log->id, log->text);
+				free(log->text);
+				free(log);
 			}
 		}
 		pthread_mutex_unlock(&logger->lock);

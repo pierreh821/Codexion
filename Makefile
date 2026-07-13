@@ -28,7 +28,8 @@ SRCS = src/main.c \
 	src/dev_utils.c \
 	src/monitor_utils.c \
 	src/table_utils.c \
-	src/log_utils.c \
+	src/logger/init.c \
+	src/logger/utils.c \
 	src/coders/init.c \
 	src/coders/init_dongles.c \
 	src/coders/utils.c \
