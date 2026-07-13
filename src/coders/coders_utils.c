@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   coders_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 17:49:09 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 18:36:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ void	free_team(t_team *team)
 	while (id < team->nb)
 	{
 		pthread_join(team->coders_list[id]->thread_id, NULL);
-		free_dongle(team->coders_list[id]->left_dongle);
 		free(team->coders_list[id]);
 		id++;
 	}
+	free_dongles(team->dongle_set, team->nb);
 	free(team->coders_list);
-	free(team->dongle_set);
 	pthread_mutex_destroy(&(team->run_lock));
 	pthread_cond_destroy(&(team->run));
 	free(team);
