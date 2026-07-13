@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   work.c                                             :+:      :+:    :+:   */
+/*   coders_work.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 02:38:01 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:11:40 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	compile(t_coder *coder)
 {
+	coder->start = get_time_ms();
 	coder->state = COMPILING;
 	logger_write(coder, "is compiling");
 	usleep(coder->table->args->time_to_compile);
@@ -47,9 +48,9 @@ void	*work(void *inp)
 	needed = coder->table->args->number_of_compiles_required;
 	wait_for_start(coder);
 	usleep(coder->id % 2 * (coder->table->args->time_to_compile / 2));
-	while (*(coder->run_signal) && compiles < needed)
+	while (*(coder->run_signal) && coder->table->monitor->run
+		&& compiles < needed)
 	{
-		coder->start = get_time_ms();
 		take_dongles(coder);
 		compile(coder);
 		debug(coder);

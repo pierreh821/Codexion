@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   logger_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 17:41:02 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 18:37:38 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,31 @@ void	logger_write(t_coder *coder, char *text)
 	pthread_mutex_lock(&log->logger->lock);
 	add_to_list(log->logger, log);
 	pthread_mutex_unlock(&log->logger->lock);
+}
+
+void	*log_export(void *arg)
+{
+	t_table		*table;
+	t_logger	*logger;
+	t_log		*log;
+
+	table = (t_table *)arg;
+	logger = table->monitor->logger;
+	while (table->monitor->run || logger->size > 0)
+	{
+		pthread_mutex_lock(&logger->lock);
+		while (logger->size > 0)
+		{
+			log = logger_pop(logger);
+			if (log)
+			{
+				printf("%d %d %s\n", log->timestamp, log->id, log->text);
+				free(log->text);
+				free(log);
+			}
+		}
+		pthread_mutex_unlock(&logger->lock);
+		usleep(500);
+	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 17:40:47 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 18:37:38 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,11 @@ void		launch_threads(t_table *table, void *(*work)(void *));
 void		assign_dongles(t_team *team);
 
 t_dongle	*create_dongle(int id);
-void		free_dongle(t_dongle *dongle);
+void		free_dongles(t_dongle **dongle_set, int nb);
 
 void		create_monitor(t_table *table);
 void		end_wait_monitor(t_monitor *monitor);
 void		check_burnout(t_table *table, int id);
-void		*print_log(void *arg);
 void		*routine(void *arg);
 long		time_elapsed(t_monitor *monitor);
 
@@ -73,6 +72,7 @@ void		logger_write(t_coder *coder, char *text);
 t_logger	*init_logger(void);
 void		free_logger(t_logger *logger);
 t_log		*logger_pop(t_logger *logger);
+void		*log_export(void *arg);
 
 long		get_time_ms(void);
 

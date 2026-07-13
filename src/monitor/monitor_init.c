@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   monitor_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 17:40:31 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:12:27 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	create_monitor(t_table *table)
 	if (pthread_create(&table->monitor->thread_id, NULL, routine, table) != 0)
 		error("Cannot create monitor thread");
 	table->monitor->logger = init_logger();
-	if (pthread_create(&table->monitor->logger_id, NULL, print_log, table) != 0)
+	if (pthread_create(&table->monitor->logger_id, NULL,
+			log_export, table) != 0)
 		error("Cannot create logger thread");
 }
