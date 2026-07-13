@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 18:35:29 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/13 19:39:35 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,25 @@ void	free_dongles(t_dongle **dongle_set, int nb)
 		free(dongle_set[i]);
 	}
 	free(dongle_set);
+}
+
+void	assign_dongles(t_team *team)
+{
+	int			id;
+	int			nb;
+
+	nb = team->nb;
+	id = 0;
+	while (id < nb)
+	{
+		team->dongle_set[id] = create_dongle(id);
+		id++;
+	}
+	id = 0;
+	while (id < nb)
+	{
+		team->coders_list[id]->left_dongle = team->dongle_set[id];
+		team->coders_list[id]->right_dongle = team->dongle_set[(id + 1) % nb];
+		id++;
+	}
 }

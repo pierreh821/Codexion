@@ -32,7 +32,6 @@ SRCS = src/main.c \
 	src/logger/logger_init.c \
 	src/logger/logger_utils.c \
 	src/coders/coders_init.c \
-	src/coders/coders_dongles_init.c \
 	src/coders/coders_utils.c \
 	src/coders/coders_work.c \
 	src/coders/coders_sync.c \
