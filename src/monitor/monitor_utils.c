@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 19:31:55 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 14:55:02 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ void	check_burnout(t_table *table, int id)
 		logger_write(coder, "burned out");
 		table->team->run_signal = 0;
 		table->monitor->run = 0;
-		error("");
+
+		pthread_mutex_lock(&(table->team->run_lock));
+		pthread_cond_broadcast(&(table->team->run));
+		pthread_mutex_unlock(&(table->team->run_lock));
+		usleep(10000);
+		error("A burnout occured, program stops");
 	}
 }
 

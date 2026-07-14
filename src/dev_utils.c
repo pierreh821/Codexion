@@ -6,17 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:12:03 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 02:47:55 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 14:35:45 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-
-void	error(char *message)
-{
-	printf("%s", message);
-	exit(0);
-}
 
 void	describe_tm(t_team *team)
 {

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 19:24:14 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 14:42:42 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		describe_tm(t_team *team);
 
 t_table		*init_table(int argc, char *argv[], void *(*work)(void *));
 void		free_table(t_table *table);
+t_table		*get_table(t_table *set_table);
 
 t_args		*clean_args(int argc, char *argv[]);
 void		args_validator(t_args *args);
