@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 01:47:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 14:42:16 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 15:27:31 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,18 @@ long	get_time_ms(void)
 
 void	error(char *message)
 {
-	t_table	*table;
+	t_table		*table;
+	static int	in_error = 0;
 
+	if (in_error)
+		return ;
+	in_error = 1;
 	if (message)
 		fprintf(stderr, "Error: %s\n", message);
 	table = get_table(NULL);
 	if (table)
+	{
+		get_table((void *)-1);
 		free_table(table);
+	}
 }
