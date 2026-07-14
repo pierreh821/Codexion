@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 19:25:01 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 15:24:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ void	refactor(t_coder *coder)
 	usleep(coder->table->args->time_to_refactor);
 }
 
+int	check_running(t_coder *coder)
+{
+	pthread_mutex_lock(coder->run_lock);
+	if (!*(coder->run_signal) || !coder->table->monitor->run)
+	{
+		pthread_mutex_unlock(coder->run_lock);
+		return (0);
+	}
+	pthread_mutex_unlock(coder->run_lock);
+	return (1);
+}
+
 void	*work(void *inp)
 {
 	t_coder	*coder;
@@ -48,10 +60,17 @@ void	*work(void *inp)
 	needed = coder->table->args->number_of_compiles_required;
 	wait_for_start(coder);
 	usleep(coder->id % 2 * (coder->table->args->time_to_compile / 2));
-	while (*(coder->run_signal) && coder->table->monitor->run
-		&& compiles < needed)
+	while (compiles < needed)
 	{
+		if (!check_running(coder))
+			break;
 		take_dongles(coder);
+		if (!check_running(coder))
+		{
+			pthread_mutex_unlock(&coder->second->lock);
+			pthread_mutex_unlock(&coder->first->lock);
+			break;
+		}
 		compile(coder);
 		debug(coder);
 		refactor(coder);

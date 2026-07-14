@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 14:55:02 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 15:12:21 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ void	check_burnout(t_table *table, int id)
 		&& get_time_ms() - start > table->args->time_to_burnout)
 	{
 		logger_write(coder, "burned out");
+		pthread_mutex_lock(&table->team->run_lock);
 		table->team->run_signal = 0;
 		table->monitor->run = 0;
-
-		pthread_mutex_lock(&(table->team->run_lock));
 		pthread_cond_broadcast(&(table->team->run));
 		pthread_mutex_unlock(&(table->team->run_lock));
 		usleep(10000);
