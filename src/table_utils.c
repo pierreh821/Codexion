@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:15:07 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 14:43:27 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 15:29:46 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ void	free_table(t_table *table)
 /**
  * - to get the table: pass NULL as parameter
  * - to store the table: pass the table as parameter
+ * - to remove the table: pass (void *)-1 as parameter
  * - returns the table if stord, else NULL pointer
  */
 t_table	*get_table(t_table *set_table)
 {
 	static t_table	*stored_table = NULL;
 
-	if (set_table != NULL)
+	if (set_table == (void *)-1)
+		stored_table = NULL;
+	else if (set_table != NULL)
 		stored_table = set_table;
 	return stored_table;
 }
