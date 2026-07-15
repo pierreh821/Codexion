@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:34:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 10:53:12 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 22:30:32 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_log	*logger_pop(t_logger *logger)
 	{
 		new_list = ft_calloc(logger->size - 1, sizeof(t_log *));
 		if (!new_list)
-			error("Failed to allocate memory in logger pop");
+			return (NULL);
 		i = 0;
 		while (i < logger->size - 1)
 		{
@@ -47,9 +47,9 @@ t_logger	*init_logger(void)
 	logger = ft_calloc(1, sizeof(t_logger));
 	logger->waitlist = NULL;
 	if (!logger)
-		error("Failed to allocate memory for logger waitlist");
+		return (NULL);
 	if (pthread_mutex_init(&logger->lock, NULL) != 0)
-		error("Failed to create logger mutex");
+		return (NULL);
 	logger->size = 0;
 	return (logger);
 }

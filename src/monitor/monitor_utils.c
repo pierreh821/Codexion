@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 12:51:32 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 22:26:57 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_burnout(t_table *table, int id)
 		&& get_time_ms() - start > table->args->time_to_burnout)
 	{
 		logger_write(coder, "burned out");
-		request_stop(STOP_BURNOUT, id);
+		request_stop(table, STOP_BURNOUT, id);
 	}
 }
 

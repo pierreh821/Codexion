@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 10:53:47 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 22:37:28 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *src)
 
 	dest = ft_calloc(strlen(src) + 1, sizeof(char));
 	if (dest == NULL)
-		error("ft_calloc strdup error");
+		return (NULL);
 	i = 0;
 	while (src[i])
 	{
@@ -30,14 +30,14 @@ char	*ft_strdup(const char *src)
 	return (dest);
 }
 
-void	add_to_list(t_logger *logger, t_log *log)
+void	add_to_list(t_table *table, t_logger *logger, t_log *log)
 {
 	t_log	**new_list;
 	int		i;
 
 	new_list = ft_calloc(logger->size + 1, sizeof(t_log *));
 	if (!new_list)
-		error("Failed to allocate memory for add_to_list log");
+		request_stop(table, STOP_FATAL, log->id);
 	i = 0;
 	while (i < logger->size)
 	{
@@ -56,13 +56,15 @@ void	logger_write(t_coder *coder, char *text)
 
 	log = ft_calloc(1, sizeof(t_log));
 	if (!log)
-		error("Failed to ft_calloc log");
+		request_stop(coder->table, STOP_FATAL, coder->id);
 	log->id = coder->id;
 	log->timestamp = time_elapsed(coder->table->monitor);
 	log->text = ft_strdup(text);
+	if (!log->text)
+		request_stop(coder->table, STOP_FATAL, coder->id);
 	log->logger = coder->table->monitor->logger;
 	pthread_mutex_lock(&log->logger->lock);
-	add_to_list(log->logger, log);
+	add_to_list(coder->table, log->logger, log);
 	pthread_mutex_unlock(&log->logger->lock);
 }
 

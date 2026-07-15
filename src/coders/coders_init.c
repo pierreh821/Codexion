@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 15:10:30 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 22:40:22 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,15 @@ int	launch_threads(t_table *table, void *(*work)(void *))
 
 t_team	*create_team(t_table *table, void *(*work)(void *))
 {
-	t_team		*team;
 	int			res;
 
 	res = 0;
-	res += alloc_team(table->args->number_of_coders);
-	res += assign_cond(team);
-	table->team = team;
+	res += alloc_team(table);
+	res += assign_cond(table);
 	res += assign_coders(table);
-	res += assign_dongles(team);
+	res += assign_dongles(table->team);
 	res += launch_threads(table, work);
 	if (res > 0)
 		return (free_table(table), NULL);
-	return (team);
+	return (table->team);
 }
