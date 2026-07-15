@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 22:26:57 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:13:31 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ long	time_elapsed(t_monitor *monitor)
 {
 	return (get_time_ms() - monitor->start);
 }
-

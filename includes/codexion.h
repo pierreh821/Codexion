@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 22:38:19 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:20:36 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ typedef struct s_log		t_log;
 typedef struct s_logger		t_logger;
 typedef struct s_status		t_status;
 
-
 void		describe_tm(t_team *team); //dev
 
 t_table		*init_table(int argc, char *argv[], void *(*work)(void *));
 void		join_table(t_table *table);
 void		free_table(t_table *table);
-int			request_stop(t_table *table, t_stop_reason reason, int	coder_id);
+int			request_stop(t_table *table, t_stop_reason reason, int coder_id);
 
 t_args		*clean_args(int argc, char *argv[]);
 
@@ -72,6 +71,7 @@ void		*work(void *inp);
 void		wait_for_start(t_coder *coder);
 void		dongle_order(t_coder *coder);
 void		take_dongles(t_coder *coder);
+int			check_running(t_coder *coder);
 
 void		logger_write(t_coder *coder, char *text);
 t_logger	*init_logger(void);

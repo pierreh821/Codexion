@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:15:07 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 23:08:44 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:11:58 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	join_table(t_table *table)
 	wait_monitor(table->monitor);
 }
 
-int	request_stop(t_table *table, t_stop_reason reason, int	coder_id)
+int	request_stop(t_table *table, t_stop_reason reason, int coder_id)
 {
 	int		first;
 

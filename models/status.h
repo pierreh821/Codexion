@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stop.h                                             :+:      :+:    :+:   */
+/*   status.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 11:16:45 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 11:29:42 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:11:14 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STOP_H
-# define STOP_H
+#ifndef STATUS_H
+# define STATUS_H
 
 # include <pthread.h>
 
-typedef enum	e_stop_reason
+typedef enum e_stop_reason
 {
 	STOP_NONE,
 	STOP_COMPLETED,

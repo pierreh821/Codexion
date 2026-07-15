@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 23:06:26 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:12:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_dongle	*create_dongle(int id)
 	t_dongle	*dongle;
 
 	dongle = ft_calloc(1, sizeof(t_dongle));
-    if (!dongle)
-        return (NULL);
-    if (pthread_mutex_init(&(dongle->lock), NULL) != 0)
-    {
-        free(dongle);
-        return (NULL);
-    }
+	if (!dongle)
+		return (NULL);
+	if (pthread_mutex_init(&(dongle->lock), NULL) != 0)
+	{
+		free(dongle);
+		return (NULL);
+	}
 	dongle->id = id;
 	return (dongle);
 }

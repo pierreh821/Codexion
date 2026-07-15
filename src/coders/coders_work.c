@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 23:07:39 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:20:10 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,20 @@ void	refactor(t_coder *coder)
 	usleep(coder->table->args->time_to_refactor);
 }
 
-int	check_running(t_coder *coder)
+int	work_cycle(t_coder *coder)
 {
-	pthread_mutex_lock(coder->run_lock);
-	if (!*(coder->run_signal) || !coder->table->monitor->run)
+	if (!check_running(coder))
+		return (0);
+	take_dongles(coder);
+	if (!check_running(coder))
 	{
-		pthread_mutex_unlock(coder->run_lock);
+		pthread_mutex_unlock(&coder->second->lock);
+		pthread_mutex_unlock(&coder->first->lock);
 		return (0);
 	}
-	pthread_mutex_unlock(coder->run_lock);
+	compile(coder);
+	debug(coder);
+	refactor(coder);
 	return (1);
 }
 
@@ -60,22 +65,8 @@ void	*work(void *inp)
 	needed = coder->table->args->number_of_compiles_required;
 	wait_for_start(coder);
 	usleep(coder->id % 2 * (coder->table->args->time_to_compile / 2));
-	while (compiles < needed)
-	{
-		if (!check_running(coder))
-			break;
-		take_dongles(coder);
-		if (!check_running(coder))
-		{
-			pthread_mutex_unlock(&coder->second->lock);
-			pthread_mutex_unlock(&coder->first->lock);
-			break;
-		}
-		compile(coder);
-		debug(coder);
-		refactor(coder);
+	while (compiles < needed && work_cycle(coder))
 		compiles++;
-	}
 	set_task(coder, SUSPEND, 0);
 	return (NULL);
 }

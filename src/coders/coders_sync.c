@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 22:50:20 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 12:35:05 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:20:20 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,16 @@ void	take_dongles(t_coder *coder)
 	logger_write(coder, "has taken a dongle");
 	pthread_mutex_lock(&coder->second->lock);
 	logger_write(coder, "has taken a dongle");
+}
+
+int	check_running(t_coder *coder)
+{
+	pthread_mutex_lock(coder->run_lock);
+	if (!*(coder->run_signal) || !coder->table->monitor->run)
+	{
+		pthread_mutex_unlock(coder->run_lock);
+		return (0);
+	}
+	pthread_mutex_unlock(coder->run_lock);
+	return (1);
 }
