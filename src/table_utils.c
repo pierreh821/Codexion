@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:15:07 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 15:16:42 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:08:44 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ void	free_table(t_table *table)
 		pthread_mutex_destroy(&table->status->lock);
 		free(table->status);
 	}
+	free(table);
 }
 
 void	join_table(t_table *table)
 {
 	wait_team(table->team);
+	request_stop(table, STOP_COMPLETED, -1);
 	wait_monitor(table->monitor);
 }
 

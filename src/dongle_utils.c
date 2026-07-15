@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 15:09:44 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:06:26 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	free_dongles(t_dongle **dongle_set, int nb)
 	{
 		pthread_mutex_destroy(&(dongle_set[i]->lock));
 		free(dongle_set[i]);
+		i++;
 	}
 	free(dongle_set);
 }

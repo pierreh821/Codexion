@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 11:23:48 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 23:07:39 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	*work(void *inp)
 		refactor(coder);
 		compiles++;
 	}
+	set_task(coder, SUSPEND, 0);
 	return (NULL);
 }
