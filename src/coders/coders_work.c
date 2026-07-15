@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 15:24:07 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 11:23:48 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	compile(t_coder *coder)
 {
 	coder->start = get_time_ms();
-	set_status(coder, COMPILING, 1);
+	set_task(coder, COMPILING, 1);
 	logger_write(coder, "is compiling");
 	usleep(coder->table->args->time_to_compile);
 	pthread_mutex_unlock(&coder->second->lock);
@@ -24,14 +24,14 @@ void	compile(t_coder *coder)
 
 void	debug(t_coder *coder)
 {
-	set_status(coder, DEBUGGING, 0);
+	set_task(coder, DEBUGGING, 0);
 	logger_write(coder, "is debugging");
 	usleep(coder->table->args->time_to_debug);
 }
 
 void	refactor(t_coder *coder)
 {
-	set_status(coder, REFACTORING, 0);
+	set_task(coder, REFACTORING, 0);
 	logger_write(coder, "is refactoring");
 	usleep(coder->table->args->time_to_refactor);
 }

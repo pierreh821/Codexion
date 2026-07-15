@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 15:12:21 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 12:51:32 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,19 @@
 void	check_burnout(t_table *table, int id)
 {
 	t_coder		*coder;
-	t_status	status;
+	t_task		task;
 	long		start;
 
 	coder = table->team->coders_list[id];
-	pthread_mutex_lock(&coder->status_lock);
-	status = coder->status;
+	pthread_mutex_lock(&coder->task_lock);
+	task = coder->task;
 	start = coder->start;
-	pthread_mutex_unlock(&coder->status_lock);
-	if (status != SUSPEND
+	pthread_mutex_unlock(&coder->task_lock);
+	if (task != SUSPEND
 		&& get_time_ms() - start > table->args->time_to_burnout)
 	{
 		logger_write(coder, "burned out");
-		pthread_mutex_lock(&table->team->run_lock);
-		table->team->run_signal = 0;
-		table->monitor->run = 0;
-		pthread_cond_broadcast(&(table->team->run));
-		pthread_mutex_unlock(&(table->team->run_lock));
-		usleep(10000);
-		error("A burnout occured, program stops");
+		request_stop(STOP_BURNOUT, id);
 	}
 }
 
@@ -57,3 +51,4 @@ long	time_elapsed(t_monitor *monitor)
 {
 	return (get_time_ms() - monitor->start);
 }
+

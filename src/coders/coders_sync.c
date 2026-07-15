@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sync.c                                             :+:      :+:    :+:   */
+/*   coders_sync.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 22:50:20 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 17:10:57 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 12:35:05 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ void	wait_for_start(t_coder *coder)
 		pthread_cond_wait(coder->run, coder->run_lock);
 	}
 	pthread_mutex_unlock(coder->run_lock);
+}
+
+void	wait_team(t_team *team)
+{
+	int	id;
+
+	id = 0;
+	while (id < team->nb)
+	{
+		pthread_join(team->coders_list[id]->thread_id, NULL);
+		id++;
+	}
 }
 
 void	dongle_order(t_coder *coder)

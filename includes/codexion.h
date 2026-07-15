@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 10:55:07 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 12:51:24 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include "monitor.h"
 # include "table.h"
 # include "logger.h"
+# include "status.h"
 
-typedef enum e_status		t_status;
+typedef enum e_task			t_task;
+typedef enum e_stop_reason	t_stop_reason;
 typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;
 typedef struct s_team		t_team;
@@ -34,22 +36,26 @@ typedef struct s_monitor	t_monitor;
 typedef struct s_table		t_table;
 typedef struct s_log		t_log;
 typedef struct s_logger		t_logger;
+typedef struct s_status		t_status;
+
 
 void		describe_tm(t_team *team); //dev
 
 t_table		*init_table(int argc, char *argv[], void *(*work)(void *));
+void		join_table(t_table *table);
 void		free_table(t_table *table);
 t_table		*get_table(t_table *set_table);
+int			request_stop(t_stop_reason reason, int	coder_id);
 
 t_args		*clean_args(int argc, char *argv[]);
 void		args_validator(t_args *args);
 
 t_team		*create_team(t_table *table, void *(*work)(void *));
-void		wait_coders(t_team *coders);
-void		free_team(t_team *coders);
+void		wait_team(t_team *team);
+void		free_team(t_team *team);
 void		team_pause(t_team *team);
 void		team_start(t_table *table);
-void		set_status(t_coder *coder, t_status status, int update_start);
+void		set_task(t_coder *coder, t_task task, int update_start);
 
 void		launch_threads(t_table *table, void *(*work)(void *));
 void		assign_dongles(t_team *team);
@@ -58,7 +64,8 @@ t_dongle	*create_dongle(int id);
 void		free_dongles(t_dongle **dongle_set, int nb);
 
 void		create_monitor(t_table *table);
-void		end_wait_monitor(t_monitor *monitor);
+void		free_monitor(t_monitor *monitor);
+void		wait_monitor(t_monitor *monitor);
 void		check_burnout(t_table *table, int id);
 void		*routine(void *arg);
 long		time_elapsed(t_monitor *monitor);

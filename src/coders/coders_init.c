@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 10:52:48 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 11:24:54 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	assign_coders(t_table *table)
 		team->coders_list[i]->run_lock = &(team->run_lock);
 		team->coders_list[i]->run_signal = &(team->run_signal);
 		team->coders_list[i]->table = table;
-		if (pthread_mutex_init(&team->coders_list[i]->status_lock, NULL) != 0)
-			error("Failed to init status_lock mutex");
-		set_status(team->coders_list[i], SUSPEND, 1);
+		if (pthread_mutex_init(&team->coders_list[i]->task_lock, NULL) != 0)
+			error("Failed to init task_lock mutex");
+		set_task(team->coders_list[i], SUSPEND, 1);
 		i++;
 	}
 }

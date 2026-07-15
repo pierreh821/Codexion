@@ -6,19 +6,24 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 10:53:52 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 12:45:05 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
 
-void	end_wait_monitor(t_monitor *monitor)
+void	free_monitor(t_monitor *monitor)
 {
-	monitor->run = 0;
-	pthread_join(monitor->thread_id, NULL);
-	pthread_join(monitor->logger_id, NULL);
+	if (!monitor)
+		return ;
 	free_logger(monitor->logger);
 	free(monitor);
+}
+
+void	wait_monitor(t_monitor *monitor)
+{
+	pthread_join(monitor->thread_id, NULL);
+	pthread_join(monitor->logger_id, NULL);
 }
 
 void	create_monitor(t_table *table)

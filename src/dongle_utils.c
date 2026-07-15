@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 10:51:34 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 12:51:41 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	assign_dongles(t_team *team)
 		if (!team->dongle_set[id])
 		{
 			free_dongles(team->dongle_set, id);
-			error("Failed to allocate memory for dongles");
+			request_stop(STOP_FATAL, 0);
 		}
 		id++;
 	}

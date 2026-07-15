@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 16:02:59 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 12:37:09 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	team_pause(t_team *team)
 	pthread_mutex_unlock(&(team->run_lock));
 }
 
-void	set_status(t_coder *coder, t_status status, int update_start)
+void	set_task(t_coder *coder, t_task task, int update_start)
 {
-	pthread_mutex_lock(&coder->status_lock);
-	coder->status = status;
+	pthread_mutex_lock(&coder->task_lock);
+	coder->task = task;
 	if (update_start)
 		coder->start = get_time_ms();
-	pthread_mutex_unlock(&coder->status_lock);
+	pthread_mutex_unlock(&coder->task_lock);
 }
 
 void	free_team(t_team *team)
@@ -61,9 +61,7 @@ void	free_team(t_team *team)
 		{
 			if (team->coders_list[id])
 			{
-					if (team->coders_list[id]->thread_id)
-					pthread_join(team->coders_list[id]->thread_id, NULL);
-				pthread_mutex_destroy(&team->coders_list[id]->status_lock);
+				pthread_mutex_destroy(&team->coders_list[id]->task_lock);
 				free(team->coders_list[id]);
 			}
 			id++;
