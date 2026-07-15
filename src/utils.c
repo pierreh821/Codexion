@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 01:47:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 11:01:39 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 15:14:40 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ long	get_time_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	error(char *message)
+void	error(t_table *table, char *message)
 {
-	t_table		*table;
 	static int	in_error = 0;
 
 	if (in_error)
@@ -45,11 +44,7 @@ void	error(char *message)
 	in_error = 1;
 	if (message)
 		fprintf(stderr, "Error: %s\n", message);
-	table = get_table(NULL);
 	if (table)
-	{
-		get_table((void *)-1);
 		free_table(table);
-	}
 	exit(EXIT_FAILURE);
 }

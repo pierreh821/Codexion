@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 12:51:24 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 15:17:10 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ void		describe_tm(t_team *team); //dev
 t_table		*init_table(int argc, char *argv[], void *(*work)(void *));
 void		join_table(t_table *table);
 void		free_table(t_table *table);
-t_table		*get_table(t_table *set_table);
-int			request_stop(t_stop_reason reason, int	coder_id);
+int			request_stop(t_table *table, t_stop_reason reason, int	coder_id);
 
 t_args		*clean_args(int argc, char *argv[]);
-void		args_validator(t_args *args);
 
 t_team		*create_team(t_table *table, void *(*work)(void *));
 void		wait_team(t_team *team);
@@ -58,7 +56,7 @@ void		team_start(t_table *table);
 void		set_task(t_coder *coder, t_task task, int update_start);
 
 void		launch_threads(t_table *table, void *(*work)(void *));
-void		assign_dongles(t_team *team);
+int			assign_dongles(t_team *team);
 
 t_dongle	*create_dongle(int id);
 void		free_dongles(t_dongle **dongle_set, int nb);
@@ -81,7 +79,7 @@ void		free_logger(t_logger *logger);
 t_log		*logger_pop(t_logger *logger);
 void		*log_export(void *arg);
 
-void		error(char *message);
+void		error(t_table *table, char *message);
 long		get_time_ms(void);
 void		*ft_calloc(size_t nb, size_t sz);
 

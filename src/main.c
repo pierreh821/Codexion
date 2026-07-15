@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 12:49:58 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 13:08:37 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(int argc, char *argv[])
 	t_stop_reason	reason;
 
 	table = init_table(argc, argv, &work);
+	if (!table)
+		return (1);
 	team_start(table);
 	join_table(table);
 	reason = table->status->reason;
