@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 19:40:31 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 10:52:48 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ t_team	*alloc_coders(int nb)
 {
 	t_team	*team;
 
-	team = malloc(sizeof(t_team));
+	team = ft_calloc(1, sizeof(t_team));
 	if (!team)
 		error("Cannot allocate memory for team");
 	team->nb = nb;
-	team->coders_list = malloc(sizeof(t_coder *) * nb);
+	team->coders_list = ft_calloc(nb, sizeof(t_coder *));
 	if (!team->coders_list)
 		error("Cannot allocate memory for coders list");
-	team->dongle_set = malloc(sizeof(t_dongle *) * nb);
+	team->dongle_set = ft_calloc(nb, sizeof(t_dongle *));
 	if (!team->dongle_set)
 		error("Cannot allocate memeory for dongle set");
 	return (team);
@@ -47,7 +47,7 @@ void	assign_coders(t_table *table)
 	team = table->team;
 	while (i < table->team->nb)
 	{
-		team->coders_list[i] = malloc(sizeof(t_coder));
+		team->coders_list[i] = ft_calloc(1, sizeof(t_coder));
 		team->coders_list[i]->id = i + 1;
 		team->coders_list[i]->run = &(team->run);
 		team->coders_list[i]->run_lock = &(team->run_lock);

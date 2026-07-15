@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 19:12:27 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 10:53:52 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	end_wait_monitor(t_monitor *monitor)
 
 void	create_monitor(t_table *table)
 {
-	table->monitor = malloc(sizeof(t_monitor));
+	table->monitor = ft_calloc(1, sizeof(t_monitor));
 	if (!table->monitor)
 		error("Cannot allocate memory for monitor");
 	table->monitor->run = 1;

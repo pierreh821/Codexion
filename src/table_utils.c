@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:15:07 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 15:29:46 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 10:51:56 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
 {
 	t_table	*table;
 
-	table = malloc(sizeof(t_table));
+	table = ft_calloc(1, sizeof(t_table));
 	if (!table)
 	error("Cannot allocate memory for table");
 	get_table(table);
@@ -28,10 +28,14 @@ t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
 
 void	free_table(t_table *table)
 {
-	free_team(table->team);
-	end_wait_monitor(table->monitor);
-	free(table->args);
-	free(table);
+	if (table->args)
+		free(table->args);
+	if (table->team)
+		free_team(table->team);
+	if (table->monitor)
+		end_wait_monitor(table->monitor);
+	if (table)
+		free(table);
 }
 
 /**

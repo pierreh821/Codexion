@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:19:48 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 18:02:01 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 10:51:47 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_args	*clean_args(int argc, char *argv[])
 
 	if (argc != 9)
 		error("Invalid number of arguments");
-	args = malloc(sizeof(t_args));
+	args = ft_calloc(1, sizeof(t_args));
 	args->number_of_coders = atoi(argv[1]);
 	args->time_to_burnout = atoi(argv[2]);
 	args->time_to_compile = atoi(argv[3]) * 1000;

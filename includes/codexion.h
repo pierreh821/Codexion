@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/14 14:42:42 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/15 10:55:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ typedef struct s_table		t_table;
 typedef struct s_log		t_log;
 typedef struct s_logger		t_logger;
 
-void		error(char *message); // dev
-void		*foo(void *arg);
-void		describe_tm(t_team *team);
+void		describe_tm(t_team *team); //dev
 
 t_table		*init_table(int argc, char *argv[], void *(*work)(void *));
 void		free_table(t_table *table);
@@ -76,6 +74,8 @@ void		free_logger(t_logger *logger);
 t_log		*logger_pop(t_logger *logger);
 void		*log_export(void *arg);
 
+void		error(char *message);
 long		get_time_ms(void);
+void		*ft_calloc(size_t nb, size_t sz);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/13 19:40:12 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/14 16:02:59 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,25 @@ void	free_team(t_team *team)
 {
 	int	id;
 
+	if (!team)
+		return ;
 	id = 0;
-	while (id < team->nb)
+	if (team->coders_list)
 	{
-		pthread_join(team->coders_list[id]->thread_id, NULL);
-		pthread_mutex_destroy(&team->coders_list[id]->status_lock);
-		free(team->coders_list[id]);
-		id++;
+		while (id < team->nb)
+		{
+			if (team->coders_list[id])
+			{
+					if (team->coders_list[id]->thread_id)
+					pthread_join(team->coders_list[id]->thread_id, NULL);
+				pthread_mutex_destroy(&team->coders_list[id]->status_lock);
+				free(team->coders_list[id]);
+			}
+			id++;
+		}
+		free(team->coders_list);
 	}
 	free_dongles(team->dongle_set, team->nb);
-	free(team->coders_list);
 	pthread_mutex_destroy(&(team->run_lock));
 	pthread_cond_destroy(&(team->run));
 	free(team);

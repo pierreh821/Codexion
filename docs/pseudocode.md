@@ -5,7 +5,7 @@ int id = 1;
 int res;
 *pthread_t coders;
 
-coders = malloc(nb_coders)
+coders = ft_calloc(nb_coders, sizeof(t_coder))
 
 
 while (id <= nb_coders):
