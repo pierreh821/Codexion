@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 19:30:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 19:36:43 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	work_cycle(t_coder *coder)
 {
 	if (!check_running(coder))
 		return (0);
-	ask_dongle_waitlist(coder);
+	take_dongles(coder);
 	if (!check_running(coder))
 	{
 		pthread_mutex_unlock(&coder->second->waitlist_lock);

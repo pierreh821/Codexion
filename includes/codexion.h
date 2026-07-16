@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 19:26:25 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 19:37:08 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			assign_dongles(t_team *team);
 
 t_dongle	*create_dongle(int id);
 void		free_dongles(t_dongle **dongle_set, int nb);
+void		take_dongles(t_coder *coder);
 
 void		create_monitor(t_table *table);
 void		free_monitor(t_monitor *monitor);
