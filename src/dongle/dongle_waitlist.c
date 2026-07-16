@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 19:14:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:05:03 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:17:37 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,29 @@ void	take_dongles(t_coder *coder)
 	logger_write(coder, "has taken a dongle");
 }
 
-void	edf(t_dongle *dongle)
+t_coder	*dongle_waitlist_pop(t_dongle *dongle, int id)
 {
-}
+	t_coder	**new_list;
+	t_coder	*removed;
+	int		i;
 
-void	fifo(t_dongle *dongle)
-{
-}
-
-void	*schedule(void *arg)
-{
-	void		(*cycle)(t_dongle *);
-	t_dongle	*dongle;
-
-	dongle = (t_dongle *)arg;
-	if (dongle->table->args->strategy == FIFO)
-		cycle = fifo;
-	else if (dongle->table->args->strategy == EDF)
-		cycle = edf;
-	cycle(dongle);
+	if (dongle->waitlist <= id)
+		return (NULL);
+	removed = dongle->waitlist[id];
+	new_list = NULL;
+	if (dongle->waitlist_sz > 1)
+	{
+		new_list = ft_calloc(dongle->waitlist_sz - 1, sizeof(t_coder *));
+		if (!new_list)
+			return (NULL);
+		i = 0;
+		while (i < id)
+			new_list[i] = dongle->waitlist[i++];
+		while (i < dongle->waitlist_sz - 1)
+			new_list[i] = dongle->waitlist[i++ + 1];
+	}
+	free(dongle->waitlist);
+	dongle->waitlist = new_list;
+	dongle->waitlist_sz--;
+	return (removed);
 }

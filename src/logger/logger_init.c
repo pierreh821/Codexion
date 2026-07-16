@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:34:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 22:30:32 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:10:56 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_log	*logger_pop(t_logger *logger)
 	t_log	*first;
 	int		i;
 
-	if (logger->size == 0)
+	if (logger->size < 1)
 		return (NULL);
 	first = logger->waitlist[0];
 	new_list = NULL;
