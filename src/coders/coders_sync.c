@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 22:50:20 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 23:20:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 10:32:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,6 @@ void	dongle_order(t_coder *coder)
 		coder->first = coder->right_dongle;
 		coder->second = coder->left_dongle;
 	}
-}
-
-void	take_dongles(t_coder *coder)
-{
-	pthread_mutex_lock(&coder->first->lock);
-	logger_write(coder, "has taken a dongle");
-	pthread_mutex_lock(&coder->second->lock);
-	logger_write(coder, "has taken a dongle");
 }
 
 int	check_running(t_coder *coder)

@@ -6,31 +6,13 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 22:37:28 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 19:21:36 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
 
-char	*ft_strdup(const char *src)
-{
-	char	*dest;
-	int		i;
-
-	dest = ft_calloc(strlen(src) + 1, sizeof(char));
-	if (dest == NULL)
-		return (NULL);
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-void	add_to_list(t_table *table, t_logger *logger, t_log *log)
+void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
 {
 	t_log	**new_list;
 	int		i;
@@ -64,7 +46,7 @@ void	logger_write(t_coder *coder, char *text)
 		request_stop(coder->table, STOP_FATAL, coder->id);
 	log->logger = coder->table->monitor->logger;
 	pthread_mutex_lock(&log->logger->lock);
-	add_to_list(coder->table, log->logger, log);
+	extend_waitlist_logger(coder->table, log->logger, log);
 	pthread_mutex_unlock(&log->logger->lock);
 }
 

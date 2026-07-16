@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 23:12:55 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 19:18:49 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_dongle	*create_dongle(int id)
 	dongle = ft_calloc(1, sizeof(t_dongle));
 	if (!dongle)
 		return (NULL);
-	if (pthread_mutex_init(&(dongle->lock), NULL) != 0)
+	dongle->waitlist = NULL;
+	dongle->waitlist_sz = 0;
+	if (pthread_mutex_init(&(dongle->waitlist_lock), NULL) != 0)
 	{
 		free(dongle);
 		return (NULL);
@@ -35,7 +37,8 @@ void	free_dongles(t_dongle **dongle_set, int nb)
 	i = 0;
 	while (i < nb)
 	{
-		pthread_mutex_destroy(&(dongle_set[i]->lock));
+		pthread_mutex_destroy(&(dongle_set[i]->waitlist_lock));
+		free(dongle_set[i]->waitlist);
 		free(dongle_set[i]);
 		i++;
 	}

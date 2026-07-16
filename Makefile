@@ -24,9 +24,10 @@ RM = rm -rf
 SRCS = src/main.c \
 	src/utils.c \
 	src/parser.c \
-	src/dongle_utils.c \
 	src/dev_utils.c \
 	src/table_utils.c \
+	src/dongle/dongle_utils.c \
+	src/dongle/dongle_waitlist.c \
 	src/monitor/monitor_init.c \
 	src/monitor/monitor_utils.c \
 	src/logger/logger_init.c \

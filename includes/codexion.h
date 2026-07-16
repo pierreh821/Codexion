@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 23:20:36 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 19:26:25 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ long		time_elapsed(t_monitor *monitor);
 void		*work(void *inp);
 void		wait_for_start(t_coder *coder);
 void		dongle_order(t_coder *coder);
-void		take_dongles(t_coder *coder);
 int			check_running(t_coder *coder);
 
 void		logger_write(t_coder *coder, char *text);
@@ -82,5 +81,6 @@ void		*log_export(void *arg);
 void		error(t_table *table, char *message);
 long		get_time_ms(void);
 void		*ft_calloc(size_t nb, size_t sz);
+char		*ft_strdup(const char *src);
 
 #endif
