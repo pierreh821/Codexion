@@ -26,7 +26,7 @@ SRCS = src/main.c \
 	src/parser.c \
 	src/dev_utils.c \
 	src/table_utils.c \
-	src/dongle/dongle_utils.c \
+	src/dongle/dongle_init.c \
 	src/dongle/dongle_waitlist.c \
 	src/monitor/monitor_init.c \
 	src/monitor/monitor_utils.c \

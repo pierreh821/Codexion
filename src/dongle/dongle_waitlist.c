@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 19:14:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 19:27:23 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:05:03 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,25 @@ void	take_dongles(t_coder *coder)
 	extend_waitlist_dongle(coder->table, coder->second, coder);
 	pthread_mutex_unlock(&coder->second->waitlist_lock);
 	logger_write(coder, "has taken a dongle");
+}
+
+void	edf(t_dongle *dongle)
+{
+}
+
+void	fifo(t_dongle *dongle)
+{
+}
+
+void	*schedule(void *arg)
+{
+	void		(*cycle)(t_dongle *);
+	t_dongle	*dongle;
+
+	dongle = (t_dongle *)arg;
+	if (dongle->table->args->strategy == FIFO)
+		cycle = fifo;
+	else if (dongle->table->args->strategy == EDF)
+		cycle = edf;
+	cycle(dongle);
 }

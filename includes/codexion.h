@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 19:37:08 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:04:41 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 typedef enum e_task			t_task;
 typedef enum e_stop_reason	t_stop_reason;
+typedef enum e_strategy		t_strategy;
 typedef struct s_args		t_args;
 typedef struct s_coder		t_coder;
 typedef struct s_team		t_team;
@@ -55,8 +56,9 @@ void		team_start(t_table *table);
 void		set_task(t_coder *coder, t_task task, int update_start);
 
 int			launch_threads(t_table *table, void *(*work)(void *));
-int			assign_dongles(t_team *team);
+int			assign_dongles(t_table *table);
 
+void		*schedule(void *arg);
 t_dongle	*create_dongle(int id);
 void		free_dongles(t_dongle **dongle_set, int nb);
 void		take_dongles(t_coder *coder);

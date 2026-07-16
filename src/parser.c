@@ -6,25 +6,20 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:19:48 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 23:12:37 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:01:27 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
 
-int	args_validator(t_args *args)
+int	set_schedule(t_args *args, char *input)
 {
-	if (args->number_of_coders >= 1024)
-	{
-		printf("Number of coders exceeding max (1024)");
+	if (strcmp(input, "fifo") == 0)
+		args->strategy = FIFO;
+	else if (strcmp(input, "edf") == 0)
+		args->strategy = EDF;
+	else
 		return (0);
-	}
-	if (strcmp(args->schedule, "fifo") != 0
-		&& strcmp(args->schedule, "edf") != 0)
-	{
-		printf("Invalid schedule, must be 'fifo' or 'edf'");
-		return (0);
-	}
 	return (1);
 }
 
@@ -45,8 +40,7 @@ t_args	*clean_args(int argc, char *argv[])
 	args->time_to_refactor = atoi(argv[5]) * 1000;
 	args->number_of_compiles_required = atoi(argv[6]);
 	args->dongle_cooldown = atoi(argv[7]);
-	args->schedule = argv[8];
-	if (!args_validator(args))
+	if (!set_schedule(args, argv[8]))
 		return (NULL);
 	return (args);
 }
