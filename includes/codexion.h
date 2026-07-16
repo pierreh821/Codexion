@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:04:41 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:34:48 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		*schedule(void *arg);
 t_dongle	*create_dongle(int id);
 void		free_dongles(t_dongle **dongle_set, int nb);
 void		take_dongles(t_coder *coder);
+t_coder		*dongle_waitlist_pop(t_dongle *dongle, int id);
 
 void		create_monitor(t_table *table);
 void		free_monitor(t_monitor *monitor);
@@ -69,11 +70,12 @@ void		wait_monitor(t_monitor *monitor);
 void		check_burnout(t_table *table, int id);
 void		*routine(void *arg);
 long		time_elapsed(t_monitor *monitor);
+int			is_running(t_table *table);
 
 void		*work(void *inp);
 void		wait_for_start(t_coder *coder);
 void		dongle_order(t_coder *coder);
-int			check_running(t_coder *coder);
+int			check_running_coder(t_coder *coder);
 
 void		logger_write(t_coder *coder, char *text);
 t_logger	*init_logger(void);

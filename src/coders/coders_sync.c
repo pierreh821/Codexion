@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 22:50:20 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 10:32:01 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:32:45 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,9 @@ void	dongle_order(t_coder *coder)
 		coder->first = coder->right_dongle;
 		coder->second = coder->left_dongle;
 	}
-}
+}	
 
-int	check_running(t_coder *coder)
+int	check_running_coder(t_coder *coder)
 {
-	pthread_mutex_lock(coder->run_lock);
-	if (!*(coder->run_signal) || !coder->table->monitor->run)
-	{
-		pthread_mutex_unlock(coder->run_lock);
-		return (0);
-	}
-	pthread_mutex_unlock(coder->run_lock);
-	return (1);
+	return (is_running(coder->table));
 }

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 19:36:43 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/16 23:21:47 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	refactor(t_coder *coder)
 
 int	work_cycle(t_coder *coder)
 {
-	if (!check_running(coder))
+	if (!check_running_coder(coder))
 		return (0);
 	take_dongles(coder);
-	if (!check_running(coder))
+	if (!check_running_coder(coder))
 	{
 		pthread_mutex_unlock(&coder->second->waitlist_lock);
 		pthread_mutex_unlock(&coder->first->waitlist_lock);
