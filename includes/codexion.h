@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 01:25:15 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 01:44:29 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ int			assign_dongles(t_table *table);
 t_dongle	*init_dongle(t_table *table, int id);
 void		free_dongle_set(t_dongle **dongle_set, int nb);
 int			take_dongle(t_dongle *dongle, t_coder *coder);
+void		release_dongle(t_dongle *dongle);
 t_coder		*dongle_waitlist_pop(t_dongle *dongle, int id);
 
 int			waiter_cmp(t_waiter *a, t_waiter *b);
 long		compute_priority(t_dongle *dongle, t_coder *coder);
+int			cooldown_elapsed(t_dongle *dongle, t_table *table);
 int			init_waiter(t_waiter *waiter, t_coder *coder, long priority);
 
 t_waiter	*heap_pop(t_heap *heap, int (*cmp)(t_waiter *, t_waiter *));

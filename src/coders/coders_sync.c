@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 22:50:20 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:32:45 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 01:59:00 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	dongle_order(t_coder *coder)
 		coder->first = coder->right_dongle;
 		coder->second = coder->left_dongle;
 	}
-}	
+}
 
 int	check_running_coder(t_coder *coder)
 {
