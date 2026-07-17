@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 23:07:23 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:35:38 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 00:05:27 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,12 @@ int	check_running_dongle(t_dongle *dongle)
 	return (is_running(dongle->table));
 }
 
-int	edf(t_dongle *dongle)
+int	edf_cmp(t_waiter *a, t_waiter *b)
 {
-	return (1);
+	return (a->priority < b->priority); // for now, change later
 }
 
-int	fifo(t_dongle *dongle)
+int	fifo_cmp(t_waiter *a, t_waiter *b)
 {
-	t_coder	*selected;
-
-	selected = dongle_waitlist_pop(dongle, 0);
-	return (1);
-}
-
-void	*schedule(void *arg)
-{
-	void		(*cycle)(t_dongle *);
-	t_dongle	*dongle;
-
-	dongle = (t_dongle *)arg;
-	if (dongle->table->args->strategy == FIFO)
-		cycle = fifo;
-	else if (dongle->table->args->strategy == EDF)
-		cycle = edf;
-	while (check_running_dongle(dongle))
-		cycle(dongle);
-	return (NULL);
+	return (a->priority < b->priority);
 }

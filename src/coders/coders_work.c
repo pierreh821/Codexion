@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:36:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:21:47 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 00:06:44 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	compile(t_coder *coder)
 	set_task(coder, COMPILING, 1);
 	logger_write(coder, "is compiling");
 	usleep(coder->table->args->time_to_compile);
-	pthread_mutex_unlock(&coder->second->waitlist_lock); // need update soon
-	pthread_mutex_unlock(&coder->first->waitlist_lock);
+	// pthread_mutex_unlock(&coder->second->); // need update soon
+	// pthread_mutex_unlock(&coder->first->waitlist_lock);
 }
 
 void	debug(t_coder *coder)
@@ -40,11 +40,11 @@ int	work_cycle(t_coder *coder)
 {
 	if (!check_running_coder(coder))
 		return (0);
-	take_dongles(coder);
+	// take_dongles(coder);
 	if (!check_running_coder(coder))
 	{
-		pthread_mutex_unlock(&coder->second->waitlist_lock);
-		pthread_mutex_unlock(&coder->first->waitlist_lock);
+		// pthread_mutex_unlock(&coder->second->waitlist_lock);
+		// pthread_mutex_unlock(&coder->first->waitlist_lock);
 		return (0);
 	}
 	compile(coder);
