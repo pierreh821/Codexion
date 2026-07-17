@@ -6,23 +6,17 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 11:27:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 00:03:55 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 01:19:19 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-
-t_waiter	*init_waiter(t_coder *coder)
+int	init_waiter(t_waiter *waiter, t_coder *coder, long priority)
 {
-	t_waiter	*waiter;
-
-	waiter = ft_calloc(1, sizeof(t_coder));
-	if (!waiter)
-		return (NULL);
-	if (pthread_cond_init(&waiter->cond, NULL) != 0)
-		return (free(waiter), NULL);
 	waiter->coder = coder;
+	waiter->priority = priority;
 	waiter->chosen = 0;
-	waiter->priority = 0;
-	return (waiter);
+	if (pthread_cond_init(&waiter->cond, NULL) != 0)
+		return (0);
+	return (1);
 }

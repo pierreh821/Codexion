@@ -6,13 +6,23 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 00:27:38 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 01:22:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
 
-t_dongle	*create_dongle(t_table *table, int id)
+void	free_dongle(t_dongle *dongle)
+{
+	if (!dongle)
+		return ;
+	pthread_mutex_destroy(&dongle->lock);
+	if (dongle->waitlist)
+		free_heap(dongle->waitlist);
+	free(dongle);
+}
+
+t_dongle	*init_dongle(t_table *table, int id)
 {
 	t_dongle	*dongle;
 
@@ -21,23 +31,22 @@ t_dongle	*create_dongle(t_table *table, int id)
 		return (NULL);
 	dongle->waitlist = init_heap(table);
 	if (!dongle->waitlist)
-		return (free(dongle), NULL);
+		return (free_dongle(dongle), NULL);
+	if (pthread_mutex_init(&dongle->lock, NULL) != 0)
+		return (free_dongle(dongle), NULL);
 	dongle->id = id;
 	dongle->table = table;
+	dongle->strategy = table->args->strategy;
 	return (dongle);
 }
 
-void	free_dongles(t_dongle **dongle_set, int nb)
+void	free_dongle_set(t_dongle **dongle_set, int nb)
 {
 	int	i;
 
 	i = 0;
 	while (i < nb)
-	{
-		free_heap(dongle_set[i]->waitlist);
-		free(dongle_set[i]);
-		i++;
-	}
+		free_dongle(dongle_set[i++]);
 	free(dongle_set);
 }
 
@@ -49,7 +58,7 @@ t_heap	*init_heap(t_table *table)
 	if (!heap)
 		return (NULL);
 	heap->capacity = table->args->number_of_coders;
-	heap->items = ft_calloc(heap->capacity, sizeof(t_waiter));
+	heap->items = ft_calloc(heap->capacity, sizeof(t_waiter *));
 	if (!heap->items)
 		return (free(heap), NULL);
 	heap->size = 0;
@@ -58,14 +67,8 @@ t_heap	*init_heap(t_table *table)
 
 void	free_heap(t_heap *heap)
 {
-	int	i;
-
-	i = 0;
-	while (i < heap->size)
-	{
-		free(heap->items[i]);
-		i++;
-	}
+	if (!heap)
+		return ;
 	free(heap->items);
 	free(heap);
 }
@@ -81,7 +84,7 @@ int	assign_dongles(t_table *table)
 	id = 0;
 	while (id < nb)
 	{
-		team->dongle_set[id] = create_dongle(table, id);
+		team->dongle_set[id] = init_dongle(table, id);
 		if (!team->dongle_set[id])
 			return (1);
 		id++;

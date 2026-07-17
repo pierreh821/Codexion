@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/07/18 00:07:29 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 01:24:22 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,14 @@ typedef struct s_heap
 
 typedef struct s_dongle
 {
-	int		id;
-	t_table	*table;
-	t_heap	*waitlist;
+	int				id;
+	t_table			*table;
+	t_heap			*waitlist;
+	pthread_mutex_t	lock;
+	long			next_ticket;
+	int				in_use;
+	long			released;
+	t_strategy		strategy;
 }	t_dongle;
 
 #endif

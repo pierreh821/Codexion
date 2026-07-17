@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 12:37:09 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 00:37:45 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	free_team(t_team *team)
 		}
 		free(team->coders_list);
 	}
-	free_dongles(team->dongle_set, team->nb);
+	free_dongle_set(team->dongle_set, team->nb);
 	pthread_mutex_destroy(&(team->run_lock));
 	pthread_cond_destroy(&(team->run));
 	free(team);
