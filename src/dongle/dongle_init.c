@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/17 11:25:04 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 00:27:38 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,35 @@ void	free_dongles(t_dongle **dongle_set, int nb)
 		i++;
 	}
 	free(dongle_set);
+}
+
+t_heap	*init_heap(t_table *table)
+{
+	t_heap	*heap;
+
+	heap = ft_calloc(1, sizeof(t_heap));
+	if (!heap)
+		return (NULL);
+	heap->capacity = table->args->number_of_coders;
+	heap->items = ft_calloc(heap->capacity, sizeof(t_waiter));
+	if (!heap->items)
+		return (free(heap), NULL);
+	heap->size = 0;
+	return (heap);
+}
+
+void	free_heap(t_heap *heap)
+{
+	int	i;
+
+	i = 0;
+	while (i < heap->size)
+	{
+		free(heap->items[i]);
+		i++;
+	}
+	free(heap->items);
+	free(heap);
 }
 
 int	assign_dongles(t_table *table)
