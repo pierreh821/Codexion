@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:14:43 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:35:48 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*routine(void *arg)
 	int		i;
 
 	table = (t_table *)arg;
-	while (table->monitor->run)
+	while (is_running(table))
 	{
 		i = 0;
 		while (i < table->team->nb)

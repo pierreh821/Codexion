@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:35:05 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:26:03 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:20:28 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_log
 typedef struct s_logger
 {
 	pthread_mutex_t	lock;
+	pthread_cond_t	has_log;
 	t_log			**waitlist;
 	int				size;
 }	t_logger;

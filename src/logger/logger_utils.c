@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:16:55 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:24:22 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	logger_write(t_coder *coder, char *text)
 	log->logger = coder->table->monitor->logger;
 	pthread_mutex_lock(&log->logger->lock);
 	extend_waitlist_logger(coder->table, log->logger, log);
+	pthread_cond_signal(&log->logger->has_log);
 	pthread_mutex_unlock(&log->logger->lock);
 }
 
@@ -60,9 +61,11 @@ void	*log_export(void *arg)
 
 	table = (t_table *)arg;
 	logger = table->monitor->logger;
-	while (table->monitor->run || logger->size > 0)
+	pthread_mutex_lock(&logger->lock);
+	while (is_running(table) || logger->size > 0)
 	{
-		pthread_mutex_lock(&logger->lock);
+		while (logger->size == 0 && is_running(table))
+			pthread_cond_wait(&logger->has_log, &logger->lock);
 		while (logger->size > 0)
 		{
 			log = logger_pop(logger);
@@ -73,8 +76,7 @@ void	*log_export(void *arg)
 				free(log);
 			}
 		}
-		pthread_mutex_unlock(&logger->lock);
-		sliced_sleep(table, 5000);
 	}
+	pthread_mutex_unlock(&logger->lock);
 	return (NULL);
 }
