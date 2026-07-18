@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:22:45 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 15:09:00 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		alloc_team(t_table *table);
 int		assign_cond(t_table *table);
 int		assign_coders(t_table *table);
 int		launch_threads(t_table *table, void *(*work)(void *));
-t_team	*create_team(t_table *table, void *(*work)(void *));
+int		create_team(t_table *table, void *(*work)(void *));
 
 void	wait_for_start(t_coder *coder);
 void	wait_team(t_team *team);

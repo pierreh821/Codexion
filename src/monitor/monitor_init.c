@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 13:01:53 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 14:05:51 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	create_monitor(t_table *table)
 {
 	table->monitor = ft_calloc(1, sizeof(t_monitor));
 	if (!table->monitor)
-		return (free_table(table));
+		return ;
 	table->monitor->run = 1;
 	if (pthread_create(&table->monitor->thread_id, NULL, routine, table) != 0)
-		return (free_table(table));
+		return ;
 	table->monitor->logger = init_logger();
 	if (!table->monitor->logger)
-		return (free_table(table));
+		return ;
 	if (pthread_create(&table->monitor->logger_id, NULL,
 			log_export, table) != 0)
-		return (free_table(table));
+		return ;
 }
