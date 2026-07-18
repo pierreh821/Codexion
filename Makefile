@@ -69,7 +69,7 @@ $(OBJ_DIR)/%.o: %.c
 clean:
 	printf "$(CYAN)Cleaning $(OBJ_DIR)...$(RESET) "
 	if [ -d "$(OBJ_DIR)" ]; then \
-		$(RM) $(OBJ_DIR) && \
+		$(RM) $(OBJ_DIR) log && \
 		echo "$(GREEN)✓ Object files removed $(RESET)"; \
 	else \
 		echo "$(YELLOW)⚠ Nothing to clean $(RESET)"; \
