@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:08:13 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 15:58:39 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_monitor
 
 void	free_monitor(t_monitor *monitor);
 void	wait_monitor(t_monitor *monitor);
-void	create_monitor(t_table *table);
+int		create_monitor(t_table *table);
 
 void	check_burnout(t_table *table, int id);
 void	*routine(void *arg);
