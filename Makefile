@@ -50,7 +50,7 @@ CURRENT := 0
 all: $(NAME)
 
 help:
-	echo "Usage: ./codexion [number_of_coders] [time_to_burnout] [time_to_compile] [time_to_debug] [time_to_compile] [number_of_compiles_required] [dongle_cooldown] [scheduler (fifo/edf)]"
+	echo "Usage: ./codexion [number_of_coders] [time_to_burnout] [time_to_compile] [time_to_debug] [time_to_refactor] [number_of_compiles_required] [dongle_cooldown] [scheduler (fifo/edf)]"
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
