@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:24:22 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 15:24:39 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,19 @@ void	logger_write(t_coder *coder, char *text)
 
 	log = ft_calloc(1, sizeof(t_log));
 	if (!log)
+	{
 		request_stop(coder->table, STOP_FATAL, coder->id);
+		return ;
+	}
 	log->id = coder->id;
 	log->timestamp = time_elapsed(coder->table->monitor);
 	log->text = ft_strdup(text);
 	if (!log->text)
+	{
+		free(log);
 		request_stop(coder->table, STOP_FATAL, coder->id);
+		return ;
+	}
 	log->logger = coder->table->monitor->logger;
 	pthread_mutex_lock(&log->logger->lock);
 	extend_waitlist_logger(coder->table, log->logger, log);
