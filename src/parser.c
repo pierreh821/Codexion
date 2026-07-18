@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 11:01:03 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 11:40:51 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	args_validator(int argc, char *argv[])
 	if (argc != 9)
 		return ((void)fprintf(stderr, "Invalid number of arguments\n"), 0);
 	if (!ft_isnumber(argv[1]))
-		printf("number_of_coders must be a non-negative integer\n");
+		return ((void)printf("number_of_coders must be a non-negative \
+integer\n"), 0);
 	if (!ft_isnumber(argv[2]))
 		return ((void)printf("time_to_burnout must be a non-negative \
 integer\n"), 0);
