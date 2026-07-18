@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:08:02 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 15:09:35 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 15:19:39 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	create_team(t_table *table, void *(*work)(void *))
 {
 	int			res;
 
-	return (0);
 	res = 0;
 	res += alloc_team(table);
 	res += assign_cond(table);
