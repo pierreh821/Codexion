@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:11:05 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 02:45:34 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 23:05:26 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	take_dongles(t_coder *coder)
 	if (!take_dongle(coder->first, coder))
 		return (0);
 	logger_write(coder, "has taken a dongle");
+	if (coder->first == coder->second)
+		return (1);
 	if (!take_dongle(coder->second, coder))
 	{
 		release_dongle(coder->first);
@@ -48,7 +50,8 @@ int	work_cycle(t_coder *coder)
 		return (0);
 	if (!is_running(coder->table))
 	{
-		release_dongle(coder->second);
+		if (coder->second != coder->first)
+			release_dongle(coder->second);
 		release_dongle(coder->first);
 		return (0);
 	}

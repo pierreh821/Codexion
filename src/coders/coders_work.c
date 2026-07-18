@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:14:58 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:13:52 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 23:05:02 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	compile(t_coder *coder)
 	set_task(coder, COMPILING, 1);
 	logger_write(coder, "is compiling");
 	sliced_sleep(coder->table, coder->table->args->time_to_compile);
-	release_dongle(coder->second);
+	if (coder->second != coder->first)
+		release_dongle(coder->second);
 	release_dongle(coder->first);
 }
 
