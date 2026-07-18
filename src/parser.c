@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 10:53:19 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 11:01:03 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,27 @@
 int	args_validator(int argc, char *argv[])
 {
 	if (argc != 9)
-	{
-		fprintf(stderr, "Invalid number of arguments\n");
-		return (0);
-	}
+		return ((void)fprintf(stderr, "Invalid number of arguments\n"), 0);
 	if (!ft_isnumber(argv[1]))
-		printf("number_of_coders must be a number\n");
+		printf("number_of_coders must be a non-negative integer\n");
 	if (!ft_isnumber(argv[2]))
-		return ((void)printf("time_to_burnout must be a number\n"), 0);
+		return ((void)printf("time_to_burnout must be a non-negative \
+integer\n"), 0);
 	if (!ft_isnumber(argv[3]))
-		return ((void)printf("time_to_compile must be a number\n"), 0);
+		return ((void)printf("time_to_compile must be a non-negative \
+integer\n"), 0);
 	if (!ft_isnumber(argv[4]))
-		return ((void)printf("time_to_debug must be a number\n"), 0);
+		return ((void)printf("time_to_debug must be a non-negative \
+integer\n"), 0);
 	if (!ft_isnumber(argv[5]))
-		return ((void)printf("time_to_refactor must be a number\n"), 0);
+		return ((void)printf("time_to_refactor must be a non-negative \
+integer\n"), 0);
 	if (!ft_isnumber(argv[6]))
-		return ((void)printf("number_of_compiles_required must be a number\n"), 0);
+		return ((void)printf("number_of_compiles must be a non-negative \
+integer\n"), 0);
 	if (!ft_isnumber(argv[7]))
-		return ((void)printf("dongle_cooldown must be a number\n"), 0);
+		return ((void)printf("dongle_cooldown must be a non-negative \
+integer\n"), 0);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:16:53 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:03:23 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 11:08:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,19 @@ int	queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter)
 void	wait_cooldown(t_dongle *dongle, t_table *table)
 {
 	long	remaining;
+	long	slice;
 
 	remaining = (table->args->dongle_cooldown
 			- (get_time_ms() - dongle->released));
-	if (remaining > 0)
-		usleep(remaining * 1000);
+	while (remaining > 0 && is_running(table))
+	{
+		if (remaining < 10)
+			slice = remaining;
+		else
+			slice = 10;
+		usleep(slice * 1000);
+		remaining -= slice;
+	}
 }
 
 int	try_fast_dongle(t_dongle *dongle, t_coder *coder)
