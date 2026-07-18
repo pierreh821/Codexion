@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:08:02 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 15:19:39 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 15:53:12 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@ int	alloc_team(t_table *table)
 	nb = table->args->number_of_coders;
 	table->team = ft_calloc(1, sizeof(t_team));
 	if (!table->team)
-		return (1);
+		return (0);
 	table->team->nb = nb;
 	table->team->coders_list = ft_calloc(nb, sizeof(t_coder *));
 	if (!table->team->coders_list)
-		return (1);
+		return (0);
 	table->team->dongle_set = ft_calloc(nb, sizeof(t_dongle *));
 	if (!table->team->dongle_set)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 int	assign_cond(t_table *table)
 {
 	if (pthread_cond_init(&(table->team->run), NULL) != 0)
-		return (1);
+		return (0);
 	if (pthread_mutex_init(&(table->team->run_lock), NULL) != 0)
-		return (1);
+		return (0);
 	table->team->run_signal = 0;
-	return (0);
+	return (1);
 }
 
 int	assign_coders(t_table *table)
@@ -51,18 +51,18 @@ int	assign_coders(t_table *table)
 	{
 		team->coders_list[i] = ft_calloc(1, sizeof(t_coder));
 		if (!team->coders_list[i])
-			return (1);
+			return (0);
 		team->coders_list[i]->id = i + 1;
 		team->coders_list[i]->run = &(team->run);
 		team->coders_list[i]->run_lock = &(team->run_lock);
 		team->coders_list[i]->run_signal = &(team->run_signal);
 		team->coders_list[i]->table = table;
 		if (pthread_mutex_init(&team->coders_list[i]->task_lock, NULL) != 0)
-			return (1);
+			return (0);
 		set_task(team->coders_list[i], SUSPEND, 1);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	launch_threads(t_table *table, void *(*work)(void *))
@@ -74,23 +74,23 @@ int	launch_threads(t_table *table, void *(*work)(void *))
 	{
 		if (pthread_create(&table->team->coders_list[i]->thread_id, NULL, work,
 				table->team->coders_list[i]) != 0)
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	create_team(t_table *table, void *(*work)(void *))
 {
-	int			res;
-
-	res = 0;
-	res += alloc_team(table);
-	res += assign_cond(table);
-	res += assign_coders(table);
-	res += assign_dongles(table);
-	res += launch_threads(table, work);
-	if (res > 0)
+	if (!alloc_team(table))
+		return (0);
+	if (!assign_cond(table))
+		return (0);
+	if (!assign_coders(table))
+		return (0);
+	if (!assign_dongles(table))
+		return (0);
+	if (!launch_threads(table, work))
 		return (0);
 	return (1);
 }

@@ -134,3 +134,18 @@ Could look like this at the end:
         ├── coder_utils.c
         └── error.c
 ```
+
+# Tests
+
+## testing if everything works when the function returns error (0, NULL, etc..)
+
+- `clean_args`
+- `ft_calloc`
+- `ft_strdup`
+- `init_table`
+- `create_team`
+- `alloc_team`
+- `assign_cond`
+- `assign_coders`
+- `assign_dongles`
+- `launch_threads`

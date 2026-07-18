@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:15:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:23:31 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 15:53:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	assign_dongles(t_table *table)
 	{
 		team->dongle_set[id] = init_dongle(table, id);
 		if (!team->dongle_set[id])
-			return (1);
+			return (0);
 		id++;
 	}
 	id = 0;
@@ -74,5 +74,5 @@ int	assign_dongles(t_table *table)
 		team->coders_list[id]->right_dongle = team->dongle_set[(id + 1) % nb];
 		id++;
 	}
-	return (0);
+	return (1);
 }
