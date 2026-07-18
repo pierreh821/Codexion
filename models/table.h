@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 18:07:17 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:12:50 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:07:25 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ t_table	*init_table(int argc, char *argv[], void *(*work)(void *));
 void	free_table(t_table *table);
 void	join_table(t_table *table);
 int		request_stop(t_table *table, t_stop_reason reason, int coder_id);
+int		sliced_sleep(t_table *table, long time);
 
 #endif

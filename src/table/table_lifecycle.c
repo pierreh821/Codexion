@@ -6,12 +6,13 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:21:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:13:18 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:07:25 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 void	free_table(t_table *table)
 {
@@ -52,4 +53,20 @@ int	request_stop(t_table *table, t_stop_reason reason, int coder_id)
 	}
 	pthread_mutex_unlock(&table->status->lock);
 	return (first);
+}
+
+int	sliced_sleep(t_table *table, long time)
+{
+	long	slice;
+
+	while (time > 0 && is_running(table))
+	{
+		if (time > 10)
+			slice = 10;
+		else
+			slice = time;
+		usleep(slice);
+		time -= slice;
+	}
+	return (is_running(table));
 }

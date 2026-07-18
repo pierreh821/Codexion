@@ -6,12 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:05:23 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:14:43 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-#include <unistd.h>
 
 void	check_burnout(t_table *table, int id)
 {
@@ -43,7 +42,7 @@ void	*routine(void *arg)
 		i = 0;
 		while (i < table->team->nb)
 			check_burnout(table, i++);
-		usleep(1000);
+		sliced_sleep(table, 1000);
 	}
 	return (NULL);
 }

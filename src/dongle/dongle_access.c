@@ -6,12 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:16:53 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 11:08:07 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:07:25 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-#include <unistd.h>
 
 int	queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter)
 {
@@ -28,29 +27,16 @@ int	queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter)
 	return (1);
 }
 
-void	wait_cooldown(t_dongle *dongle, t_table *table)
-{
-	long	remaining;
-	long	slice;
-
-	remaining = (table->args->dongle_cooldown
-			- (get_time_ms() - dongle->released));
-	while (remaining > 0 && is_running(table))
-	{
-		if (remaining < 10)
-			slice = remaining;
-		else
-			slice = 10;
-		usleep(slice * 1000);
-		remaining -= slice;
-	}
-}
-
 int	try_fast_dongle(t_dongle *dongle, t_coder *coder)
 {
+	long	remaining;
+
 	if (dongle->in_use)
 		return (0);
-	wait_cooldown(dongle, coder->table);
+	remaining = (coder->table->args->dongle_cooldown
+			- (get_time_ms() - dongle->released));
+	if (remaining > 0)
+		sliced_sleep(coder->table, remaining * 1000);
 	dongle->in_use = 1;
 	return (1);
 }

@@ -6,14 +6,13 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:04:51 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 12:16:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
 void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
 {
@@ -75,7 +74,7 @@ void	*log_export(void *arg)
 			}
 		}
 		pthread_mutex_unlock(&logger->lock);
-		usleep(500);
+		sliced_sleep(table, 5000);
 	}
 	return (NULL);
 }
