@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 11:24:54 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 03:22:45 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,28 @@ typedef struct s_team
 	t_dongle		**dongle_set;
 	void			*(*work)(void *);
 }	t_team;
+
+void	compile(t_coder *coder);
+void	debug(t_coder *coder);
+void	refactor(t_coder *coder);
+void	*work(void *inp);
+
+void	dongle_order(t_coder *coder);
+int		take_dongles(t_coder *coder);
+int		work_cycle(t_coder *coder);
+
+int		alloc_team(t_table *table);
+int		assign_cond(t_table *table);
+int		assign_coders(t_table *table);
+int		launch_threads(t_table *table, void *(*work)(void *));
+t_team	*create_team(t_table *table, void *(*work)(void *));
+
+void	wait_for_start(t_coder *coder);
+void	wait_team(t_team *team);
+void	team_start(t_table *table);
+void	team_pause(t_team *team);
+void	set_task(t_coder *coder, t_task task, int update_start);
+
+void	free_team(t_team *team);
 
 #endif

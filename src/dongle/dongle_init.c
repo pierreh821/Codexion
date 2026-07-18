@@ -5,22 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/06 18:18:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 01:22:55 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:15:49 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 03:23:31 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-
-void	free_dongle(t_dongle *dongle)
-{
-	if (!dongle)
-		return ;
-	pthread_mutex_destroy(&dongle->lock);
-	if (dongle->waitlist)
-		free_heap(dongle->waitlist);
-	free(dongle);
-}
+#include <stdlib.h>
 
 t_dongle	*init_dongle(t_table *table, int id)
 {
@@ -40,6 +31,16 @@ t_dongle	*init_dongle(t_table *table, int id)
 	return (dongle);
 }
 
+void	free_dongle(t_dongle *dongle)
+{
+	if (!dongle)
+		return ;
+	pthread_mutex_destroy(&dongle->lock);
+	if (dongle->waitlist)
+		free_heap(dongle->waitlist);
+	free(dongle);
+}
+
 void	free_dongle_set(t_dongle **dongle_set, int nb)
 {
 	int	i;
@@ -48,29 +49,6 @@ void	free_dongle_set(t_dongle **dongle_set, int nb)
 	while (i < nb)
 		free_dongle(dongle_set[i++]);
 	free(dongle_set);
-}
-
-t_heap	*init_heap(t_table *table)
-{
-	t_heap	*heap;
-
-	heap = ft_calloc(1, sizeof(t_heap));
-	if (!heap)
-		return (NULL);
-	heap->capacity = table->args->number_of_coders;
-	heap->items = ft_calloc(heap->capacity, sizeof(t_waiter *));
-	if (!heap->items)
-		return (free(heap), NULL);
-	heap->size = 0;
-	return (heap);
-}
-
-void	free_heap(t_heap *heap)
-{
-	if (!heap)
-		return ;
-	free(heap->items);
-	free(heap);
 }
 
 int	assign_dongles(t_table *table)

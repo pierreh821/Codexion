@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dongle_waitlist.c                                  :+:      :+:    :+:   */
+/*   dongle_access.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/16 19:14:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 01:58:16 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:16:53 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 03:03:23 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <unistd.h>
 
 int	queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter)
 {

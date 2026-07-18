@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coders_utils.c                                     :+:      :+:    :+:   */
+/*   coders_lifecycle.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/12 00:30:39 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 00:37:45 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:09:41 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 03:26:20 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+
+void	wait_for_start(t_coder *coder)
+{
+	pthread_mutex_lock(coder->run_lock);
+	while (*(coder->run_signal) == 0)
+	{
+		pthread_cond_wait(coder->run, coder->run_lock);
+	}
+	pthread_mutex_unlock(coder->run_lock);
+}
+
+void	wait_team(t_team *team)
+{
+	int	id;
+
+	id = 0;
+	while (id < team->nb)
+	{
+		pthread_join(team->coders_list[id]->thread_id, NULL);
+		id++;
+	}
+}
 
 void	team_start(t_table *table)
 {
@@ -46,30 +68,4 @@ void	set_task(t_coder *coder, t_task task, int update_start)
 	if (update_start)
 		coder->start = get_time_ms();
 	pthread_mutex_unlock(&coder->task_lock);
-}
-
-void	free_team(t_team *team)
-{
-	int	id;
-
-	if (!team)
-		return ;
-	id = 0;
-	if (team->coders_list)
-	{
-		while (id < team->nb)
-		{
-			if (team->coders_list[id])
-			{
-				pthread_mutex_destroy(&team->coders_list[id]->task_lock);
-				free(team->coders_list[id]);
-			}
-			id++;
-		}
-		free(team->coders_list);
-	}
-	free_dongle_set(team->dongle_set, team->nb);
-	pthread_mutex_destroy(&(team->run_lock));
-	pthread_cond_destroy(&(team->run));
-	free(team);
 }

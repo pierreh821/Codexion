@@ -6,11 +6,12 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:32:14 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 03:05:23 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <unistd.h>
 
 void	check_burnout(t_table *table, int id)
 {

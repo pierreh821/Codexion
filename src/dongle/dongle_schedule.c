@@ -5,17 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/16 23:07:23 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 01:44:07 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:18:22 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 02:19:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-
-int	check_running_dongle(t_dongle *dongle)
-{
-	return (is_running(dongle->table));
-}
 
 long	compute_priority(t_dongle *dongle, t_coder *coder)
 {

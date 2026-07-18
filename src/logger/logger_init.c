@@ -6,11 +6,12 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:34:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:10:56 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 03:24:40 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdlib.h>
 
 t_log	*logger_pop(t_logger *logger)
 {

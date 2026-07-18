@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 19:47:10 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/17 23:58:45 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 03:06:12 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,8 @@ typedef struct s_args
 	int			dongle_cooldown;
 	t_strategy	strategy;
 }	t_args;
+
+t_args	*clean_args(int argc, char *argv[]);
+int		set_schedule(t_args *args, char *input);
 
 #endif

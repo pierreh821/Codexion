@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coders_waiter.c                                    :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/17 11:27:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 01:57:20 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:51:54 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 02:54:05 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/codexion.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	init_waiter(t_waiter *waiter, t_coder *coder, long priority)
-{
-	waiter->coder = coder;
-	waiter->priority = priority;
-	waiter->chosen = 0;
-	if (pthread_cond_init(&waiter->cond, NULL) != 0)
-		return (0);
-	return (1);
-}
+# include <stddef.h>
+
+void	*ft_calloc(size_t nb, size_t size);
+char	*ft_strdup(const char *src);
+long	get_time_ms(void);
+
+#endif

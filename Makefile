@@ -24,21 +24,22 @@ RM = rm -rf
 SRCS = src/main.c \
 	src/utils.c \
 	src/parser.c \
-	src/dev_utils.c \
-	src/table_utils.c \
+	src/coders/coders_cycle.c \
+	src/coders/coders_init.c \
+	src/coders/coders_lifecycle.c \
+	src/coders/coders_work.c \
+	src/coders/coders_clean.c \
+	src/dongle/dongle_access.c \
 	src/dongle/dongle_init.c \
-	src/dongle/dongle_waitlist.c \
-	src/dongle/dongle_heap.c \
+	src/dongle/heap_init.c \
+	src/dongle/heap.c \
 	src/dongle/dongle_schedule.c \
-	src/monitor/monitor_init.c \
-	src/monitor/monitor_utils.c \
 	src/logger/logger_init.c \
 	src/logger/logger_utils.c \
-	src/coders/coders_init.c \
-	src/coders/coders_utils.c \
-	src/coders/coders_waiter.c \
-	src/coders/coders_work.c \
-	src/coders/coders_sync.c \
+	src/monitor/monitor_init.c \
+	src/monitor/monitor_utils.c \
+	src/table/table_init.c \
+	src/table/table_lifecycle.c \
 
 OBJ_DIR = obj
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))

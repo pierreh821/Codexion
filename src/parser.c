@@ -5,23 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/05 21:19:48 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 23:01:27 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 03:14:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-
-int	set_schedule(t_args *args, char *input)
-{
-	if (strcmp(input, "fifo") == 0)
-		args->strategy = FIFO;
-	else if (strcmp(input, "edf") == 0)
-		args->strategy = EDF;
-	else
-		return (0);
-	return (1);
-}
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 t_args	*clean_args(int argc, char *argv[])
 {
@@ -43,4 +36,15 @@ t_args	*clean_args(int argc, char *argv[])
 	if (!set_schedule(args, argv[8]))
 		return (NULL);
 	return (args);
+}
+
+int	set_schedule(t_args *args, char *input)
+{
+	if (strcmp(input, "fifo") == 0)
+		args->strategy = FIFO;
+	else if (strcmp(input, "edf") == 0)
+		args->strategy = EDF;
+	else
+		return (0);
+	return (1);
 }

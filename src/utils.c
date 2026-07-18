@@ -6,11 +6,13 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 01:47:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 19:19:31 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 03:26:16 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdlib.h>
+#include <string.h>
 
 void	*ft_calloc(size_t nb, size_t size)
 {
@@ -51,18 +53,4 @@ long	get_time_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-void	error(t_table *table, char *message)
-{
-	static int	in_error = 0;
-
-	if (in_error)
-		return ;
-	in_error = 1;
-	if (message)
-		fprintf(stderr, "Error: %s\n", message);
-	if (table)
-		free_table(table);
-	exit(EXIT_FAILURE);
 }

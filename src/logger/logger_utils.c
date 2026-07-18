@@ -6,11 +6,14 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 19:21:36 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 03:04:51 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 
 void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
 {

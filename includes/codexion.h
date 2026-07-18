@@ -6,99 +6,18 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 21:39:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 01:44:29 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 02:53:47 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
-
-# include <stdlib.h>
-# include <string.h>
-# include <stdio.h>
-# include <unistd.h>
-
+# include "utils.h"
 # include "args.h"
 # include "coders.h"
 # include "dongle.h"
-# include "monitor.h"
-# include "table.h"
 # include "logger.h"
+# include "monitor.h"
 # include "status.h"
-
-typedef enum e_task			t_task;
-typedef enum e_stop_reason	t_stop_reason;
-typedef enum e_strategy		t_strategy;
-typedef struct s_args		t_args;
-typedef struct s_coder		t_coder;
-typedef struct s_team		t_team;
-typedef struct s_waiter		t_waiter;
-typedef struct s_heap		t_heap;
-typedef struct s_dongle		t_dongle;
-typedef struct s_monitor	t_monitor;
-typedef struct s_table		t_table;
-typedef struct s_log		t_log;
-typedef struct s_logger		t_logger;
-typedef struct s_status		t_status;
-
-void		describe_tm(t_team *team); //dev
-
-t_table		*init_table(int argc, char *argv[], void *(*work)(void *));
-void		join_table(t_table *table);
-void		free_table(t_table *table);
-int			request_stop(t_table *table, t_stop_reason reason, int coder_id);
-
-t_args		*clean_args(int argc, char *argv[]);
-
-t_team		*create_team(t_table *table, void *(*work)(void *));
-void		wait_team(t_team *team);
-void		free_team(t_team *team);
-void		team_pause(t_team *team);
-void		team_start(t_table *table);
-void		set_task(t_coder *coder, t_task task, int update_start);
-
-int			launch_threads(t_table *table, void *(*work)(void *));
-int			assign_dongles(t_table *table);
-
-t_dongle	*init_dongle(t_table *table, int id);
-void		free_dongle_set(t_dongle **dongle_set, int nb);
-int			take_dongle(t_dongle *dongle, t_coder *coder);
-void		release_dongle(t_dongle *dongle);
-t_coder		*dongle_waitlist_pop(t_dongle *dongle, int id);
-
-int			waiter_cmp(t_waiter *a, t_waiter *b);
-long		compute_priority(t_dongle *dongle, t_coder *coder);
-int			cooldown_elapsed(t_dongle *dongle, t_table *table);
-int			init_waiter(t_waiter *waiter, t_coder *coder, long priority);
-
-t_waiter	*heap_pop(t_heap *heap, int (*cmp)(t_waiter *, t_waiter *));
-t_heap		*init_heap(t_table *table);
-void		free_heap(t_heap *heap);
-int			heap_push(t_heap *heap, t_waiter *waiter,
-				int (*cmp)(t_waiter *, t_waiter *));
-
-void		create_monitor(t_table *table);
-void		free_monitor(t_monitor *monitor);
-void		wait_monitor(t_monitor *monitor);
-void		check_burnout(t_table *table, int id);
-void		*routine(void *arg);
-long		time_elapsed(t_monitor *monitor);
-int			is_running(t_table *table);
-
-void		*work(void *inp);
-void		wait_for_start(t_coder *coder);
-void		dongle_order(t_coder *coder);
-int			check_running_coder(t_coder *coder);
-
-void		logger_write(t_coder *coder, char *text);
-t_logger	*init_logger(void);
-void		free_logger(t_logger *logger);
-t_log		*logger_pop(t_logger *logger);
-void		*log_export(void *arg);
-
-void		error(t_table *table, char *message);
-long		get_time_ms(void);
-void		*ft_calloc(size_t nb, size_t sz);
-char		*ft_strdup(const char *src);
-
+# include "table.h"
 #endif

@@ -6,11 +6,12 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 19:40:33 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/15 22:26:13 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 03:05:12 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdlib.h>
 
 void	free_monitor(t_monitor *monitor)
 {

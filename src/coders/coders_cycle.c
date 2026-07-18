@@ -1,38 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coders_sync.c                                      :+:      :+:    :+:   */
+/*   coders_cycle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/12 22:50:20 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 01:59:00 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:11:05 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 02:45:34 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-
-void	wait_for_start(t_coder *coder)
-{
-	pthread_mutex_lock(coder->run_lock);
-	while (*(coder->run_signal) == 0)
-	{
-		pthread_cond_wait(coder->run, coder->run_lock);
-	}
-	pthread_mutex_unlock(coder->run_lock);
-}
-
-void	wait_team(t_team *team)
-{
-	int	id;
-
-	id = 0;
-	while (id < team->nb)
-	{
-		pthread_join(team->coders_list[id]->thread_id, NULL);
-		id++;
-	}
-}
 
 void	dongle_order(t_coder *coder)
 {
@@ -48,7 +26,34 @@ void	dongle_order(t_coder *coder)
 	}
 }
 
-int	check_running_coder(t_coder *coder)
+int	take_dongles(t_coder *coder)
 {
-	return (is_running(coder->table));
+	if (!take_dongle(coder->first, coder))
+		return (0);
+	logger_write(coder, "has taken a dongle");
+	if (!take_dongle(coder->second, coder))
+	{
+		release_dongle(coder->first);
+		return (0);
+	}
+	logger_write(coder, "has taken a dongle");
+	return (1);
+}
+
+int	work_cycle(t_coder *coder)
+{
+	if (!is_running(coder->table))
+		return (0);
+	if (!take_dongles(coder))
+		return (0);
+	if (!is_running(coder->table))
+	{
+		release_dongle(coder->second);
+		release_dongle(coder->first);
+		return (0);
+	}
+	compile(coder);
+	debug(coder);
+	refactor(coder);
+	return (1);
 }

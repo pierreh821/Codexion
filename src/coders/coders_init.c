@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/07 03:23:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/16 20:55:11 by phenry           ###   ########.fr       */
+/*   Created: 2026/07/18 02:08:02 by phenry            #+#    #+#             */
+/*   Updated: 2026/07/18 03:23:54 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	alloc_team(t_table *table)
 	nb = table->args->number_of_coders;
 	table->team = ft_calloc(1, sizeof(t_team));
 	if (!table->team)
-		return (free_table(table), 0);
+		return (1);
 	table->team->nb = nb;
 	table->team->coders_list = ft_calloc(nb, sizeof(t_coder *));
 	if (!table->team->coders_list)
-		return (free_table(table), 0);
+		return (1);
 	table->team->dongle_set = ft_calloc(nb, sizeof(t_dongle *));
 	if (!table->team->dongle_set)
-		return (free_table(table), 0);
+		return (1);
 	return (0);
 }
 
