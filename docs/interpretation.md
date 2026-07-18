@@ -143,10 +143,10 @@ Could look like this at the end:
 - `ft_calloc`
 - `ft_strdup`
 - `init_table`
-- `create_team`
 - `alloc_team`
 - `assign_cond`
 - `assign_coders`
 - `assign_dongles`
 - `launch_threads`
 - `create_monitor`
+- `create_team`

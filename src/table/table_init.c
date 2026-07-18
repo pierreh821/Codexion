@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:20:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 16:17:10 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 16:27:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
 	if (!create_monitor(table))
 		return (free_table(table), NULL);
 	if (!create_team(table, work))
+	{
+		request_stop(table, STOP_FATAL, -1);
+		wait_monitor(table->monitor);
 		return (free_table(table), NULL);
+	}
 	return (table);
 }
