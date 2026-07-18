@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:51:54 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 02:54:05 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 10:41:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 void	*ft_calloc(size_t nb, size_t size);
 char	*ft_strdup(const char *src);
 long	get_time_ms(void);
+int		ft_isnumber(char *s);
 
 #endif
