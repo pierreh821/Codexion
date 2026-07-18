@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 16:52:49 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 23:37:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ non-negative integer\n"), 0);
 non-negative integer\n"), 0);
 	return (1);
 }
-
 
 int	args_validator(t_args *args)
 {

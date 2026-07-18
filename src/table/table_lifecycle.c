@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:21:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:38:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/18 23:31:50 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,22 @@ void	join_table(t_table *table)
 	wait_monitor(table->monitor);
 }
 
-int	request_stop(t_table *table, t_stop_reason reason, int coder_id)
+t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id)
 {
-	int		first;
-
 	pthread_mutex_lock(&table->status->lock);
-	first = (table->status->reason == STOP_NONE);
-	if (first)
+	if (table->status->reason == STOP_NONE)
 	{
 		table->status->reason = reason;
 		table->status->coder_id = coder_id;
-		table->monitor->run = 0;
-		pthread_cond_broadcast(&table->monitor->logger->has_log);
+		if (table->monitor)
+		{
+			table->monitor->run = 0;
+			if (table->monitor->logger)
+				pthread_cond_broadcast(&table->monitor->logger->has_log);
+		}
 	}
 	pthread_mutex_unlock(&table->status->lock);
-	return (first);
+	return (table);
 }
 
 int	sliced_sleep(t_table *table, long time)
