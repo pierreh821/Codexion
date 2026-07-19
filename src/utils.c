@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 01:47:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 10:41:10 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:58:51 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	ft_isnumber(char *s)
 
 	i = 0;
 	if (!s)
+		return (0);
+	if (strlen(s) > 9)
 		return (0);
 	while (s[i])
 	{

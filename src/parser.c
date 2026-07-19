@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/19 23:49:55 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:58:18 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@ int	input_validator(int argc, char *argv[])
 		return ((void)fprintf(stderr, "Invalid number of arguments\n"), 0);
 	if (!ft_isnumber(argv[1]))
 		return ((void)fprintf(stderr, "number_of_coders must be a \
-non-negative integer\n"), 0);
+non-negative integer and 9 digits max\n"), 0);
 	if (!ft_isnumber(argv[2]))
 		return ((void)fprintf(stderr, "time_to_burnout must be a \
-non-negative integer\n"), 0);
+non-negative integer and 9 digits max\n"), 0);
 	if (!ft_isnumber(argv[3]))
 		return ((void)fprintf(stderr, "time_to_compile must be a \
-non-negative integer\n"), 0);
+non-negative integer and 9 digits max\n"), 0);
 	if (!ft_isnumber(argv[4]))
 		return ((void)fprintf(stderr, "time_to_debug must be a \
-non-negative integer\n"), 0);
+non-negative integer and 9 digits max\n"), 0);
 	if (!ft_isnumber(argv[5]))
 		return ((void)fprintf(stderr, "time_to_refactor must be a \
-non-negative integer\n"), 0);
+non-negative integer and 9 digits max\n"), 0);
 	if (!ft_isnumber(argv[6]))
 		return ((void)fprintf(stderr, "number_of_compiles must be a \
-non-negative integer\n"), 0);
+non-negative integer and 9 digits max\n"), 0);
 	if (!ft_isnumber(argv[7]))
 		return ((void)fprintf(stderr, "dongle_cooldown must be a \
-non-negative integer\n"), 0);
+non-negative integer and 9 digits max\n"), 0);
 	return (1);
 }
 
