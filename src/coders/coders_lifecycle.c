@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:09:41 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 03:26:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:48:57 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ void	team_start(t_table *table)
 		i++;
 	}
 	table->monitor->start = get_time_ms();
-}
-
-void	team_pause(t_team *team)
-{
-	pthread_mutex_lock(&(team->run_lock));
-	team->run_signal = 0;
-	pthread_cond_broadcast(&(team->run));
-	pthread_mutex_unlock(&(team->run_lock));
 }
 
 void	set_task(t_coder *coder, t_task task, int update_start)

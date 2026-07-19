@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 15:09:00 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:49:00 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int		create_team(t_table *table, void *(*work)(void *));
 void	wait_for_start(t_coder *coder);
 void	wait_team(t_team *team);
 void	team_start(t_table *table);
-void	team_pause(t_team *team);
 void	set_task(t_coder *coder, t_task task, int update_start);
 
 void	free_team(t_team *team);
