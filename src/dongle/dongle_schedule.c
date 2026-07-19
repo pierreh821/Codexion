@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:18:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 02:19:55 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:47:57 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,4 @@ int	waiter_cmp(t_waiter *a, t_waiter *b)
 	if (a->priority != b->priority)
 		return (a->priority < b->priority);
 	return (a->coder->id < b->coder->id);
-}
-
-int	cooldown_elapsed(t_dongle *dongle, t_table *table)
-{
-	return (get_time_ms() - dongle->released >= table->args->dongle_cooldown);
 }

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/07/18 11:59:18 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:48:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void		release_dongle(t_dongle *dongle);
 
 long		compute_priority(t_dongle *dongle, t_coder *coder);
 int			waiter_cmp(t_waiter *a, t_waiter *b);
-int			cooldown_elapsed(t_dongle *dongle, t_table *table);
 
 t_heap		*init_heap(t_table *table);
 void		free_heap(t_heap *heap);
