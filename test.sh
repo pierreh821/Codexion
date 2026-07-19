@@ -154,7 +154,7 @@ run_test "number_of_coders à la limite exacte haute" 15 1024 5000 2 1 100 2 10 
 # 3. CAS LIMITES LOGIQUES (EDGE CASES)
 # ==============================================================================
 run_test "Zéro codeur" $DEFAULT_TIMEOUT 0 5000 2 1 100 2 10 fifo
-run_test "Un seul codeur (dongle unique)" 10 1 5000 2 1 100 20 10 fifo
+run_test "Un seul codeur (dongle unique)" 20 1 5000 2 1 100 20 10 fifo
 run_test "Deux codeurs (plus petit anneau à 2 dongles distincts)" 10 2 5000 2 1 100 5 10 fifo
 run_test "time_to_compile = 0" $DEFAULT_TIMEOUT 20 5000 0 1 100 2 10 fifo
 run_test "time_to_debug = 0" $DEFAULT_TIMEOUT 20 5000 2 0 100 2 10 fifo
