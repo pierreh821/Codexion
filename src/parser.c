@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 23:37:01 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:49:55 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ non-negative integer\n"), 0);
 
 int	args_validator(t_args *args)
 {
+	if (args->number_of_coders < 1)
+	{
+		fprintf(stderr, "number_of_coders must be at least 1\n");
+		return (0);
+	}
 	if (args->number_of_coders > 300)
 	{
 		fprintf(stderr, "number_of_coder must be less or equal to 300\n");
