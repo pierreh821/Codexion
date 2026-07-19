@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:14:58 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 23:05:02 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:52:09 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	compile(t_coder *coder)
 {
-	coder->start = get_time_ms();
 	set_task(coder, COMPILING, 1);
 	logger_write(coder, "is compiling");
 	sliced_sleep(coder->table, coder->table->args->time_to_compile);
