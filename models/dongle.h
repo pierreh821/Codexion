@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/07/19 23:48:01 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:53:04 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_dongle
 	long			next_ticket;
 	int				in_use;
 	long			released;
-	t_strategy		strategy;
 }	t_dongle;
 
 t_dongle	*init_dongle(t_table *table, int id);

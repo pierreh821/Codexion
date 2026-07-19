@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:15:49 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 15:53:01 by phenry           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:53:17 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_dongle	*init_dongle(t_table *table, int id)
 		return (free_dongle(dongle), NULL);
 	dongle->id = id;
 	dongle->table = table;
-	dongle->strategy = table->args->strategy;
 	return (dongle);
 }
 
