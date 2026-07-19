@@ -48,7 +48,7 @@ The executable accepts exactly 8 arguments:
 ### Scheduling Strategies
 
 * **`fifo` (First In, First Out):** Dongles are granted to coders in the chronological order of their requests.
-* **`edf` (Earliest Deadline First):** Priority is dynamically calculated. The scheduler serves the coder closest to their burnout threshold first, where the deadline equals $\text{last\_compile\_start} + \text{time\_to\_burnout}$.
+* **`edf` (Earliest Deadline First):** Priority is dynamically calculated. The scheduler serves the coder closest to their burnout threshold first, where the deadline equals `last_compile_start + time_to_burnout`.
 
 ### Example Usage
 
