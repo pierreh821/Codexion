@@ -58,7 +58,7 @@ The executable accepts exactly 8 arguments:
 
 ### Cleaning
 
-Makefile includes two cleaning rules: `clean` and `fclean`. First one removes the object files, the second does the same, then remove the `codexion` executable file.
+Makefile includes two cleaning rules: `clean` and `fclean`. First one removes the object files, the second does the same, then removes the `codexion` executable file.
 
 ```bash
 make clean
