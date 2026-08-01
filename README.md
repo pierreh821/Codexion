@@ -157,7 +157,6 @@ if (table->status->reason == STOP_NONE)
     pthread_cond_broadcast(&table->monitor->logger->has_log);
 }
 pthread_mutex_unlock(&table->status->lock);
-
 ```
 
 When the monitor registers a fatal burnout, it safely obtains the status lock, alters the runtime state, and fires a broadcast signal. All operational coder threads check this state via an inline `is_running()` wrapper during their cycle boundaries, allowing them to release any partial resources and exit their routines cleanly.
