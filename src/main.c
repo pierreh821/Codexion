@@ -6,11 +6,12 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 21:16:51 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 02:37:32 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/02 20:06:13 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdio.h>
 
 int	main(int argc, char *argv[])
 {
@@ -26,5 +27,7 @@ int	main(int argc, char *argv[])
 	free_table(table);
 	if (reason == STOP_BURNOUT)
 		return (1);
+	if (reason == STOP_FATAL)
+		return ((void)printf("A fatal error occured\n"), 1);
 	return (0);
 }
