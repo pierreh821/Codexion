@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:09:41 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/19 23:48:57 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/02 22:06:11 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,15 @@ void	wait_team(t_team *team)
 void	team_start(t_table *table)
 {
 	int		i;
-	long	start_time;
 
 	pthread_mutex_lock(&(table->team->run_lock));
 	table->team->run_signal = 1;
 	pthread_cond_broadcast(&(table->team->run));
 	pthread_mutex_unlock(&(table->team->run_lock));
-	start_time = get_time_ms();
 	i = 0;
 	while (i < table->team->nb)
 	{
-		table->team->coders_list[i]->start = start_time;
+		set_task(table->team->coders_list[i], ACQUIRING, 1);
 		i++;
 	}
 	table->monitor->start = get_time_ms();

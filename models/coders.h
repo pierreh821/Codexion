@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/19 23:49:00 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/02 21:53:49 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 typedef enum e_task
 {
+	ACQUIRING,
 	COMPILING,
 	DEBUGGING,
 	REFACTORING,

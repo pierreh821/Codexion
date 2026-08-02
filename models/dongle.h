@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/07/19 23:53:04 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/02 23:34:49 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter);
 int			try_fast_dongle(t_dongle *dongle, t_coder *coder);
 int			take_dongle(t_dongle *dongle, t_coder *coder);
 void		release_dongle(t_dongle *dongle);
+void		wake_all_waiters(t_table *table);
 
 long		compute_priority(t_dongle *dongle, t_coder *coder);
 int			waiter_cmp(t_waiter *a, t_waiter *b);
@@ -73,5 +74,11 @@ int			heap_push(t_heap *heap, t_waiter *waiter,
 int			heap_smallest_child(t_heap *heap, int i,
 				int (*cmp)(t_waiter *, t_waiter *));
 t_waiter	*heap_pop(t_heap *heap, int (*cmp)(t_waiter *, t_waiter *));
+
+int			heap_find_index(t_heap *heap, t_waiter *waiter);
+void		heap_remove_waiter(t_heap *heap, t_waiter *waiter,
+				int (*cmp)(t_waiter *, t_waiter *));
+void		heap_reheapify(t_heap *heap, int i,
+				int (*cmp)(t_waiter *, t_waiter *));
 
 #endif

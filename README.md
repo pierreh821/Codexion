@@ -168,6 +168,7 @@ When the monitor registers a fatal burnout, it safely obtains the status lock, a
 ### References
 
 * **Time** - https://openclassrooms.com/forum/sujet/temps-d-execution-en-c?__cf_chl_f_tk=mhTkTVgvh6uidiOR7KHIexhCYaQ4mLJyPWjttVZWl30-1783305968-1.0.1.-WAZ6aJmOC4dddQaCXGg8faTOUB9IY62HcOoVagSg0Os
+* **Heap** - https://en.wikipedia.org/wiki/Heap_(data_structure)
 
 **Threads in C**
 * https://perso.ens-lyon.fr/francois.schwarzentruber/teaching/l3-prog/book/c_thread.html

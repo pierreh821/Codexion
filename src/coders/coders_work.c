@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:14:58 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/19 23:52:09 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/02 23:29:53 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	*work(void *inp)
 	sliced_sleep(coder->table, lag);
 	while (compiles < needed && work_cycle(coder))
 		compiles++;
-	set_task(coder, SUSPEND, 0);
+	set_task(coder, ACQUIRING, 0);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:21:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 23:31:50 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/02 23:28:53 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ void	join_table(t_table *table)
 
 t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id)
 {
+	int	first;
+
 	pthread_mutex_lock(&table->status->lock);
-	if (table->status->reason == STOP_NONE)
+	first = (table->status->reason == STOP_NONE);
+	if (first)
 	{
 		table->status->reason = reason;
 		table->status->coder_id = coder_id;
@@ -54,6 +57,8 @@ t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id)
 		}
 	}
 	pthread_mutex_unlock(&table->status->lock);
+	if (first && table->team)
+		wake_all_waiters(table);
 	return (table);
 }
 

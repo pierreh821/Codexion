@@ -31,8 +31,9 @@ SRCS = src/main.c \
 	src/coders/coders_clean.c \
 	src/dongle/dongle_access.c \
 	src/dongle/dongle_init.c \
-	src/dongle/heap_init.c \
 	src/dongle/heap.c \
+	src/dongle/heap_init.c \
+	src/dongle/heap_remove.c \
 	src/dongle/dongle_schedule.c \
 	src/logger/logger_init.c \
 	src/logger/logger_utils.c \
