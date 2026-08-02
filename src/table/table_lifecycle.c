@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:21:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/02 23:28:53 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 00:15:35 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	sliced_sleep(t_table *table, long time)
 
 	while (time > 0 && is_running(table))
 	{
-		if (time > 10)
-			slice = 10;
+		if (time > 1000)
+			slice = 1000;
 		else
 			slice = time;
 		usleep(slice);
