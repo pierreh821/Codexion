@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdio.h>
 
 void	dongle_order(t_coder *coder)
 {
@@ -55,14 +56,34 @@ void	wait_for_ready(t_coder *coder)
 
 int	take_dongles(t_coder *coder)
 {
-	wait_for_ready(coder);
+	// wait_for_ready(coder);
+	printf("\e[0;31m%ld %d wait D%d\e[0m\n",
+		time_elapsed(coder->table->monitor),
+		coder->id,
+		coder->first->id);
 	if (!take_dongle(coder->first, coder))
 		return (0);
+	printf("\e[0;31m%ld %d got D%d\e[0m\n",
+		time_elapsed(coder->table->monitor),
+		coder->id,
+		coder->first->id);
+	printf("\e[0;31m%ld %d wait D%d\e[0m\n",
+		time_elapsed(coder->table->monitor),
+		coder->id,
+		coder->second->id);
 	if (!take_dongle(coder->second, coder))
 	{
+		printf("\e[0;31m%ld %d release D%d\e[0m\n",
+			time_elapsed(coder->table->monitor),
+			coder->id,
+			coder->first->id);
 		release_dongle(coder->first);
 		return (0);
 	}
+	printf("\e[0;31m%ld %d got D%d\e[0m\n",
+		time_elapsed(coder->table->monitor),
+		coder->id,
+		coder->second->id);
 	wait_cooldown(coder->first, coder);
 	logger_write(coder, "has taken a dongle");
 	wait_cooldown(coder->second, coder);
@@ -79,7 +100,17 @@ int	work_cycle(t_coder *coder)
 	if (!is_running(coder->table))
 	{
 		if (coder->second != coder->first)
+		{
+			printf("\e[0;31m%ld %d release D%d\e[0m\n",
+				time_elapsed(coder->table->monitor),
+				coder->id,
+				coder->second->id);
 			release_dongle(coder->second);
+		}
+		printf("\e[0;31m%ld %d release D%d\e[0m\n",
+			time_elapsed(coder->table->monitor),
+			coder->id,
+			coder->first->id);
 		release_dongle(coder->first);
 		return (0);
 	}
