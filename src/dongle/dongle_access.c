@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:16:53 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/03 02:13:02 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 14:11:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	take_dongle(t_dongle *dongle, t_coder *coder)
 		pthread_cond_destroy(&waiter.cond);
 		dongle->in_use = 1;
 	}
+	wait_cooldown(dongle, coder);
 	pthread_mutex_unlock(&dongle->lock);
 	return (1);
 }
@@ -67,7 +68,6 @@ void	release_dongle(t_dongle *dongle)
 	t_waiter	*next;
 
 	pthread_mutex_lock(&dongle->lock);
-	dongle->released = get_time_ms();
 	dongle->in_use = 0;
 	if (dongle->waitlist->size > 0)
 	{
@@ -75,6 +75,7 @@ void	release_dongle(t_dongle *dongle)
 		next->chosen = 1;
 		pthread_cond_broadcast(&next->cond);
 	}
+	dongle->released = get_time_ms();
 	pthread_mutex_unlock(&dongle->lock);
 }
 
