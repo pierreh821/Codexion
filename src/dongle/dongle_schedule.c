@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:18:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/19 23:47:57 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 02:56:33 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long	compute_priority(t_dongle *dongle, t_coder *coder)
 	if (coder->table->args->strategy == FIFO)
 		return (dongle->next_ticket++);
 	pthread_mutex_lock(&coder->task_lock);
-	priority = coder->start + coder->table->args->time_to_burnout;
+	priority = coder->last_compile_start + coder->table->args->time_to_burnout;
 	pthread_mutex_unlock(&coder->task_lock);
 	return (priority);
 }

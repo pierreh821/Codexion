@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 15:58:39 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 02:55:47 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct s_monitor
 {
 	pthread_t		thread_id;
-	long			start;
+	long			sim_start;
 	int				run;
 	t_logger		*logger;
 	pthread_t		logger_id;

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 04:08:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/02 21:53:49 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 02:56:33 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_coder
 	pthread_cond_t	*run;
 	pthread_mutex_t	*run_lock;
 	int				*run_signal;
-	long			start;
+	long			last_compile_start;
 	t_table			*table;
 }	t_coder;
 

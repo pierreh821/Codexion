@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:35:48 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 02:56:33 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_burnout(t_table *table, int id)
 	coder = table->team->coders_list[id];
 	pthread_mutex_lock(&coder->task_lock);
 	task = coder->task;
-	start = coder->start;
+	start = coder->last_compile_start;
 	pthread_mutex_unlock(&coder->task_lock);
 	if (task != SUSPEND
 		&& get_time_ms() - start > table->args->time_to_burnout)
@@ -49,7 +49,7 @@ void	*routine(void *arg)
 
 long	time_elapsed(t_monitor *monitor)
 {
-	return (get_time_ms() - monitor->start);
+	return (get_time_ms() - monitor->sim_start);
 }
 
 int	is_running(t_table *table)
