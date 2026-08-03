@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 19:47:10 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:03:26 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 15:10:16 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define ARGS_H
 
 # include "dongle.h"
+
+# define ERR_NB_ARGS "Invalid number of arguments\n"
+# define ERR_NUMBER "Argument must be a non-negative integer and 9 digits max\n"
 
 typedef struct s_args
 {
