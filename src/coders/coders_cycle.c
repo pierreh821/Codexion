@@ -27,36 +27,8 @@ void	dongle_order(t_coder *coder)
 	}
 }
 
-void	wait_for_ready(t_coder *coder)
-{
-	long	r1;
-	long	r2;
-	long	max_wait;
-
-	r1 = 0;
-	r2 = 0;
-	pthread_mutex_lock(&coder->first->lock);
-	if (coder->first->released > 0)
-		r1 = coder->table->args->dongle_cooldown - (
-				get_time_ms() - coder->first->released);
-	pthread_mutex_unlock(&coder->first->lock);
-
-	pthread_mutex_lock(&coder->second->lock);
-	if (coder->second->released > 0)
-		r2 = coder->table->args->dongle_cooldown - (
-				get_time_ms() - coder->second->released);
-	pthread_mutex_unlock(&coder->second->lock);
-
-	max_wait = r1;
-	if (r2 > r1)
-		max_wait = r2;
-	if (max_wait > 0)
-		sliced_sleep(coder->table, max_wait * 1000);
-}
-
 int	take_dongles(t_coder *coder)
 {
-	// wait_for_ready(coder);
 	printf("\e[0;31m%ld %d wait D%d\e[0m\n",
 		time_elapsed(coder->table->monitor),
 		coder->id,
