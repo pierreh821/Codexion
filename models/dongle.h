@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/08/02 23:34:49 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 00:35:07 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		free_dongle_set(t_dongle **dongle_set, int nb);
 int			assign_dongles(t_table *table);
 
 int			queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter);
-int			try_fast_dongle(t_dongle *dongle, t_coder *coder);
+int			try_fast_dongle(t_dongle *dongle);
 int			take_dongle(t_dongle *dongle, t_coder *coder);
 void		release_dongle(t_dongle *dongle);
 void		wake_all_waiters(t_table *table);
@@ -80,5 +80,7 @@ void		heap_remove_waiter(t_heap *heap, t_waiter *waiter,
 				int (*cmp)(t_waiter *, t_waiter *));
 void		heap_reheapify(t_heap *heap, int i,
 				int (*cmp)(t_waiter *, t_waiter *));
+
+void		wait_cooldown(t_dongle *dongle, t_coder *coder);
 
 #endif

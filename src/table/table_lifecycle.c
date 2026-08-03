@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:21:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/03 00:15:35 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 01:01:36 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,16 @@ t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id)
 	return (table);
 }
 
-int	sliced_sleep(t_table *table, long time)
+int	sliced_sleep(t_table *table, long time_in_us)
 {
-	long	slice;
+	long	start;
 
-	while (time > 0 && is_running(table))
+	start = get_time_us();
+	while (is_running(table))
 	{
-		if (time > 1000)
-			slice = 1000;
-		else
-			slice = time;
-		usleep(slice);
-		time -= slice;
+		if (get_time_us() - start >= time_in_us)
+			break ;
+		usleep(500);
 	}
 	return (is_running(table));
 }

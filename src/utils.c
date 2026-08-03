@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 01:47:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/19 23:58:51 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/03 01:00:31 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ long	get_time_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+long	get_time_us(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000000) + tv.tv_usec);
 }
 
 int	ft_isnumber(char *s)
