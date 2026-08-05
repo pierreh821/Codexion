@@ -6,12 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:14:58 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/03 11:40:44 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/05 18:41:02 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-#include <stdio.h>
 
 void	compile(t_coder *coder)
 {
@@ -19,17 +18,7 @@ void	compile(t_coder *coder)
 	logger_write(coder, "is compiling");
 	sliced_sleep(coder->table, coder->table->args->time_to_compile);
 	if (coder->second != coder->first)
-	{
-		printf("\e[0;31m%ld %d release D%d\e[0m\n",
-			time_elapsed(coder->table->monitor),
-			coder->id,
-			coder->second->id);
 		release_dongle(coder->second);
-		}
-	printf("\e[0;31m%ld %d release D%d\e[0m\n",
-		time_elapsed(coder->table->monitor),
-		coder->id,
-		coder->first->id);
 	release_dongle(coder->first);
 }
 

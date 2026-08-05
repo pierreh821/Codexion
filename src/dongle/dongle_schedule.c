@@ -6,12 +6,11 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:18:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/05 01:36:27 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/05 18:44:59 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
-#include <stdio.h>
 
 long	compute_priority(t_dongle *dongle, t_coder *coder)
 {
@@ -27,9 +26,19 @@ long	compute_priority(t_dongle *dongle, t_coder *coder)
 
 int	waiter_cmp(t_waiter *a, t_waiter *b)
 {
-	printf("waiter %d: prio %ld\n", a->coder->id, a->priority);
-	printf("waiter %d: prio %ld\n", b->coder->id, b->priority);
 	if (a->priority != b->priority)
 		return (a->priority < b->priority);
 	return (a->coder->id < b->coder->id);
+}
+
+void	wait_cooldown(t_dongle *dongle, t_coder *coder)
+{
+	long	remaining;
+
+	if (dongle->released == 0)
+		return ;
+	remaining = coder->table->args->dongle_cooldown
+		- (get_time_ms() - dongle->released);
+	if (remaining > 0)
+		sliced_sleep(coder->table, remaining * 1000);
 }

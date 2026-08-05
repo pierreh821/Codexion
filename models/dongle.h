@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/08/05 02:12:24 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/05 18:45:28 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		wake_all_waiters(t_table *table);
 
 long		compute_priority(t_dongle *dongle, t_coder *coder);
 int			waiter_cmp(t_waiter *a, t_waiter *b);
+void		wait_cooldown(t_dongle *dongle, t_coder *coder);
 
 t_heap		*init_heap(t_table *table);
 void		free_heap(t_heap *heap);
@@ -80,7 +81,5 @@ void		heap_remove_waiter(t_heap *heap, t_waiter *waiter,
 				int (*cmp)(t_waiter *, t_waiter *));
 void		heap_reheapify(t_heap *heap, int i,
 				int (*cmp)(t_waiter *, t_waiter *));
-
-void		wait_cooldown(t_dongle *dongle, t_coder *coder);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/03 15:12:49 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/05 18:38:49 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	set_schedule(t_args *args, char *input)
 		args->strategy = EDF;
 	else
 	{
-		printf("scheduler must be fifo or edf\n");
+		fprintf(stderr, "scheduler must be fifo or edf\n");
 		return (0);
 	}
 	return (1);
