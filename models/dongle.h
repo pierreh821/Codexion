@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 02:06:50 by pierre            #+#    #+#             */
-/*   Updated: 2026/08/03 00:35:07 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/05 02:12:24 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		free_dongle_set(t_dongle **dongle_set, int nb);
 int			assign_dongles(t_table *table);
 
 int			queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter);
-int			try_fast_dongle(t_dongle *dongle);
+void		try_grant(t_dongle *dongle);
 int			take_dongle(t_dongle *dongle, t_coder *coder);
 void		release_dongle(t_dongle *dongle);
 void		wake_all_waiters(t_table *table);
