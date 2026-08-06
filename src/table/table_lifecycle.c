@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:21:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/06 05:02:20 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 06:14:27 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	join_table(t_table *table)
 	wait_monitor(table->monitor);
 }
 
+void	send_signal(t_table *table)
+{
+	if (table->monitor && table->monitor->logger)
+	{
+		pthread_mutex_lock(&table->monitor->logger->lock);
+		pthread_cond_broadcast(&table->monitor->logger->has_log);
+		pthread_mutex_unlock(&table->monitor->logger->lock);
+	}
+}
+
 t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id)
 {
 	int	first;
@@ -50,10 +60,7 @@ t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id)
 		table->status->reason = reason;
 		table->status->coder_id = coder_id;
 		if (table->monitor)
-		{
-			if (table->monitor && table->monitor->logger)
-				pthread_cond_broadcast(&table->monitor->logger->has_log);
-		}
+			send_signal(table);
 	}
 	pthread_mutex_unlock(&table->status->lock);
 	if (first && table->team)

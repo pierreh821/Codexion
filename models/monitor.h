@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 17:51:59 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/06 05:01:24 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 06:15:50 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_monitor
 	long			sim_start;
 	t_logger		*logger;
 	pthread_t		logger_id;
+	pthread_mutex_t	lock;
 }	t_monitor;
 
 void	free_monitor(t_monitor *monitor);

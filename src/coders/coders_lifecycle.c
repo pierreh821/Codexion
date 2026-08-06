@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:09:41 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/06 04:54:51 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 06:20:52 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	team_start(t_table *table)
 		set_task(table->team->coders_list[i], ACQUIRING, 1);
 		i++;
 	}
+	pthread_mutex_lock(&table->monitor->lock);
 	table->monitor->sim_start = get_time_ms();
+	pthread_mutex_unlock(&table->monitor->lock);
 }
 
 void	set_task(t_coder *coder, t_task task, int update_start)

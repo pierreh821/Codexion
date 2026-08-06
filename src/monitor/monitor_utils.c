@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/06 05:01:11 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 06:19:01 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ void	*routine(void *arg)
 
 long	time_elapsed(t_monitor *monitor)
 {
-	return (get_time_ms() - monitor->sim_start);
+	long	res;
+
+	pthread_mutex_lock(&monitor->lock);
+	res = get_time_ms() - monitor->sim_start;
+	pthread_mutex_unlock(&monitor->lock);
+	return (res);
 }
 
 int	is_running(t_table *table)
