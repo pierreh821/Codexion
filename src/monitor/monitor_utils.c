@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:34:50 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/03 02:56:33 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 05:01:11 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	is_running(t_table *table)
 	int	running;
 
 	pthread_mutex_lock(&table->status->lock);
-	running = table->monitor->run;
+	running = (table->status->reason == STOP_NONE);
 	pthread_mutex_unlock(&table->status->lock);
 	return (running);
 }

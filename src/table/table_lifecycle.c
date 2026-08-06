@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:21:25 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/03 01:01:36 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 05:02:20 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,18 @@ t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id)
 		table->status->coder_id = coder_id;
 		if (table->monitor)
 		{
-			table->monitor->run = 0;
-			if (table->monitor->logger)
+			if (table->monitor && table->monitor->logger)
 				pthread_cond_broadcast(&table->monitor->logger->has_log);
 		}
 	}
 	pthread_mutex_unlock(&table->status->lock);
 	if (first && table->team)
+	{
+		pthread_mutex_lock(&table->team->run_lock);
+		pthread_cond_broadcast(&table->team->run);
+		pthread_mutex_unlock(&table->team->run_lock);
 		wake_all_waiters(table);
+	}
 	return (table);
 }
 
