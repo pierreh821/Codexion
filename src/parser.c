@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 02:22:32 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/05 18:38:49 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 02:46:26 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_args	*clean_args(int argc, char *argv[])
 	if (!input_validator(argc, argv))
 		return (NULL);
 	args = ft_calloc(1, sizeof(t_args));
+	if (!args)
+		return (NULL);
 	args->number_of_coders = atoi(argv[1]);
 	args->time_to_burnout = atoi(argv[2]);
 	args->time_to_compile = atoi(argv[3]) * 1000;

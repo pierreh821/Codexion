@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:34:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 13:03:07 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 03:25:31 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,27 @@ void	free_logger(t_logger *logger)
 	i = 0;
 	if (!logger)
 		return ;
-	while (i < logger->size)
-	{
-		if (logger->waitlist && logger->waitlist[i])
-		{
-			free(logger->waitlist[i]->text);
-			free(logger->waitlist[i]);
-		}
-		i++;
-	}
-	free(logger->waitlist);
+	free_waitlist(logger->waitlist, logger->size);
 	pthread_mutex_destroy(&logger->lock);
 	pthread_cond_destroy(&logger->has_log);
 	free(logger);
+}
+
+void	free_waitlist(t_log **waitlist, int size)
+{
+	int	i;
+
+	i = 0;
+	if (!waitlist)
+		return ;
+	while (i < size)
+	{
+		if (waitlist[i])
+		{
+			free(waitlist[i]->text);
+			free(waitlist[i]);
+		}
+		i++;
+	}
+	free(waitlist);
 }

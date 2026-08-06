@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 17:22:22 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 15:24:39 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 03:31:58 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,15 @@ void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
 
 	new_list = ft_calloc(logger->size + 1, sizeof(t_log *));
 	if (!new_list)
-		request_stop(table, STOP_FATAL, log->id);
+	{
+		if (log)
+		{
+			request_stop(table, STOP_FATAL, log->id);
+			free(log->text);
+			free(log);
+		}
+		return ;
+	}
 	i = 0;
 	while (i < logger->size)
 	{
@@ -37,6 +45,7 @@ void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
 void	logger_write(t_coder *coder, char *text)
 {
 	t_log		*log;
+	t_logger	*logger;
 
 	log = ft_calloc(1, sizeof(t_log));
 	if (!log)
@@ -53,11 +62,12 @@ void	logger_write(t_coder *coder, char *text)
 		request_stop(coder->table, STOP_FATAL, coder->id);
 		return ;
 	}
-	log->logger = coder->table->monitor->logger;
-	pthread_mutex_lock(&log->logger->lock);
-	extend_waitlist_logger(coder->table, log->logger, log);
-	pthread_cond_signal(&log->logger->has_log);
-	pthread_mutex_unlock(&log->logger->lock);
+	logger = coder->table->monitor->logger;
+	log->logger = logger;
+	pthread_mutex_lock(&logger->lock);
+	extend_waitlist_logger(coder->table, logger, log);
+	pthread_cond_signal(&logger->has_log);
+	pthread_mutex_unlock(&logger->lock);
 }
 
 void	*log_export(void *arg)

@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:35:05 by phenry            #+#    #+#             */
-/*   Updated: 2026/07/18 12:20:28 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 03:00:50 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_logger
 t_log		*logger_pop(t_logger *logger);
 t_logger	*init_logger(void);
 void		free_logger(t_logger *logger);
+void		free_waitlist(t_log **waitlist, int size);
 
 void		extend_waitlist_logger(t_table *table, t_logger *logger,
 				t_log *log);
