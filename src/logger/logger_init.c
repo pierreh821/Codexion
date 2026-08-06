@@ -6,7 +6,7 @@
 /*   By: phenry <phenry@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 00:34:09 by phenry            #+#    #+#             */
-/*   Updated: 2026/08/06 03:25:31 by phenry           ###   ########.fr       */
+/*   Updated: 2026/08/06 03:54:25 by phenry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,19 @@
 
 t_log	*logger_pop(t_logger *logger)
 {
-	t_log	**new_list;
 	t_log	*first;
 	int		i;
 
 	if (logger->size < 1)
 		return (NULL);
 	first = logger->waitlist[0];
-	new_list = NULL;
-	if (logger->size > 1)
+	i = 0;
+	while (i < logger->size - 1)
 	{
-		new_list = ft_calloc(logger->size - 1, sizeof(t_log *));
-		if (!new_list)
-			return (NULL);
-		i = 0;
-		while (i < logger->size - 1)
-		{
-			new_list[i] = logger->waitlist[i + 1];
-			i++;
-		}
+		logger->waitlist[i] = logger->waitlist[i + 1];
+		i++;
 	}
-	free(logger->waitlist);
-	logger->waitlist = new_list;
+	logger->waitlist[i] = NULL;
 	logger->size--;
 	return (first);
 }
