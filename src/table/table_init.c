@@ -23,6 +23,8 @@ t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
 	if (!table->status)
 		return (free_table(table), NULL);
 	table->status->reason = STOP_NONE;
+	if (pthread_mutex_init(&table->status->lock, NULL) != 0)
+		return (free_table(table), NULL);
 	table->args = clean_args(argc, argv);
 	if (!table->args)
 		return (free_table(table), NULL);
