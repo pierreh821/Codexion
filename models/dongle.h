@@ -50,12 +50,10 @@ typedef struct s_dongle
 	long			released;
 }	t_dongle;
 
-t_dongle	*init_dongle(t_table *table, int id);
 void		free_dongle(t_dongle *dongle);
 void		free_dongle_set(t_dongle **dongle_set, int nb);
 int			assign_dongles(t_table *table);
 
-int			queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter);
 void		try_grant(t_dongle *dongle);
 int			take_dongle(t_dongle *dongle, t_coder *coder);
 void		release_dongle(t_dongle *dongle);
@@ -76,10 +74,7 @@ int			heap_smallest_child(t_heap *heap, int i,
 				int (*cmp)(t_waiter *, t_waiter *));
 t_waiter	*heap_pop(t_heap *heap, int (*cmp)(t_waiter *, t_waiter *));
 
-int			heap_find_index(t_heap *heap, t_waiter *waiter);
 void		heap_remove_waiter(t_heap *heap, t_waiter *waiter,
-				int (*cmp)(t_waiter *, t_waiter *));
-void		heap_reheapify(t_heap *heap, int i,
 				int (*cmp)(t_waiter *, t_waiter *));
 
 #endif

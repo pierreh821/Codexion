@@ -32,6 +32,15 @@ void	wait_team(t_team *team)
 	}
 }
 
+void	set_task(t_coder *coder, t_task task, int update_start)
+{
+	pthread_mutex_lock(&coder->task_lock);
+	coder->task = task;
+	if (update_start)
+		coder->last_compile_start = get_time_ms();
+	pthread_mutex_unlock(&coder->task_lock);
+}
+
 void	team_start(t_table *table)
 {
 	int		i;
@@ -49,13 +58,4 @@ void	team_start(t_table *table)
 	pthread_mutex_lock(&table->monitor->lock);
 	table->monitor->sim_start = get_time_ms();
 	pthread_mutex_unlock(&table->monitor->lock);
-}
-
-void	set_task(t_coder *coder, t_task task, int update_start)
-{
-	pthread_mutex_lock(&coder->task_lock);
-	coder->task = task;
-	if (update_start)
-		coder->last_compile_start = get_time_ms();
-	pthread_mutex_unlock(&coder->task_lock);
 }

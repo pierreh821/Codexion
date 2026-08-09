@@ -60,13 +60,8 @@ void	refactor(t_coder *coder);
 void	*work(void *inp);
 
 void	dongle_order(t_coder *coder);
-int		take_dongles(t_coder *coder);
 int		work_cycle(t_coder *coder);
 
-int		alloc_team(t_table *table);
-int		assign_cond(t_table *table);
-int		assign_coders(t_table *table);
-int		launch_threads(t_table *table, void *(*work)(void *));
 int		create_team(t_table *table, void *(*work)(void *));
 
 void	wait_for_start(t_coder *coder);

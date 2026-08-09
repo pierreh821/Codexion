@@ -38,8 +38,6 @@ t_logger	*init_logger(void);
 void		free_logger(t_logger *logger);
 void		free_waitlist(t_log **waitlist, int size);
 
-void		extend_waitlist_logger(t_table *table, t_logger *logger,
-				t_log *log);
 void		logger_write(t_coder *coder, char *text);
 void		*log_export(void *arg);
 

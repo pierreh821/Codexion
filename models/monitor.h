@@ -29,7 +29,6 @@ void	free_monitor(t_monitor *monitor);
 void	wait_monitor(t_monitor *monitor);
 int		create_monitor(t_table *table);
 
-void	check_burnout(t_table *table, int id);
 void	*routine(void *arg);
 long	time_elapsed(t_monitor *monitor);
 int		is_running(t_table *table);
