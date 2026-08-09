@@ -52,6 +52,6 @@ void	*work(void *inp)
 	sliced_sleep(coder->table, lag);
 	while (compiles < needed && work_cycle(coder))
 		compiles++;
-	set_task(coder, ACQUIRING, 0);
+	set_task(coder, SUSPEND, 0);
 	return (NULL);
 }
