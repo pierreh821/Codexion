@@ -51,6 +51,7 @@ typedef struct s_team
 	pthread_mutex_t	run_lock;
 	int				run_signal;
 	t_dongle		**dongle_set;
+	int				is_cond_init;
 }	t_team;
 
 void	compile(t_coder *coder);

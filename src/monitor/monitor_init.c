@@ -50,7 +50,6 @@ int	create_monitor(t_table *table)
 	table->monitor->logger = init_logger();
 	if (!table->monitor->logger)
 		return (monitor_error(table));
-
 	if (pthread_create(&table->monitor->thread_id, NULL, routine, table) != 0)
 		return (monitor_error(table));
 	if (pthread_create(&table->monitor->logger_id, NULL,

@@ -45,7 +45,11 @@ int	assign_cond(t_table *table)
 	if (pthread_cond_init(&(table->team->run), NULL) != 0)
 		return (0);
 	if (pthread_mutex_init(&(table->team->run_lock), NULL) != 0)
+	{
+		pthread_cond_destroy(&(table->team->run));
 		return (0);
+	}
+	table->team->is_cond_init = 1;
 	table->team->run_signal = 0;
 	return (1);
 }
