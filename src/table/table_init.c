@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdlib.h>
+
+int	init_status(t_table *table)
+{
+	table->status = ft_calloc(1, sizeof(t_status));
+	if (!table->status)
+		return (0);
+	table->status->reason = STOP_NONE;
+	if (pthread_mutex_init(&table->status->lock, NULL) != 0)
+	{
+		free(table->status);
+		table->status = NULL;
+		return (0);
+	}
+	return (1);
+}
 
 t_table	*init_table(int argc, char *argv[])
 {
@@ -19,11 +35,7 @@ t_table	*init_table(int argc, char *argv[])
 	table = ft_calloc(1, sizeof(t_table));
 	if (!table)
 		return (NULL);
-	table->status = ft_calloc(1, sizeof(t_status));
-	if (!table->status)
-		return (free_table(table), NULL);
-	table->status->reason = STOP_NONE;
-	if (pthread_mutex_init(&table->status->lock, NULL) != 0)
+	if (!init_status(table))
 		return (free_table(table), NULL);
 	table->args = clean_args(argc, argv);
 	if (!table->args)
