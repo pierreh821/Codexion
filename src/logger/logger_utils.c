@@ -15,22 +15,14 @@
 #include <stdio.h>
 #include <string.h>
 
-void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
+int	extend_waitlist_logger(t_logger *logger, t_log *log)
 {
 	t_log	**new_list;
 	int		i;
 
 	new_list = ft_calloc(logger->size + 1, sizeof(t_log *));
 	if (!new_list)
-	{
-		if (log)
-		{
-			request_stop(table, STOP_FATAL, log->id);
-			free(log->text);
-			free(log);
-		}
-		return ;
-	}
+		return (0);
 	i = 0;
 	while (i < logger->size)
 	{
@@ -41,6 +33,7 @@ void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
 	free(logger->waitlist);
 	logger->waitlist = new_list;
 	logger->size++;
+	return (1);
 }
 
 void	logger_write(t_coder *coder, char *text)
@@ -66,7 +59,14 @@ void	logger_write(t_coder *coder, char *text)
 	logger = coder->table->monitor->logger;
 	log->logger = logger;
 	pthread_mutex_lock(&logger->lock);
-	extend_waitlist_logger(coder->table, logger, log);
+	if (!extend_waitlist_logger(logger, log))
+	{
+		pthread_mutex_unlock(&logger->lock);
+		free(log->text);
+		free(log);
+		request_stop(coder->table, STOP_FATAL, coder->id);
+		return ;
+	}
 	pthread_cond_signal(&logger->has_log);
 	pthread_mutex_unlock(&logger->lock);
 }
