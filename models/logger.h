@@ -37,6 +37,7 @@ t_log		*logger_pop(t_logger *logger);
 t_logger	*init_logger(void);
 void		free_logger(t_logger *logger);
 void		free_waitlist(t_log **waitlist, int size);
+t_log		*create_log(t_coder *coder, char *text);
 
 void		logger_write(t_coder *coder, char *text);
 void		*log_export(void *arg);

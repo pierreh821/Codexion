@@ -41,18 +41,9 @@ void	logger_write(t_coder *coder, char *text)
 	t_log		*log;
 	t_logger	*logger;
 
-	log = ft_calloc(1, sizeof(t_log));
+	log = create_log(coder, text);
 	if (!log)
 	{
-		request_stop(coder->table, STOP_FATAL, coder->id);
-		return ;
-	}
-	log->id = coder->id;
-	log->timestamp = time_elapsed(coder->table->monitor);
-	log->text = ft_strdup(text);
-	if (!log->text)
-	{
-		free(log);
 		request_stop(coder->table, STOP_FATAL, coder->id);
 		return ;
 	}

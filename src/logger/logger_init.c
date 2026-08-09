@@ -85,3 +85,21 @@ void	free_waitlist(t_log **waitlist, int size)
 	}
 	free(waitlist);
 }
+
+t_log	*create_log(t_coder *coder, char *text)
+{
+	t_log	*log;
+
+	log = ft_calloc(1, sizeof(t_log));
+	if (!log)
+		return (NULL);
+	log->id = coder->id;
+	log->timestamp = time_elapsed(coder->table->monitor);
+	log->text = ft_strdup(text);
+	if (!log->text)
+	{
+		free(log);
+		return (NULL);
+	}
+	return (log);
+}
