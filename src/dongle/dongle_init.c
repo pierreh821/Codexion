@@ -22,9 +22,16 @@ t_dongle	*init_dongle(t_table *table, int id)
 		return (NULL);
 	dongle->waitlist = init_heap(table);
 	if (!dongle->waitlist)
-		return (free_dongle(dongle), NULL);
+	{
+		free(dongle);
+		return (NULL);
+	}
 	if (pthread_mutex_init(&dongle->lock, NULL) != 0)
-		return (free_dongle(dongle), NULL);
+	{
+		free_heap(dongle->waitlist);
+		free(dongle);
+		return (NULL);
+	}
 	dongle->id = id;
 	dongle->table = table;
 	return (dongle);
