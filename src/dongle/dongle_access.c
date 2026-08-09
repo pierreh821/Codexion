@@ -83,17 +83,9 @@ void	try_grant(t_dongle *dongle)
 
 void	release_dongle(t_dongle *dongle)
 {
-	t_waiter	*next;
-
 	pthread_mutex_lock(&dongle->lock);
 	dongle->in_use = 0;
 	dongle->released = get_time_ms();
-	if (dongle->waitlist->size > 0)
-	{
-		next = heap_pop(dongle->waitlist, waiter_cmp);
-		next->chosen = 1;
-		pthread_cond_broadcast(&next->cond);
-	}
 	pthread_mutex_unlock(&dongle->lock);
 	try_grant(dongle);
 }
