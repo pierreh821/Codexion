@@ -75,14 +75,27 @@ void	*log_export(void *arg)
 	t_table		*table;
 	t_logger	*logger;
 	t_log		*log;
+	int			running;
 
 	table = (t_table *)arg;
 	logger = table->monitor->logger;
-	pthread_mutex_lock(&logger->lock);
-	while (is_running(table) || logger->size > 0)
+	while (1)
 	{
-		while (logger->size == 0 && is_running(table))
-			pthread_cond_wait(&logger->has_log, &logger->lock);
+		running = is_running(table);
+		pthread_mutex_lock(&logger->lock);
+		while (logger->size == 0 && running)
+		{
+			pthread_mutex_unlock(&logger->lock);
+			running = is_running(table);
+			pthread_mutex_lock(&logger->lock);
+			if (logger->size == 0 && running)
+				pthread_cond_wait(&logger->has_log, &logger->lock);
+		}
+		if (logger->size == 0 && !running)
+		{
+			pthread_mutex_unlock(&logger->lock);
+			break ;
+		}
 		while (logger->size > 0)
 		{
 			log = logger_pop(logger);
@@ -93,7 +106,7 @@ void	*log_export(void *arg)
 				free(log);
 			}
 		}
+		pthread_mutex_unlock(&logger->lock);
 	}
-	pthread_mutex_unlock(&logger->lock);
 	return (NULL);
 }

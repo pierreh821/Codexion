@@ -34,11 +34,14 @@ int	waiter_cmp(t_waiter *a, t_waiter *b)
 void	wait_cooldown(t_dongle *dongle, t_coder *coder)
 {
 	long	remaining;
-
-	if (dongle->released == 0)
+	long	released_at;
+	pthread_mutex_lock(&dongle->lock);
+	released_at = dongle->released;
+	pthread_mutex_unlock(&dongle->lock);
+	if (released_at == 0)
 		return ;
 	remaining = coder->table->args->dongle_cooldown
-		- (get_time_ms() - dongle->released);
+		- (get_time_ms() - released_at);
 	if (remaining > 0)
 		sliced_sleep(coder->table, remaining * 1000);
 }

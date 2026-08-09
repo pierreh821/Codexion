@@ -17,10 +17,14 @@ int	queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter)
 	long	priority;
 	int		ok;
 
+	pthread_mutex_lock(&dongle->lock);
 	priority = compute_priority(dongle, coder);
 	if (!init_waiter(waiter, coder, priority))
-		return (request_stop(coder->table, STOP_FATAL, coder->id), 0);
-	pthread_mutex_lock(&dongle->lock);
+	{
+		pthread_mutex_unlock(&dongle->lock);
+		request_stop(coder->table, STOP_FATAL, coder->id);
+		return (0);
+	}
 	ok = heap_push(dongle->waitlist, waiter, waiter_cmp);
 	pthread_mutex_unlock(&dongle->lock);
 	if (!ok)
@@ -59,7 +63,16 @@ void	try_grant(t_dongle *dongle)
 		remaining = dongle->table->args->dongle_cooldown
 			- (get_time_ms() - dongle->released);
 		if (remaining > 0)
+		{
+			pthread_mutex_unlock(&dongle->lock);
 			sliced_sleep(dongle->table, remaining * 1000);
+			pthread_mutex_lock(&dongle->lock);
+		}
+		if (dongle->in_use || dongle->waitlist->size == 0)
+		{
+			pthread_mutex_unlock(&dongle->lock);
+			return ;
+		}
 		top = heap_pop(dongle->waitlist, waiter_cmp);
 		top->chosen = 1;
 		dongle->in_use = 1;
