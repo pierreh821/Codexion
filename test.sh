@@ -29,6 +29,7 @@ DEFAULT_TIMEOUT=8
 # tool pass isn't mistaken for a real hang.
 THREAD_TOOL_MULTIPLIER=4
 
+
 rm -rf "$LOG_DIR"
 mkdir -p "$LOG_DIR"
 
@@ -39,6 +40,8 @@ if [ $? -ne 0 ]; then
 	echo -e "${RED}Compilation failed.${RESET}"
 	exit 1
 fi
+
+mkdir -p "$LOG_DIR"
 
 TOTAL=0
 FAILED=0
