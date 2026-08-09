@@ -20,7 +20,7 @@ int	main(int argc, char *argv[])
 
 	table = init_table(argc, argv);
 	if (!table)
-		return (1);
+		return ((void)printf("A fatal error occured\n"), 1);
 	team_start(table);
 	join_table(table);
 	reason = table->status->reason;
