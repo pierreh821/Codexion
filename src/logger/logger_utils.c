@@ -93,6 +93,22 @@ int	logger_check_run(t_table *table, t_logger *logger)
 	return (1);
 }
 
+int	log_export_cycle(t_log *log, t_logger *logger, int *stop)
+{
+	log = logger_pop(logger);
+	if (log)
+	{
+		printf("%d %d %s\n", log->timestamp, log->id, log->text);
+		if (strcmp(log->text, "burned out") == 0)
+			*stop = 1;
+		free(log->text);
+		free(log);
+		if (*stop)
+			return (0);
+	}
+	return (1);
+}
+
 void	*log_export(void *arg)
 {
 	t_table		*table;
@@ -102,6 +118,7 @@ void	*log_export(void *arg)
 
 	table = (t_table *)arg;
 	logger = table->monitor->logger;
+	log = NULL;
 	stop = 0;
 	while (!stop)
 	{
@@ -109,17 +126,8 @@ void	*log_export(void *arg)
 			break ;
 		while (logger->size > 0)
 		{
-			log = logger_pop(logger);
-			if (log)
-			{
-				printf("%d %d %s\n", log->timestamp, log->id, log->text);
-				if (strcmp(log->text, "burned out") == 0)
-					stop = 1;
-				free(log->text);
-				free(log);
-				if (stop)
-					break ;
-			}
+			if (!log_export_cycle(log, logger, &stop))
+				break ;
 		}
 		pthread_mutex_unlock(&logger->lock);
 	}
