@@ -65,7 +65,7 @@ int	assign_coders(t_table *table)
 	return (1);
 }
 
-int	launch_threads(t_table *table, void *(*work)(void *))
+int	launch_threads(t_table *table)
 {
 	int	i;
 
@@ -80,7 +80,7 @@ int	launch_threads(t_table *table, void *(*work)(void *))
 	return (1);
 }
 
-int	create_team(t_table *table, void *(*work)(void *))
+int	create_team(t_table *table)
 {
 	if (!alloc_team(table))
 		return (0);
@@ -90,7 +90,7 @@ int	create_team(t_table *table, void *(*work)(void *))
 		return (0);
 	if (!assign_dongles(table))
 		return (0);
-	if (!launch_threads(table, work))
+	if (!launch_threads(table))
 		return (0);
 	return (1);
 }

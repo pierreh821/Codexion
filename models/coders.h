@@ -51,7 +51,6 @@ typedef struct s_team
 	pthread_mutex_t	run_lock;
 	int				run_signal;
 	t_dongle		**dongle_set;
-	void			*(*work)(void *);
 }	t_team;
 
 void	compile(t_coder *coder);
@@ -62,7 +61,7 @@ void	*work(void *inp);
 void	dongle_order(t_coder *coder);
 int		work_cycle(t_coder *coder);
 
-int		create_team(t_table *table, void *(*work)(void *));
+int		create_team(t_table *table);
 
 void	wait_for_start(t_coder *coder);
 void	wait_team(t_team *team);

@@ -27,7 +27,7 @@ typedef struct s_table
 	t_status	*status;
 }	t_table;
 
-t_table	*init_table(int argc, char *argv[], void *(*work)(void *));
+t_table	*init_table(int argc, char *argv[]);
 void	free_table(t_table *table);
 void	join_table(t_table *table);
 t_table	*request_stop(t_table *table, t_stop_reason reason, int coder_id);

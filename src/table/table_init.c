@@ -12,7 +12,7 @@
 
 #include "includes/codexion.h"
 
-t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
+t_table	*init_table(int argc, char *argv[])
 {
 	t_table	*table;
 
@@ -28,7 +28,7 @@ t_table	*init_table(int argc, char *argv[], void *(*work)(void *))
 	table->args = clean_args(argc, argv);
 	if (!table->args)
 		return (free_table(table), NULL);
-	if (!create_team(table, work))
+	if (!create_team(table))
 		return (free_table(table), NULL);
 	if (!create_monitor(table))
 	{

@@ -18,7 +18,7 @@ int	main(int argc, char *argv[])
 	t_table			*table;
 	t_stop_reason	reason;
 
-	table = init_table(argc, argv, &work);
+	table = init_table(argc, argv);
 	if (!table)
 		return (1);
 	team_start(table);
