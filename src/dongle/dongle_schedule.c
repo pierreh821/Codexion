@@ -35,6 +35,7 @@ void	wait_cooldown(t_dongle *dongle, t_coder *coder)
 {
 	long	remaining;
 	long	released_at;
+
 	pthread_mutex_lock(&dongle->lock);
 	released_at = dongle->released;
 	pthread_mutex_unlock(&dongle->lock);

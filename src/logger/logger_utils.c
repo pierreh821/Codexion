@@ -70,32 +70,40 @@ void	logger_write(t_coder *coder, char *text)
 	pthread_mutex_unlock(&logger->lock);
 }
 
+int	logger_check_run(t_table *table, t_logger *logger)
+{
+	int	running;
+
+	running = is_running(table);
+	pthread_mutex_lock(&logger->lock);
+	while (logger->size == 0 && running)
+	{
+		pthread_mutex_unlock(&logger->lock);
+		running = is_running(table);
+		pthread_mutex_lock(&logger->lock);
+		if (logger->size == 0 && running)
+			pthread_cond_wait(&logger->has_log, &logger->lock);
+	}
+	if (logger->size == 0 && !running)
+	{
+		pthread_mutex_unlock(&logger->lock);
+		return (0);
+	}
+	return (1);
+}
+
 void	*log_export(void *arg)
 {
 	t_table		*table;
 	t_logger	*logger;
 	t_log		*log;
-	int			running;
 
 	table = (t_table *)arg;
 	logger = table->monitor->logger;
 	while (1)
 	{
-		running = is_running(table);
-		pthread_mutex_lock(&logger->lock);
-		while (logger->size == 0 && running)
-		{
-			pthread_mutex_unlock(&logger->lock);
-			running = is_running(table);
-			pthread_mutex_lock(&logger->lock);
-			if (logger->size == 0 && running)
-				pthread_cond_wait(&logger->has_log, &logger->lock);
-		}
-		if (logger->size == 0 && !running)
-		{
-			pthread_mutex_unlock(&logger->lock);
+		if (!logger_check_run(table, logger))
 			break ;
-		}
 		while (logger->size > 0)
 		{
 			log = logger_pop(logger);
