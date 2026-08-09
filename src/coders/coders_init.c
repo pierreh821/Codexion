@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "includes/codexion.h"
+#include <stdlib.h>
 
 int	alloc_team(t_table *table)
 {
@@ -23,10 +24,19 @@ int	alloc_team(t_table *table)
 	table->team->nb = nb;
 	table->team->coders_list = ft_calloc(nb, sizeof(t_coder *));
 	if (!table->team->coders_list)
+	{
+		free(table->team);
+		table->team = NULL;
 		return (0);
+	}
 	table->team->dongle_set = ft_calloc(nb, sizeof(t_dongle *));
 	if (!table->team->dongle_set)
+	{
+		free(table->team->coders_list);
+		free(table->team);
+		table->team = NULL;
 		return (0);
+	}
 	return (1);
 }
 
