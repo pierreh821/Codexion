@@ -38,6 +38,7 @@ int	queue_dongle(t_dongle *dongle, t_coder *coder, t_waiter *waiter)
 int	take_dongle(t_dongle *dongle, t_coder *coder)
 {
 	t_waiter	waiter;
+	long		remaining;
 
 	if (!queue_dongle(dongle, coder, &waiter))
 		return (0);
@@ -46,33 +47,30 @@ int	take_dongle(t_dongle *dongle, t_coder *coder)
 	while (waiter.chosen == 0 && is_running(coder->table))
 		pthread_cond_wait(&waiter.cond, &dongle->lock);
 	if (waiter.chosen == 0)
+	{
 		heap_remove_waiter(dongle->waitlist, &waiter, waiter_cmp);
+		pthread_mutex_unlock(&dongle->lock);
+		return ((void)pthread_cond_destroy(&waiter.cond), 0);
+	}
+	remaining = dongle->table->args->dongle_cooldown
+		- (get_time_ms() - dongle->released);
+	if (remaining > 0)
+	{
+		pthread_mutex_unlock(&dongle->lock);
+		sliced_sleep(dongle->table, remaining * 1000);
+		pthread_mutex_lock(&dongle->lock);
+	}
 	pthread_mutex_unlock(&dongle->lock);
-	pthread_cond_destroy(&waiter.cond);
-	return (waiter.chosen != 0);
+	return ((void)pthread_cond_destroy(&waiter.cond), 1);
 }
 
 void	try_grant(t_dongle *dongle)
 {
 	t_waiter	*top;
-	long		remaining;
 
 	pthread_mutex_lock(&dongle->lock);
 	if (!dongle->in_use && dongle->waitlist->size > 0)
 	{
-		remaining = dongle->table->args->dongle_cooldown
-			- (get_time_ms() - dongle->released);
-		if (remaining > 0)
-		{
-			pthread_mutex_unlock(&dongle->lock);
-			sliced_sleep(dongle->table, remaining * 1000);
-			pthread_mutex_lock(&dongle->lock);
-		}
-		if (dongle->in_use || dongle->waitlist->size == 0)
-		{
-			pthread_mutex_unlock(&dongle->lock);
-			return ;
-		}
 		top = heap_pop(dongle->waitlist, waiter_cmp);
 		top->chosen = 1;
 		dongle->in_use = 1;
