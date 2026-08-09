@@ -38,6 +38,7 @@ typedef struct s_coder
 	pthread_mutex_t	task_lock;
 	pthread_cond_t	*run;
 	pthread_mutex_t	*run_lock;
+	int				is_mutex_init;
 	int				*run_signal;
 	long			last_compile_start;
 	t_table			*table;

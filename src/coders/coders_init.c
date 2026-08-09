@@ -73,6 +73,7 @@ int	assign_coders(t_table *table)
 		team->coders_list[i]->table = table;
 		if (pthread_mutex_init(&team->coders_list[i]->task_lock, NULL) != 0)
 			return (0);
+		team->coders_list[i]->is_mutex_init = 1;
 		set_task(team->coders_list[i], SUSPEND, 1);
 		i++;
 	}

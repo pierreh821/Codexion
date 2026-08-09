@@ -22,7 +22,8 @@ void	free_coders_list(t_coder **coders_list, int nb)
 	{
 		if (coders_list[id])
 		{
-			pthread_mutex_destroy(&coders_list[id]->task_lock);
+			if (coders_list[id]->is_mutex_init)
+				pthread_mutex_destroy(&coders_list[id]->task_lock);
 			free(coders_list[id]);
 		}
 		id++;
