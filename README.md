@@ -184,3 +184,4 @@ Artificial Intelligence was used as a development assistant throughout this proj
 * **Edge-Case Troubleshooting:** Isolating and fixing concurrency anomalies, such as handling the single-coder scenario without crashing the mutex pipeline.
 * **Memory Safety & Verification:** Analyzing Valgrind tracing histories to catch hidden memory leaks involving unjoined thread stacks when partial initialization errors occurred.
 * **Documentation:** Generating and structuring this `README.md` file according to the technical requirements of the curriculum.
+* **Testing:** Creating a bash test script.

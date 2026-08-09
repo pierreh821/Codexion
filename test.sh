@@ -60,7 +60,7 @@ run_under_tool() {
 
 	{
 		echo "=== [$tool_label] ==="
-		printf 'Commande: %s' "$EXEC"
+		printf 'Command: %s' "$EXEC"
 		printf ' [%s]' "$@"
 		echo
 		echo "---"
@@ -73,16 +73,16 @@ run_under_tool() {
 	# unmodified instead of being re-split by the shell.
 	timeout "$test_timeout" $tool_cmd "$EXEC" "$@" >> "$logfile" 2>&1
 	ret=$?
-	echo "--- [$tool_label] code de retour: $ret ---" >> "$logfile"
+	echo "--- [$tool_label] return code: $ret ---" >> "$logfile"
 
 	if [ $ret -eq 42 ]; then
-		echo -e "${RED}    [$tool_label] ÉCHEC (erreur détectée, code 42)${RESET}"
+		echo -e "${RED}    [$tool_label] FAILURE (error detected, code 42)${RESET}"
 		return 1
 	elif [ $ret -eq 124 ]; then
-		echo -e "${RED}    [$tool_label] ÉCHEC (timeout / hang)${RESET}"
+		echo -e "${RED}    [$tool_label] FAILURE (timeout / hang)${RESET}"
 		return 1
 	elif [ $ret -eq 139 ]; then
-		echo -e "${RED}    [$tool_label] ÉCHEC (segfault)${RESET}"
+		echo -e "${RED}    [$tool_label] FAILURE (segfault)${RESET}"
 		return 1
 	fi
 	echo -e "${GREEN}    [$tool_label] OK (code $ret)${RESET}"
@@ -111,15 +111,15 @@ expect_reject() {
 
 	# A silent exit code 0 on a supposedly-invalid input is suspicious:
 	# it may mean the bad input was actually accepted instead of rejected.
-	if [ $ok -eq 1 ] && grep -q "code de retour: 0" "$logfile"; then
-		echo -e "${RED}    SUSPECT : code 0 — vérifie que l'entrée a bien été rejetée (voir $logfile)${RESET}"
+	if [ $ok -eq 1 ] && grep -q "return code: 0" "$logfile"; then
+		echo -e "${RED}    SUSPECT: return code 0 — check if input was actually rejected (see $logfile)${RESET}"
 		ok=0
 	fi
 
 	if [ $ok -eq 1 ]; then
 		echo -e "${GREEN}➜ OK${RESET}"
 	else
-		echo -e "${RED}➜ ÉCHEC (voir $logfile)${RESET}"
+		echo -e "${RED}➜ FAILURE (see $logfile)${RESET}"
 		FAILED=$((FAILED + 1))
 	fi
 	echo "----------------------------------------------------"
@@ -152,89 +152,89 @@ expect_run() {
 	[ $? -ne 0 ] && ok=0
 
 	if [ $ok -eq 1 ]; then
-		echo -e "${GREEN}➜ OK sur les 3 outils — relis $logfile pour vérifier burnout/complétion attendus${RESET}"
+		echo -e "${GREEN}➜ OK across all 3 tools — read $logfile to verify expected burnout/completion${RESET}"
 	else
-		echo -e "${RED}➜ ÉCHEC sur au moins un outil (voir $logfile)${RESET}"
+		echo -e "${RED}➜ FAILURE on at least one tool (see $logfile)${RESET}"
 		FAILED=$((FAILED + 1))
 	fi
 	echo "----------------------------------------------------"
 }
 
-echo -e "\n${BLUE}=== 1. ARGUMENTS FACILES (comptage, format de base) ===${RESET}\n"
+echo -e "\n${BLUE}=== 1. EASY ARGUMENTS (counting, basic format) ===${RESET}\n"
 
-expect_reject "Aucun argument"
-expect_reject "Un seul argument"                   5
-expect_reject "Arguments manquants (5 sur 8)"       20 5000 200 200 200
-expect_reject "Un argument de trop"                 20 5000 200 200 200 10 0 fifo extra
-expect_reject "Arguments dans le mauvais ordre (scheduler en 1er)" fifo 20 5000 200 200 200 10 0
+expect_reject "No arguments"
+expect_reject "Single argument"                         5
+expect_reject "Missing arguments (5 out of 8)"         20 5000 200 200 200
+expect_reject "Too many arguments"                     20 5000 200 200 200 10 0 fifo extra
+expect_reject "Arguments in wrong order (scheduler 1st)" fifo 20 5000 200 200 200 10 0
 
-echo -e "\n${BLUE}=== 2. ARGUMENTS DIFFICILES (format numérique) ===${RESET}\n"
+echo -e "\n${BLUE}=== 2. HARD ARGUMENTS (numeric format) ===${RESET}\n"
 
-expect_reject "Nombre négatif"                      -20 5000 200 200 200 10 0 fifo
-expect_reject "Zéro codeur"                         0 5000 200 200 200 10 0 fifo
-expect_reject "Flottant"                            20 5000.5 200 200 200 10 0 fifo
-expect_reject "Notation scientifique"                20 5e3 200 200 200 10 0 fifo
-expect_reject "Hexadécimal"                          20 0x1388 200 200 200 10 0 fifo
-expect_reject "Espace en tête d'un nombre"           " 20" 5000 200 200 200 10 0 fifo
-expect_reject "Espace en fin d'un nombre"            "20 " 5000 200 200 200 10 0 fifo
-expect_reject "Signe plus explicite"                 +20 5000 200 200 200 10 0 fifo
-expect_reject "Chiffres avec séparateur"             20 5,000 200 200 200 10 0 fifo
-expect_reject "Dépassement INT_MAX"                  2147483648 5000 200 200 200 10 0 fifo
-expect_reject "Nombre absurdement long"               99999999999999999999 5000 200 200 200 10 0 fifo
-expect_reject "Chaîne vide en argument numérique"    "" 5000 200 200 200 10 0 fifo
+expect_reject "Negative number"                        -20 5000 200 200 200 10 0 fifo
+expect_reject "Zero coders"                            0 5000 200 200 200 10 0 fifo
+expect_reject "Floating point number"                  20 5000.5 200 200 200 10 0 fifo
+expect_reject "Scientific notation"                    20 5e3 200 200 200 10 0 fifo
+expect_reject "Hexadecimal"                            20 0x1388 200 200 200 10 0 fifo
+expect_reject "Leading space in number"                " 20" 5000 200 200 200 10 0 fifo
+expect_reject "Trailing space in number"               "20 " 5000 200 200 200 10 0 fifo
+expect_reject "Explicit plus sign"                     +20 5000 200 200 200 10 0 fifo
+expect_reject "Digits with separator"                  20 5,000 200 200 200 10 0 fifo
+expect_reject "INT_MAX overflow"                       2147483648 5000 200 200 200 10 0 fifo
+expect_reject "Absurdly long number"                   99999999999999999999 5000 200 200 200 10 0 fifo
+expect_reject "Empty string for numeric argument"      "" 5000 200 200 200 10 0 fifo
 
-echo -e "\n${BLUE}=== 3. ARGUMENTS TROMPEURS ===${RESET}\n"
+echo -e "\n${BLUE}=== 3. TRICKY ARGUMENTS ===${RESET}\n"
 
-expect_reject "Nombre suivi de texte"                 20abc 5000 200 200 200 10 0 fifo
-expect_reject "Texte suivi de nombre"                 abc20 5000 200 200 200 10 0 fifo
-expect_reject "Nombre avec unité collée"              20ms 5000 200 200 200 10 0 fifo
-expect_reject "Scheduler avec casse différente"       20 5000 200 200 200 10 0 FIFO
-expect_reject "Scheduler avec espace"                 20 5000 200 200 200 10 0 " fifo"
-expect_reject "Scheduler proche mais invalide"        20 5000 200 200 200 10 0 fifoo
-expect_reject "Scheduler vide"                        20 5000 200 200 200 10 0 ""
-expect_reject "Scheduler = lifo (pas encore autorisé sans recode)" 20 5000 200 200 200 10 0 lifo
-expect_reject "number_of_compiles_required négatif"    20 5000 200 200 200 -1 0 fifo
-expect_reject "dongle_cooldown négatif"                20 5000 200 200 200 10 -50 fifo
-expect_reject "time_to_burnout négatif"                20 -5000 200 200 200 10 0 fifo
+expect_reject "Number followed by text"                20abc 5000 200 200 200 10 0 fifo
+expect_reject "Text followed by number"                abc20 5000 200 200 200 10 0 fifo
+expect_reject "Number with attached unit"              20ms 5000 200 200 200 10 0 fifo
+expect_reject "Scheduler with different case"         20 5000 200 200 200 10 0 FIFO
+expect_reject "Scheduler with space"                  20 5000 200 200 200 10 0 " fifo"
+expect_reject "Scheduler close but invalid"           20 5000 200 200 200 10 0 fifoo
+expect_reject "Empty scheduler"                        20 5000 200 200 200 10 0 ""
+expect_reject "Scheduler = lifo (not allowed yet)"    20 5000 200 200 200 10 0 lifo
+expect_reject "Negative number_of_compiles_required"   20 5000 200 200 200 -1 0 fifo
+expect_reject "Negative dongle_cooldown"               20 5000 200 200 200 10 -50 fifo
+expect_reject "Negative time_to_burnout"               20 -5000 200 200 200 10 0 fifo
 
-echo -e "\n${BLUE}=== 4. CAS QUI DOIVENT PASSER MAIS PEUVENT CASSER (bords légaux) ===${RESET}\n"
+echo -e "\n${BLUE}=== 4. VALID EDGE CASES ===${RESET}\n"
 
-expect_run "number_of_compiles_required = 0 (arrêt immédiat)" $DEFAULT_TIMEOUT \
+expect_run "number_of_compiles_required = 0 (immediate stop)" $DEFAULT_TIMEOUT \
 	5 5000 200 200 200 0 0 fifo
 expect_run "dongle_cooldown = 0"                      $DEFAULT_TIMEOUT 5 5000 200 200 200 5 0 fifo
-expect_run "Un seul codeur, forcément un seul dongle" $DEFAULT_TIMEOUT 1 5000 200 200 200 5 0 fifo
-expect_run "Deux codeurs (plus petit anneau à 2 dongles distincts)" $DEFAULT_TIMEOUT \
+expect_run "Single coder, mandatory single dongle"    $DEFAULT_TIMEOUT 1 5000 200 200 200 5 0 fifo
+expect_run "Two coders (smallest ring with 2 distinct dongles)" $DEFAULT_TIMEOUT \
 	2 5000 200 200 200 5 0 fifo
 
-echo -e "\n${BLUE}=== 5. CAS DE RÉFÉRENCE OFFICIELS DU BARÈME (Easy) ===${RESET}\n"
-echo -e "${YELLOW}Lis les logs pour confirmer manuellement le comportement attendu (burnout au bon moment, etc).${RESET}\n"
+echo -e "\n${BLUE}=== 5. OFFICIAL REFERENCE CASES (Easy) ===${RESET}\n"
+echo -e "${YELLOW}Read the logs to manually confirm expected behavior (burnout at right time, etc.).${RESET}\n"
 
-expect_run "[Easy] 1 seul codeur -> DOIT burnout vers t=800" $DEFAULT_TIMEOUT \
+expect_run "[Easy] 1 single coder -> MUST burnout around t=800" $DEFAULT_TIMEOUT \
 	1 800 200 200 200 10 0 fifo
-expect_run "[Easy] 5 codeurs, marge large fifo -> PAS de burnout, stop après 10 compiles chacun" 15 \
+expect_run "[Easy] 5 coders, wide margin fifo -> NO burnout, stop after 10 compiles each" 15 \
 	5 2000 200 200 200 10 0 fifo
-expect_run "[Easy] Idem en edf, 7 compiles chacun" 15 \
+expect_run "[Easy] Same in edf, 7 compiles each" 15 \
 	5 2000 200 200 200 7 0 edf
 
-echo -e "\n${BLUE}=== 6. CAS DE RÉFÉRENCE OFFICIELS DU BARÈME (Less easy) ===${RESET}\n"
+echo -e "\n${BLUE}=== 6. OFFICIAL REFERENCE CASES (Less easy) ===${RESET}\n"
 
-expect_run "[Less easy] Infeasible par design -> DOIT burnout vers t=500, 'burned out' doit être la DERNIÈRE ligne" $DEFAULT_TIMEOUT \
+expect_run "[Less easy] Infeasible by design -> MUST burnout around t=500, 'burned out' must be the LAST line" $DEFAULT_TIMEOUT \
 	5 500 200 200 200 10 0 fifo
 
-echo -e "\n${BLUE}=== 7. CAS DE RÉFÉRENCE OFFICIELS DU BARÈME (Medium) ===${RESET}\n"
+echo -e "\n${BLUE}=== 7. OFFICIAL REFERENCE CASES (Medium) ===${RESET}\n"
 
-expect_run "[Medium] Cooldown 400ms, marge large -> PAS de burnout, vérifier aucun 'has taken' <400ms après release" 15 \
+expect_run "[Medium] Cooldown 400ms, wide margin -> NO burnout, verify no 'has taken' <400ms after release" 15 \
 	5 3000 200 200 200 10 400 fifo
-expect_run "[Medium] Fort cooldown, fifo -> comparer avec la ligne suivante en edf" 20 \
+expect_run "[Medium] High cooldown, fifo -> compare with next line in edf" 20 \
 	5 3000 200 200 200 10 800 fifo
-expect_run "[Medium] Même paramètres en edf -> ordre d'octroi peut différer de fifo" 20 \
+expect_run "[Medium] Same parameters in edf -> grant order may differ from fifo" 20 \
 	5 3000 200 200 200 10 800 edf
 
-echo -e "\n${BLUE}=== BILAN ===${RESET}"
+echo -e "\n${BLUE}=== SUMMARY ===${RESET}"
 if [ $FAILED -eq 0 ]; then
-	echo -e "${GREEN}$TOTAL/$TOTAL tests passés (memcheck + helgrind + drd sur les scénarios threadés).${RESET}"
-	echo -e "${YELLOW}Pense à relire manuellement les logs des sections 5-7 (./log_args/run_*) pour valider le comportement exact — un script ne peut pas juger seul si le burnout tombe au bon timestamp ou si l'ordre fifo/edf diverge correctement.${RESET}"
+	echo -e "${GREEN}$TOTAL/$TOTAL tests passed (memcheck + helgrind + drd on threaded scenarios).${RESET}"
+	echo -e "${YELLOW}Remember to manually review logs in sections 5-7 (./log_args/run_*) to validate exact behavior — a script cannot judge on its own whether burnout happens at the right timestamp or if fifo/edf order diverges correctly.${RESET}"
 else
-	echo -e "${RED}$FAILED/$TOTAL tests ont échoué. Consulte ./log_args/ pour le détail.${RESET}"
+	echo -e "${RED}$FAILED/$TOTAL tests failed. Check ./log_args/ for details.${RESET}"
 	exit 1
 fi

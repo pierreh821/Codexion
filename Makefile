@@ -45,6 +45,8 @@ SRCS = src/main.c \
 OBJ_DIR = obj
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
+LOG_DIR = log_args
+
 TOTAL := $(words $(OBJS))
 CURRENT := 0
 
@@ -70,7 +72,7 @@ $(OBJ_DIR)/%.o: %.c
 clean:
 	printf "$(CYAN)Cleaning $(OBJ_DIR)...$(RESET) "
 	if [ -d "$(OBJ_DIR)" ]; then \
-		$(RM) $(OBJ_DIR) log && \
+		$(RM) $(OBJ_DIR) $(LOG_DIR) && \
 		echo "$(GREEN)✓ Object files removed $(RESET)"; \
 	else \
 		echo "$(YELLOW)⚠ Nothing to clean $(RESET)"; \
