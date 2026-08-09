@@ -13,6 +13,7 @@
 #include "includes/codexion.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 void	extend_waitlist_logger(t_table *table, t_logger *logger, t_log *log)
 {
@@ -97,10 +98,12 @@ void	*log_export(void *arg)
 	t_table		*table;
 	t_logger	*logger;
 	t_log		*log;
+	int			stop;
 
 	table = (t_table *)arg;
 	logger = table->monitor->logger;
-	while (1)
+	stop = 0;
+	while (!stop)
 	{
 		if (!logger_check_run(table, logger))
 			break ;
@@ -110,8 +113,12 @@ void	*log_export(void *arg)
 			if (log)
 			{
 				printf("%d %d %s\n", log->timestamp, log->id, log->text);
+				if (strcmp(log->text, "burned out") == 0)
+					stop = 1;
 				free(log->text);
 				free(log);
+				if (stop)
+					break ;
 			}
 		}
 		pthread_mutex_unlock(&logger->lock);
