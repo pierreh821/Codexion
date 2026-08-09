@@ -41,25 +41,23 @@ int	create_monitor(t_table *table)
 	table->monitor = ft_calloc(1, sizeof(t_monitor));
 	if (!table->monitor)
 		return (0);
+	if (pthread_mutex_init(&table->monitor->lock, NULL) != 0)
+	{
+		free(table->monitor);
+		table->monitor = NULL;
+		return (0);
+	}
 	table->monitor->logger = init_logger();
 	if (!table->monitor->logger)
 		return (monitor_error(table));
+
 	if (pthread_create(&table->monitor->thread_id, NULL, routine, table) != 0)
 		return (monitor_error(table));
 	if (pthread_create(&table->monitor->logger_id, NULL,
 			log_export, table) != 0)
 	{
 		pthread_join(table->monitor->thread_id, NULL);
-		free_monitor(table->monitor);
-		table->monitor = NULL;
-		return (0);
-	}
-	if (pthread_mutex_init(&table->monitor->lock, NULL) != 0)
-	{
-		pthread_join(table->monitor->thread_id, NULL);
-		free_monitor(table->monitor);
-		table->monitor = NULL;
-		return (0);
+		return (monitor_error(table));
 	}
 	return (1);
 }
