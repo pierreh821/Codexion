@@ -89,7 +89,12 @@ int	launch_threads(t_table *table)
 	{
 		if (pthread_create(&table->team->coders_list[i]->thread_id, NULL, work,
 				table->team->coders_list[i]) != 0)
+		{
+			request_stop(table, STOP_FATAL, -1);
+			while (--i >= 0)
+				pthread_join(table->team->coders_list[i]->thread_id, NULL);
 			return (0);
+		}
 		i++;
 	}
 	return (1);

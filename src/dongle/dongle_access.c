@@ -40,7 +40,7 @@ int	take_dongle(t_dongle *dongle, t_coder *coder)
 	t_waiter	waiter;
 
 	if (!queue_dongle(dongle, coder, &waiter))
-		return (pthread_mutex_unlock(&dongle->lock), 0);
+		return (0);
 	try_grant(dongle);
 	pthread_mutex_lock(&dongle->lock);
 	while (waiter.chosen == 0 && is_running(coder->table))
